@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# This job installs dependencies, builds the book, and makes the html available to download
+jobs:
+  # Build the book!
+  build-book:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: extractions/setup-just@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        just install
+
+    # Build the book
+    - name: Build the book
+      shell: bash -l {0}
+      run: |
+        just build
+        touch _build/html/.nojekyll
+    
+    # Publish to GH Pages
+    - name: Publish Book
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: _build/html/

@@ -1,0 +1,8 @@
+# build files
+_build/
+
+# originals
+original-content/
+
+# jupyter
+.ipynb_checkpoints/

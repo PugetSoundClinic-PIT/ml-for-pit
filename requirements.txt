@@ -1,3 +1,5 @@
 jupyterlab>=3.5
 jupyter-book>=0.14
-pandas>=1
+cdp-data[plot,transformers]>=0.0.9
+spacy>=3.5.2
+spacytextblob>=4.0.0

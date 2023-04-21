@@ -6,3 +6,6 @@ original-content/
 
 # jupyter
 .ipynb_checkpoints/
+
+# datasets
+cdp-datasets/

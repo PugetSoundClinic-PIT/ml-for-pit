@@ -1,0 +1,1867 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>N-Grams and Trends &#8212; Machine Learning for Public Interest Technologists</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/03-ngrams';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Machine Learning (and analysis) for Public Interest Technologists
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-getting-setup.html">Getting Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-municipal-legislative-data.html">Municipal Legislative (Text) Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-off-the-shelf-ml-models.html">Off the Shelf Machine Learning Models for Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-data-annotation.html">Data Annotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-training-custom-ml-models.html">Training Custom Machine Learning Models</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PugetSoundClinic-PIT/ml-for-pit/main?urlpath=lab/tree/content/03-ngrams.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/03-ngrams.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/03-ngrams.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>N-Grams and Trends</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">N-Grams and Trends</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-some-data">Get Some Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-count-words">How to Count Words</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn-count-vectorizer">Scikit Learn Count Vectorizer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words">Words?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pass-in-all-documents-at-once">Pass In All Documents At Once</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#most-common-words-average-across-all-meetings">Most Common Words (Average Across All Meetings)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-this-deceptive">Why Is This Deceptive?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-make-each-word-count-a-percentage-of-total-words-for-the-meeting">Possible Solution: Make Each Word Count a “Percentage” of Total Words for The Meeting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replot">Replot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-rolling-mean-over-one-month">Possible Solution: Rolling Mean Over One Month</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-stem-each-word-prior-to-counting">Possible Solution: Stem Each Word Prior to Counting</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="n-grams-and-trends">
+<h1>N-Grams and Trends<a class="headerlink" href="#n-grams-and-trends" title="Permalink to this heading">#</a></h1>
+<p>how can we look at trends over time?</p>
+<p>Google (and others) made n-gram viewers popular: LINK NGRAM VIEWER</p>
+<p>we can try to do something similar to observe trends.</p>
+<section id="get-some-data">
+<h2>Get Some Data<a class="headerlink" href="#get-some-data" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">CDPInstances</span><span class="p">,</span> <span class="n">datasets</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
+    <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
+    <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span>
+    <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "3eed16eb33e64253b75715d9d486d161"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "f2102140a27c4309ad8d9ce34a4dd06c"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">CDPInstances</span><span class="p">,</span> <span class="n">datasets</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">df</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/cdp_data/datasets.py:743,</span> in <span class="ni">get_session_dataset</span><span class="nt">(infrastructure_slug, start_datetime, end_datetime, replace_py_objects, store_full_metadata, store_transcript, transcript_selection, store_transcript_as_csv, store_video, store_audio, cache_dir, raise_on_error, tqdm_kws)</span>
+<span class="g g-Whitespace">    </span><span class="mi">741</span> <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching transcripts&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">742</span> <span class="c1"># Threaded get of transcript info</span>
+<span class="ne">--&gt; </span><span class="mi">743</span> <span class="n">fetched_transcript_infos</span> <span class="o">=</span> <span class="n">thread_map</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">744</span>     <span class="n">_get_matching_db_transcript</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">745</span>     <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">746</span>         <span class="n">_TranscriptFetchParams</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">747</span>             <span class="n">session_id</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">748</span>             <span class="n">session_key</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">749</span>             <span class="n">event_id</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">750</span>             <span class="n">transcript_selection</span><span class="o">=</span><span class="n">transcript_selection</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">751</span>             <span class="n">parent_cache_dir</span><span class="o">=</span><span class="n">cache_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">752</span>             <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">753</span>             <span class="n">raise_on_error</span><span class="o">=</span><span class="n">raise_on_error</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">754</span>         <span class="p">)</span>
+<span class="nn">    755         for _, row</span> in <span class="ni">sessions.iterrows</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">756</span>     <span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">757</span>     <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Fetching transcripts&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">758</span>     <span class="o">**</span><span class="n">tqdm_kws</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">759</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">761</span> <span class="c1"># Merge fetched data back to session df</span>
+<span class="g g-Whitespace">    </span><span class="mi">762</span> <span class="n">sessions</span> <span class="o">=</span> <span class="n">_merge_dataclasses_to_df</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">763</span>     <span class="n">data_objs</span><span class="o">=</span><span class="n">fetched_transcript_infos</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">764</span>     <span class="n">df</span><span class="o">=</span><span class="n">sessions</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">765</span>     <span class="n">data_objs_key</span><span class="o">=</span><span class="s2">&quot;session_key&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">766</span>     <span class="n">df_key</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">767</span> <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;transcript_path&quot;</span><span class="p">])</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/tqdm/contrib/concurrent.py:69,</span> in <span class="ni">thread_map</span><span class="nt">(fn, *iterables, **tqdm_kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span><span class="sd"> Equivalent of `list(map(fn, *iterables))`</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span><span class="sd"> driven by `concurrent.futures.ThreadPoolExecutor`.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span><span class="sd">     [default: max(32, cpu_count() + 4)].</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span> <span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
+<span class="ne">---&gt; </span><span class="mi">69</span> <span class="k">return</span> <span class="n">_executor_map</span><span class="p">(</span><span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">iterables</span><span class="p">,</span> <span class="o">**</span><span class="n">tqdm_kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/tqdm/contrib/concurrent.py:51,</span> in <span class="ni">_executor_map</span><span class="nt">(PoolExecutor, fn, *iterables, **tqdm_kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="k">with</span> <span class="n">ensure_lock</span><span class="p">(</span><span class="n">tqdm_class</span><span class="p">,</span> <span class="n">lock_name</span><span class="o">=</span><span class="n">lock_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">lk</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span>     <span class="c1"># share lock in case workers are already using `tqdm`</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="k">with</span> <span class="n">PoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">max_workers</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tqdm_class</span><span class="o">.</span><span class="n">set_lock</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span>                       <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">lk</span><span class="p">,))</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">51</span>         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">tqdm_class</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">iterables</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/tqdm/notebook.py:254,</span> in <span class="ni">tqdm_notebook.__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">252</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">253</span>     <span class="n">it</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">tqdm_notebook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">254</span>     <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span>         <span class="c1"># return super(tqdm...) will not catch exception</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span>         <span class="k">yield</span> <span class="n">obj</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="c1"># NB: except ... [ as ...] breaks IPython async KeyboardInterrupt</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/tqdm/std.py:1178,</span> in <span class="ni">tqdm.__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1175</span> <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span>
+<span class="g g-Whitespace">   </span><span class="mi">1177</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1178</span>     <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1179</span>         <span class="k">yield</span> <span class="n">obj</span>
+<span class="g g-Whitespace">   </span><span class="mi">1180</span>         <span class="c1"># Update and possibly print the progressbar.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1181</span>         <span class="c1"># Note: does not call self.update(1) for speed optimisation.</span>
+
+<span class="nn">File /usr/lib/python3.10/concurrent/futures/_base.py:621,</span> in <span class="ni">Executor.map.&lt;locals&gt;.result_iterator</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">618</span> <span class="k">while</span> <span class="n">fs</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">619</span>     <span class="c1"># Careful not to keep a reference to the popped future</span>
+<span class="g g-Whitespace">    </span><span class="mi">620</span>     <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">621</span>         <span class="k">yield</span> <span class="n">_result_or_cancel</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span>         <span class="k">yield</span> <span class="n">_result_or_cancel</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">pop</span><span class="p">(),</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">())</span>
+
+<span class="nn">File /usr/lib/python3.10/concurrent/futures/_base.py:319,</span> in <span class="ni">_result_or_cancel</span><span class="nt">(***failed resolving arguments***)</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">319</span>         <span class="k">return</span> <span class="n">fut</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>     <span class="k">finally</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>         <span class="n">fut</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+<span class="nn">File /usr/lib/python3.10/concurrent/futures/_base.py:453,</span> in <span class="ni">Future.result</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="n">FINISHED</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">451</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_result</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">453</span> <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">455</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">in</span> <span class="p">[</span><span class="n">CANCELLED</span><span class="p">,</span> <span class="n">CANCELLED_AND_NOTIFIED</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">456</span>     <span class="k">raise</span> <span class="n">CancelledError</span><span class="p">()</span>
+
+<span class="nn">File /usr/lib/python3.10/threading.py:320,</span> in <span class="ni">Condition.wait</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span> <span class="k">try</span><span class="p">:</span>    <span class="c1"># restore state no matter what (e.g., KeyboardInterrupt)</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span>     <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">320</span>         <span class="n">waiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>         <span class="n">gotit</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span>     <span class="k">else</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="how-to-count-words">
+<h1>How to Count Words<a class="headerlink" href="#how-to-count-words" title="Permalink to this heading">#</a></h1>
+<p>Lets use a single transcript for an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">example_session</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transcript_as_csv_path</span><span class="p">)</span>
+<span class="n">example_session</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>confidence</th>
+      <th>start_time</th>
+      <th>end_time</th>
+      <th>text</th>
+      <th>speaker_index</th>
+      <th>speaker_name</th>
+      <th>annotations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0.97</td>
+      <td>196.696</td>
+      <td>212.545</td>
+      <td>Be discussing that in the, AME central staff.</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0.97</td>
+      <td>212.545</td>
+      <td>217.917</td>
+      <td>Are you anticipating discussion on this piece ...</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>0.97</td>
+      <td>217.917</td>
+      <td>231.464</td>
+      <td>We are hoping to have it put on as soon as pos...</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>0.97</td>
+      <td>231.464</td>
+      <td>239.973</td>
+      <td>Obviously it's not just about this winter but ...</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>0.97</td>
+      <td>239.973</td>
+      <td>245.845</td>
+      <td>But we would like to so we hope that on the 28...</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>96</td>
+      <td>0.97</td>
+      <td>1293.191</td>
+      <td>1295.894</td>
+      <td>The purpose of the executive session is to dis...</td>
+      <td>15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>97</td>
+      <td>0.97</td>
+      <td>1295.894</td>
+      <td>1300.298</td>
+      <td>The councils executive sessions are an opportu...</td>
+      <td>15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>98</td>
+      <td>0.97</td>
+      <td>1300.298</td>
+      <td>1309.274</td>
+      <td>Illegal monitor for the city attorney's office...</td>
+      <td>15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>99</td>
+      <td>0.97</td>
+      <td>1309.274</td>
+      <td>1320.819</td>
+      <td>I expect the executive session to end by--end ...</td>
+      <td>15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>100</td>
+      <td>0.97</td>
+      <td>1320.819</td>
+      <td>1328.093</td>
+      <td>If the executive session is to be extended bey...</td>
+      <td>15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>101 rows × 8 columns</p>
+</div></div></div>
+</div>
+<section id="scikit-learn-count-vectorizer">
+<h2>Scikit Learn Count Vectorizer<a class="headerlink" href="#scikit-learn-count-vectorizer" title="Permalink to this heading">#</a></h2>
+<p>If we want to track word counts over time, what we want is a large matrix of events and counts</p>
+<p>Sort of like so:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>session_id</p></th>
+<th class="head text-left"><p>session_datetime</p></th>
+<th class="head text-left"><p>word</p></th>
+<th class="head text-left"><p>count</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>abcd-1234</p></td>
+<td class="text-left"><p>2020-01-01</p></td>
+<td class="text-left"><p>hello</p></td>
+<td class="text-left"><p>4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>abcd-1234</p></td>
+<td class="text-left"><p>2020-01-01</p></td>
+<td class="text-left"><p>world</p></td>
+<td class="text-left"><p>2</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>…</p></td>
+<td class="text-left"><p>…</p></td>
+<td class="text-left"><p>…</p></td>
+<td class="text-left"><p>…</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>abcd-1234</p></td>
+<td class="text-left"><p>2020-01-01</p></td>
+<td class="text-left"><p>ramen</p></td>
+<td class="text-left"><p>2</p></td>
+</tr>
+</tbody>
+</table>
+<p>Scikit Learn (<code class="docutils literal notranslate"><span class="pre">sklearn</span></code>) has a function to make that somewhat simple. We just need to combine all of the text for a single session into a single string.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="n">all_session_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">example_session</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="n">all_session_text</span><span class="p">])</span>
+<span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;00&#39;, &#39;10&#39;, &#39;13&#39;, &#39;14&#39;, &#39;167&#39;, &#39;2019&#39;, &#39;2020&#39;, &#39;2021&#39;, &#39;22&#39;,
+       &#39;28th&#39;, &#39;30&#39;, &#39;36&#39;, &#39;40&#39;, &#39;630&#39;, &#39;able&#39;, &#39;about&#39;, &#39;absence&#39;,
+       &#39;acquiring&#39;, &#39;across&#39;, &#39;act&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="words">
+<h2>Words?<a class="headerlink" href="#words" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> includes all text, so we can see that some of the items counted were numbers and some were words. If we wanted to see their counts we can combine them.</p>
+<p>Looks like “able” and “about” were both used 12 and 11 times respectively. Let’s do this counting process for all of the meetings and store the data to a dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+    <span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()[:</span><span class="mi">20</span><span class="p">],</span>
+    <span class="nb">list</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">toarray</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
+<span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">word</span><span class="si">}</span><span class="s2">&#39; was used </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> times in the meeting&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;00&#39; was used 2 times in the meeting
+&#39;10&#39; was used 1 times in the meeting
+&#39;13&#39; was used 3 times in the meeting
+&#39;14&#39; was used 1 times in the meeting
+&#39;167&#39; was used 1 times in the meeting
+&#39;2019&#39; was used 1 times in the meeting
+&#39;2020&#39; was used 5 times in the meeting
+&#39;2021&#39; was used 1 times in the meeting
+&#39;22&#39; was used 1 times in the meeting
+&#39;28th&#39; was used 1 times in the meeting
+&#39;30&#39; was used 4 times in the meeting
+&#39;36&#39; was used 3 times in the meeting
+&#39;40&#39; was used 1 times in the meeting
+&#39;630&#39; was used 1 times in the meeting
+&#39;able&#39; was used 12 times in the meeting
+&#39;about&#39; was used 11 times in the meeting
+&#39;absence&#39; was used 1 times in the meeting
+&#39;acquiring&#39; was used 1 times in the meeting
+&#39;across&#39; was used 1 times in the meeting
+&#39;act&#39; was used 1 times in the meeting
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pass-in-all-documents-at-once">
+<h2>Pass In All Documents At Once<a class="headerlink" href="#pass-in-all-documents-at-once" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">session_transcript</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">transcript_as_csv_path</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s2">&quot;session_datetime&quot;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">session_datetime</span><span class="p">,</span>
+            <span class="s2">&quot;session_text&quot;</span><span class="p">:</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">session_transcript</span><span class="o">.</span><span class="n">text</span><span class="p">),</span>
+        <span class="p">})</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="n">text_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>
+<span class="n">text_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session_id</th>
+      <th>session_datetime</th>
+      <th>session_text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4a7acf91fd3a</td>
+      <td>2020-01-06 17:30:00+00:00</td>
+      <td>Be discussing that in the, AME central staff. ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>60c31f54e81b</td>
+      <td>2020-01-06 22:00:00+00:00</td>
+      <td>Good afternoon everybody. Welcome to the Janua...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>65b686462f92</td>
+      <td>2020-01-07 17:30:00+00:00</td>
+      <td>I am joined by several colleagues, council mem...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0efe5623841f</td>
+      <td>2020-01-13 17:30:00+00:00</td>
+      <td>Good morning. This is the Council briefing mee...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>aa7e64fbfff8</td>
+      <td>2020-01-15 17:30:00+00:00</td>
+      <td>Good morning, everybody. I'm Councilmember Ale...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>472</th>
+      <td>4d5bb0e3a2e7</td>
+      <td>2022-09-12 21:00:00+00:00</td>
+      <td>Thank you, good afternoon. Today is Monday, Se...</td>
+    </tr>
+    <tr>
+      <th>473</th>
+      <td>415b06af6e18</td>
+      <td>2022-09-13 16:30:00+00:00</td>
+      <td>Not all of you Unmetered your microphones. We ...</td>
+    </tr>
+    <tr>
+      <th>474</th>
+      <td>d87f8f396ebf</td>
+      <td>2022-09-14 16:30:00+00:00</td>
+      <td>Good morning. The September 14, 2022 meeting o...</td>
+    </tr>
+    <tr>
+      <th>475</th>
+      <td>e9bdfa228805</td>
+      <td>2022-10-03 21:00:00+00:00</td>
+      <td>&amp; GT; With that, good afternoon, everyone . to...</td>
+    </tr>
+    <tr>
+      <th>476</th>
+      <td>9a9ac561e588</td>
+      <td>2022-10-04 21:00:00+00:00</td>
+      <td>Thank you . good afternoon, E. Afternoon, ever...</td>
+    </tr>
+  </tbody>
+</table>
+<p>477 rows × 3 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">text_df</span><span class="o">.</span><span class="n">session_text</span><span class="p">)</span>
+<span class="n">count_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
+<span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_df</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span>
+<span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_df</span><span class="p">[</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">]</span>
+<span class="n">count_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>00</th>
+      <th>000</th>
+      <th>0000</th>
+      <th>000000</th>
+      <th>0001</th>
+      <th>0002</th>
+      <th>000as</th>
+      <th>000ed</th>
+      <th>000s</th>
+      <th>000th</th>
+      <th>...</th>
+      <th>úwords</th>
+      <th>úwork</th>
+      <th>úworking</th>
+      <th>úwould</th>
+      <th>úyears</th>
+      <th>úyou</th>
+      <th>úyour</th>
+      <th>시간</th>
+      <th>session_id</th>
+      <th>session_datetime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4a7acf91fd3a</td>
+      <td>2020-01-06 17:30:00+00:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>60c31f54e81b</td>
+      <td>2020-01-06 22:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>15</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>65b686462f92</td>
+      <td>2020-01-07 17:30:00+00:00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0efe5623841f</td>
+      <td>2020-01-13 17:30:00+00:00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>aa7e64fbfff8</td>
+      <td>2020-01-15 17:30:00+00:00</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>472</th>
+      <td>4</td>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4d5bb0e3a2e7</td>
+      <td>2022-09-12 21:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>473</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>415b06af6e18</td>
+      <td>2022-09-13 16:30:00+00:00</td>
+    </tr>
+    <tr>
+      <th>474</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>d87f8f396ebf</td>
+      <td>2022-09-14 16:30:00+00:00</td>
+    </tr>
+    <tr>
+      <th>475</th>
+      <td>20</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>e9bdfa228805</td>
+      <td>2022-10-03 21:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>476</th>
+      <td>3</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9a9ac561e588</td>
+      <td>2022-10-04 21:00:00+00:00</td>
+    </tr>
+  </tbody>
+</table>
+<p>477 rows × 47529 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count_df</span> <span class="o">=</span> <span class="n">count_df</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;session_datetime&quot;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;word_count&quot;</span><span class="p">)</span>
+<span class="n">count_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session_id</th>
+      <th>session_datetime</th>
+      <th>word</th>
+      <th>word_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4a7acf91fd3a</td>
+      <td>2020-01-06 17:30:00+00:00</td>
+      <td>00</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>60c31f54e81b</td>
+      <td>2020-01-06 22:00:00+00:00</td>
+      <td>00</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>65b686462f92</td>
+      <td>2020-01-07 17:30:00+00:00</td>
+      <td>00</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0efe5623841f</td>
+      <td>2020-01-13 17:30:00+00:00</td>
+      <td>00</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>aa7e64fbfff8</td>
+      <td>2020-01-15 17:30:00+00:00</td>
+      <td>00</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>22670374</th>
+      <td>4d5bb0e3a2e7</td>
+      <td>2022-09-12 21:00:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22670375</th>
+      <td>415b06af6e18</td>
+      <td>2022-09-13 16:30:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22670376</th>
+      <td>d87f8f396ebf</td>
+      <td>2022-09-14 16:30:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22670377</th>
+      <td>e9bdfa228805</td>
+      <td>2022-10-03 21:00:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22670378</th>
+      <td>9a9ac561e588</td>
+      <td>2022-10-04 21:00:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>22670379 rows × 4 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="most-common-words-average-across-all-meetings">
+<h2>Most Common Words (Average Across All Meetings)<a class="headerlink" href="#most-common-words-average-across-all-meetings" title="Permalink to this heading">#</a></h2>
+<p>Filler words are the most common</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;word&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>word
+the     770.329140
+to      528.911950
+and     450.784067
+of      329.976939
+that    324.733753
+we      250.761006
+in      222.574423
+is      213.989518
+you     191.482180
+for     182.062893
+this    146.102725
+on      134.119497
+are     131.031447
+it      130.354298
+have    126.163522
+with    100.635220
+be       97.268344
+as       96.113208
+will     92.855346
+so       89.000000
+Name: word_count, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+
+<span class="c1"># Select the word we are interested in</span>
+<span class="n">housing_counts</span> <span class="o">=</span> <span class="n">count_df</span><span class="p">[</span><span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;housing&quot;</span><span class="p">]</span>
+
+<span class="c1"># Plot the responses for different events and regions</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;word_count&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">housing_counts</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9fb3aed01b3fac63c6514a789843a6aff2925b98c8c2c6cc89293a4e7c2f3ba7.png" src="../_images/9fb3aed01b3fac63c6514a789843a6aff2925b98c8c2c6cc89293a4e7c2f3ba7.png" />
+</div>
+</div>
+</section>
+<section id="why-is-this-deceptive">
+<h2>Why Is This Deceptive?<a class="headerlink" href="#why-is-this-deceptive" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Meetings are different length. One meeting might be longer and therefore have more words overall.</p></li>
+<li><p>Discussion doesn’t happen every day. Need to smooth it out somehow.</p></li>
+<li><p>“Housing” doesn’t include “house”, “houses”, etc.</p></li>
+</ol>
+</section>
+<section id="possible-solution-make-each-word-count-a-percentage-of-total-words-for-the-meeting">
+<h2>Possible Solution: Make Each Word Count a “Percentage” of Total Words for The Meeting<a class="headerlink" href="#possible-solution-make-each-word-count-a-percentage-of-total-words-for-the-meeting" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">count_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;session_id&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+<span class="n">count_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session_id</th>
+      <th>session_datetime</th>
+      <th>word</th>
+      <th>word_count</th>
+      <th>percent_use_in_meeting</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4a7acf91fd3a</td>
+      <td>2020-01-06 17:30:00+00:00</td>
+      <td>00</td>
+      <td>2</td>
+      <td>0.000719</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>60c31f54e81b</td>
+      <td>2020-01-06 22:00:00+00:00</td>
+      <td>00</td>
+      <td>3</td>
+      <td>0.000256</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>65b686462f92</td>
+      <td>2020-01-07 17:30:00+00:00</td>
+      <td>00</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0efe5623841f</td>
+      <td>2020-01-13 17:30:00+00:00</td>
+      <td>00</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>aa7e64fbfff8</td>
+      <td>2020-01-15 17:30:00+00:00</td>
+      <td>00</td>
+      <td>2</td>
+      <td>0.000162</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>22670374</th>
+      <td>4d5bb0e3a2e7</td>
+      <td>2022-09-12 21:00:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>22670375</th>
+      <td>415b06af6e18</td>
+      <td>2022-09-13 16:30:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>22670376</th>
+      <td>d87f8f396ebf</td>
+      <td>2022-09-14 16:30:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>22670377</th>
+      <td>e9bdfa228805</td>
+      <td>2022-10-03 21:00:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>22670378</th>
+      <td>9a9ac561e588</td>
+      <td>2022-10-04 21:00:00+00:00</td>
+      <td>시간</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>22670379 rows × 5 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="replot">
+<h2>Replot<a class="headerlink" href="#replot" title="Permalink to this heading">#</a></h2>
+<p>Interpret: The y-axis is now “percent usage of this word in each session” i.e. if the value is ~0.01 that means that the word was used 1% of the time (or about 1/100 words used in the meeting was “housing”).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the word we are interested in</span>
+<span class="n">housing_counts</span> <span class="o">=</span> <span class="n">count_df</span><span class="p">[</span><span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;housing&quot;</span><span class="p">]</span>
+
+<span class="c1"># Plot the responses for different events and regions</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">housing_counts</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4d87af7ddb4b23982e8d4d6a5a426f8a4e81f9f454a619c9aa98f7305ea999a0.png" src="../_images/4d87af7ddb4b23982e8d4d6a5a426f8a4e81f9f454a619c9aa98f7305ea999a0.png" />
+</div>
+</div>
+</section>
+<section id="possible-solution-rolling-mean-over-one-month">
+<h2>Possible Solution: Rolling Mean Over One Month<a class="headerlink" href="#possible-solution-rolling-mean-over-one-month" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rolling_30_days</span> <span class="o">=</span> <span class="n">count_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;word&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s2">&quot;30D&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span>
+<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">rolling_30_days</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word</th>
+      <th>session_datetime</th>
+      <th>percent_use_in_meeting</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>00</td>
+      <td>2020-01-06 17:30:00+00:00</td>
+      <td>0.000719</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>00</td>
+      <td>2020-01-06 22:00:00+00:00</td>
+      <td>0.000488</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>00</td>
+      <td>2020-01-07 17:30:00+00:00</td>
+      <td>0.000325</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>00</td>
+      <td>2020-01-13 17:30:00+00:00</td>
+      <td>0.000244</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>00</td>
+      <td>2020-01-15 17:30:00+00:00</td>
+      <td>0.000227</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>22670374</th>
+      <td>시간</td>
+      <td>2022-09-12 21:00:00+00:00</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>22670375</th>
+      <td>시간</td>
+      <td>2022-09-13 16:30:00+00:00</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>22670376</th>
+      <td>시간</td>
+      <td>2022-09-14 16:30:00+00:00</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>22670377</th>
+      <td>시간</td>
+      <td>2022-10-03 21:00:00+00:00</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>22670378</th>
+      <td>시간</td>
+      <td>2022-10-04 21:00:00+00:00</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>22670379 rows × 3 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the word we are interested in</span>
+<span class="n">housing_counts</span> <span class="o">=</span> <span class="n">rolling_30_days</span><span class="p">[</span><span class="n">rolling_30_days</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;housing&quot;</span><span class="p">]</span>
+
+<span class="c1"># Plot the responses for different events and regions</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">housing_counts</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6248a6caae0e074d995cfb3dde5223f81a9f8cdcb930d900869e80306d899592.png" src="../_images/6248a6caae0e074d995cfb3dde5223f81a9f8cdcb930d900869e80306d899592.png" />
+</div>
+</div>
+</section>
+<section id="possible-solution-stem-each-word-prior-to-counting">
+<h2>Possible Solution: Stem Each Word Prior to Counting<a class="headerlink" href="#possible-solution-stem-each-word-prior-to-counting" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the word we are interested in</span>
+<span class="n">housing_counts</span> <span class="o">=</span> <span class="n">rolling_30_days</span><span class="p">[</span><span class="n">rolling_30_days</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;housing&quot;</span><span class="p">,</span> <span class="s2">&quot;house&quot;</span><span class="p">,</span> <span class="s2">&quot;houses&quot;</span><span class="p">])]</span>
+
+<span class="c1"># Plot the responses for different events and regions</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">housing_counts</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/97de00f126ccfbd15a604d49088461f34322d57067a0a31727ed4d4081adc7cd.png" src="../_images/97de00f126ccfbd15a604d49088461f34322d57067a0a31727ed4d4081adc7cd.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">N-Grams and Trends</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-some-data">Get Some Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-count-words">How to Count Words</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn-count-vectorizer">Scikit Learn Count Vectorizer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words">Words?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pass-in-all-documents-at-once">Pass In All Documents At Once</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#most-common-words-average-across-all-meetings">Most Common Words (Average Across All Meetings)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-this-deceptive">Why Is This Deceptive?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-make-each-word-count-a-percentage-of-total-words-for-the-meeting">Possible Solution: Make Each Word Count a “Percentage” of Total Words for The Meeting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replot">Replot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-rolling-mean-over-one-month">Possible Solution: Rolling Mean Over One Month</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-stem-each-word-prior-to-counting">Possible Solution: Stem Each Word Prior to Counting</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Eva Maxfield Brown and Nic Weber
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -34,3 +34,46 @@ This repository was inspired by
 8. Analysis and Visualization
     1. Sentiment by Topic
     2. something more???
+
+
+## Examples from Others
+
+### General Notes
+
+* always link to others work to reduce our own work
+
+### Brian Keegans Course
+
+* Exercises (hook up to binder)
+* Explain the data model(s) in detail
+* Explain the functions being used
+
+### [Supervised ML](https://supervised-ml-course.netlify.app/chapter1)
+
+* FIRST CHAPTER IS "WHAT YOU WILL LEARN / DO"
+* This course is more theory -> case studies of real use. ML-for-PIT is direct to application?
+* Lots of background info in first chapter alone.
+
+Generally the structure is:
+* Include some summary of the chapter goals.
+* Try to include mid-point questions.
+* Run some code
+    * fill in some parameters / constants
+* you were able to....
+* but wait, there may be problems
+* now fix those problems
+
+### [Regression Analysis](https://sta210-s22.github.io/website/)
+
+* What is ML
+* What is PIT
+
+* I like the FAQ model
+* course objectives
+
+Generally the structure is:
+* summary of chapter goals
+* Show code to do things
+* Explain theory behind code
+* Detail / follow the line of thinking
+* Recap

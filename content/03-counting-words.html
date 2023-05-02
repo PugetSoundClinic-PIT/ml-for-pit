@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Municipal Legislative Data &#8212; Machine Learning for Public Interest Technologists</title>
+    <title>Counting Words &#8212; Machine Learning for Public Interest Technologists</title>
   
   
   
@@ -61,11 +61,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/02-municipal-legislative-data';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/03-counting-words';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Off the Shelf Machine Learning Models for Text" href="03-off-the-shelf-ml-models.html" />
-    <link rel="prev" title="Getting Setup" href="01-getting-setup.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -156,9 +154,9 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-getting-setup.html">Getting Setup</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Municipal Legislative Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-municipal-legislative-data.html">Municipal Legislative Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03-off-the-shelf-ml-models.html">Off the Shelf Machine Learning Models for Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-data-annotation.html">Data Annotation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05-training-custom-ml-models.html">Training Custom Machine Learning Models</a></li>
@@ -233,7 +231,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/02-municipal-legislative-data.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/03-counting-words.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -263,7 +261,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/content/02-municipal-legislative-data.md" target="_blank"
+      <li><a href="../_sources/content/03-counting-words.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -345,7 +343,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Municipal Legislative Data</h1>
+    <h1>Counting Words</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -355,14 +353,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-that-mean">What Does That Mean?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#there-are-lots-of-types-of-municipal-legislative-data">There are lots of types of municipal legislative data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-entire-course-is-focused-on-transcript-data">This entire course is focused on transcript data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transcript-data">Transcript data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-works-for-other-cities-too">This works for other cities too</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cdp-is-public-interest-tech">CDP is “Public Interest Tech”</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transcripts-aren-t-always-accurate">Transcripts aren’t always accurate</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word-counts">Word Counts??</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngrams">Ngrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-count">Lets count</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-countvectorizer-on-transcript-data">Using <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> on transcript data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-common-words">Finding common words</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-these-counts-tell-us-anything">How do these counts tell us anything</a></li>
 </ul>
             </nav>
         </div>
@@ -374,81 +370,62 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="municipal-legislative-data">
-<h1>Municipal Legislative Data<a class="headerlink" href="#municipal-legislative-data" title="Permalink to this heading">#</a></h1>
-<section id="what-does-that-mean">
-<h2>What Does That Mean?<a class="headerlink" href="#what-does-that-mean" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="counting-words">
+<h1>Counting Words<a class="headerlink" href="#counting-words" title="Permalink to this heading">#</a></h1>
+<section id="word-counts">
+<h2>Word Counts??<a class="headerlink" href="#word-counts" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>What does Municipal mean?</p>
-<ul>
-<li><p>find good reading / def</p></li>
-</ul>
-</li>
-<li><p>What does Legislative mean?</p>
-<ul>
-<li><p>find good reading / def</p></li>
-</ul>
-</li>
+<li><p>“if the words ‘housing’, ‘rent’, and ‘affordability’” are all spoken frequently in a meeting, we can broadly say that “housing affordability” was an important topic in the meeting</p></li>
+<li><p>“frequently” just means counting!</p></li>
+<li><p>maybe also look into / find good article on distant reading</p></li>
+<li><p>words counts are still today used for input to machine learning: “i.e. if the sentence has 10 X, 4 y, 1, 1, 1, then it is about ….”</p></li>
 </ul>
 </section>
-<section id="there-are-lots-of-types-of-municipal-legislative-data">
-<h2>There are lots of types of municipal legislative data<a class="headerlink" href="#there-are-lots-of-types-of-municipal-legislative-data" title="Permalink to this heading">#</a></h2>
+<section id="ngrams">
+<h2>Ngrams<a class="headerlink" href="#ngrams" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Give examples of municipal data and provide links to look at</p>
-<ul>
-<li><p>agendas</p></li>
-<li><p>minutes</p></li>
-<li><p>votes</p></li>
-<li><p>messages between elected and others</p></li>
-<li><p>videos / audios / transcripts</p></li>
-</ul>
-</li>
+<li><p>words are helpful but we can generalize to be more flexible in counting by using “ngrams”</p></li>
+<li><p>define ngrams</p></li>
+<li><p>one word ngrams are called unigrams, two word: bigrams, three word: trigrams, etc.</p></li>
+<li><p>using the same example: “if the two-word ngram (bigram) of ‘housing affordability’ is frequently spoken in a meeting, we have even more confidence that that was an important discussion topic”</p></li>
 </ul>
 </section>
-<section id="this-entire-course-is-focused-on-transcript-data">
-<h2>This entire course is focused on transcript data<a class="headerlink" href="#this-entire-course-is-focused-on-transcript-data" title="Permalink to this heading">#</a></h2>
+<section id="lets-count">
+<h2>Lets count<a class="headerlink" href="#lets-count" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Give an example of a transcript (just a couple of sentences)</p></li>
-<li><p>Explain what CDP is and how we can pull transcripts</p></li>
+<li><p>scikit learn has a “CountVectorizer”</p></li>
+<li><p>show example of basic count vectorizer for an example sentence</p></li>
+<li><p>because there were N unique words in the sentence and because there was only a single sentence, this vector is of shape: <code class="docutils literal notranslate"><span class="pre">(n,</span> <span class="pre">1)</span></code></p></li>
+<li><p>each unigram is counted and the final counts are stored in a vector</p></li>
+<li><p>explain the vector as a list</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> is neat because it allows us to provide the ngram range we want to count as a unique entity</p></li>
+<li><p>show the same example of a basic count vectorizer for an example with more ngrams</p></li>
+<li><p>remember this makes our vector larger… show shape</p></li>
 </ul>
 </section>
-<section id="transcript-data">
-<h2>Transcript data<a class="headerlink" href="#transcript-data" title="Permalink to this heading">#</a></h2>
+<section id="using-countvectorizer-on-transcript-data">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> on transcript data<a class="headerlink" href="#using-countvectorizer-on-transcript-data" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>There are lots of different formats</p></li>
-<li><p>We will focus on CDP’s because that is the easiest to access and use</p></li>
-<li><p>CDP’s transcript has the following attributes…</p></li>
-<li><p>Can access attributes like so…</p></li>
+<li><p>Remember: each sentence will be a single vector</p></li>
+<li><p>Stacking them all up, we get a matrix of (unique grams, number of sentences)</p></li>
 </ul>
 </section>
-<section id="this-works-for-other-cities-too">
-<h2>This works for other cities too<a class="headerlink" href="#this-works-for-other-cities-too" title="Permalink to this heading">#</a></h2>
+<section id="finding-common-words">
+<h2>Finding common words<a class="headerlink" href="#finding-common-words" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>CDPs infrastructure supports many councils</p></li>
+<li><p>with some matrix calculation we can get a list of the most common words (avg across all meetings)</p></li>
+<li><p>this shows a problem though, the most common words are filler words</p></li>
+<li><p>we can filter these “filler words” (or known as stopwords) out using the same CountVectorizer</p></li>
+<li><p>do so, then recalc common words</p></li>
 </ul>
 </section>
-<section id="cdp-is-public-interest-tech">
-<h2>CDP is “Public Interest Tech”<a class="headerlink" href="#cdp-is-public-interest-tech" title="Permalink to this heading">#</a></h2>
+<section id="how-do-these-counts-tell-us-anything">
+<h2>How do these counts tell us anything<a class="headerlink" href="#how-do-these-counts-tell-us-anything" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>It’s goal is to create a large scale archive of municipal meetings for accessibility, research, journalism…</p></li>
-<li><p>It specifically aims to enable others to better understand their council – AND to use the data they collect to understand council dynamics more generally</p></li>
-<li><p>if you ever want to look at a transcript on the web, see the CDP website</p></li>
-</ul>
-</section>
-<section id="transcripts-aren-t-always-accurate">
-<h2>Transcripts aren’t always accurate<a class="headerlink" href="#transcripts-aren-t-always-accurate" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>there may be problems with transcription</p></li>
-<li><p>biases exist in models</p></li>
-<li><p>BUT, with a good transcription model, you can generally observe the broad strokes and main ideas of discussion</p></li>
-</ul>
-</section>
-<section id="exercise">
-<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Pull data from another city council</p></li>
-<li><p>dump all text of a transcript to a single string instead of as a list of objects</p></li>
-<li><p>get the min, mean, max, std of all sentences</p></li>
+<li><p>we can look at the counts of a meeting in a single day</p></li>
+<li><p>do so</p></li>
+<li><p>we can also look at trends in counts over time</p></li>
+<li><p>do so</p></li>
 </ul>
 </section>
 </section>
@@ -484,24 +461,6 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="01-getting-setup.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Getting Setup</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="03-off-the-shelf-ml-models.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Off the Shelf Machine Learning Models for Text</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div></div>
   
 </div>
@@ -520,14 +479,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-that-mean">What Does That Mean?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#there-are-lots-of-types-of-municipal-legislative-data">There are lots of types of municipal legislative data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-entire-course-is-focused-on-transcript-data">This entire course is focused on transcript data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transcript-data">Transcript data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-works-for-other-cities-too">This works for other cities too</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cdp-is-public-interest-tech">CDP is “Public Interest Tech”</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transcripts-aren-t-always-accurate">Transcripts aren’t always accurate</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word-counts">Word Counts??</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngrams">Ngrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-count">Lets count</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-countvectorizer-on-transcript-data">Using <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> on transcript data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-common-words">Finding common words</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-these-counts-tell-us-anything">How do these counts tell us anything</a></li>
 </ul>
   </nav></div>
 

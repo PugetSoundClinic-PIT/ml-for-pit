@@ -22,20 +22,6 @@ This repository was inspired by
 [Brian Keegan's Web Data Scraping Course](https://github.com/CU-ITSS/Web-Data-Scraping-S2023).
 
 
-## Plan
-
-1. Getting Setup
-2. Municipal Legislative Data
-3. N-grams
-4. Sentiment
-5. Semantic models and Semantic Similarity (and UMAP)
-6. Topic Models (and bulk)
-7. Training Text Classifiers
-8. Analysis and Visualization
-    1. Sentiment by Topic
-    2. something more???
-
-
 ## Examples from Others
 
 ### General Notes

@@ -359,6 +359,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-countvectorizer-on-transcript-data">Using <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> on transcript data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-common-words">Finding common words</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-these-counts-tell-us-anything">How do these counts tell us anything</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-this-plot-tell-us">What does this plot tell us</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-word-stems">Counting word stems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing-counts">Normalizing counts</a></li>
 </ul>
             </nav>
         </div>
@@ -424,8 +427,53 @@ document.write(`
 <ul class="simple">
 <li><p>we can look at the counts of a meeting in a single day</p></li>
 <li><p>do so</p></li>
-<li><p>we can also look at trends in counts over time</p></li>
+<li><p>we can also look at trends in counts over time (scatter)</p></li>
 <li><p>do so</p></li>
+</ul>
+</section>
+<section id="what-does-this-plot-tell-us">
+<h2>What does this plot tell us<a class="headerlink" href="#what-does-this-plot-tell-us" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>the x axis represents the number of times the selected ngram was used</p></li>
+<li><p>the y axis represents the datetime of the meeting</p></li>
+<li><p>combined we can interpret this as counts of an ngram over time</p></li>
+<li><p>but it has problems:</p>
+<ul>
+<li><p>we are looking at the ngram for “housing” but what if people said “house” or “houses”? should be counted differently</p></li>
+<li><p>each meeting is a different length, if a meeting is longer then it might naturally include more words than other meetings.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="counting-word-stems">
+<h2>Counting word stems<a class="headerlink" href="#counting-word-stems" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>all words have roots or stems</p>
+<ul>
+<li><p>provide a few examples</p></li>
+</ul>
+</li>
+<li><p>scientists and software developers have worked on “stemmers” for us</p></li>
+<li><p>show the same examples with a stemmer</p></li>
+<li><p>if you want to find out how these stemmers work, you should read the snowball stemming paper!</p></li>
+<li><p>lets rerun our dataset generation and plotting code with word stemming</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> is customizable and you can add a stemmer preprocessor</p></li>
+<li><p>rerun</p></li>
+<li><p>Now when we plot these results, we still have the total word count issue but when select an ngram, we are selecting all versions of the stem (i.e. “hous” gives us “housing, houses, house” all at once)</p></li>
+</ul>
+</section>
+<section id="normalizing-counts">
+<h2>Normalizing counts<a class="headerlink" href="#normalizing-counts" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>lets work on a solution for the counts in context problem.</p></li>
+<li><p>what if instead of the count of words, we take the count and convert it to a percentage</p></li>
+<li><p>so instead of saying: “the ngram ‘hous’ was used 100 times in this meeting, it represented 1% of all ngrams spoken”</p></li>
+<li><p>i.e. if “housing” or “house” or “houses” represents 1% of all words spoken in the meeting, another way to phrase that is that roughly 1 out of every 100 words was the unstemmed version of “hous”</p></li>
+<li><p>show normalization on an example</p></li>
+<li><p>now normalize all counts</p></li>
+<li><p>rerun</p></li>
+<li><p>Now when we plot these results, the x-axis represents the percent usage of a word in a meeting, the y-axis represents the meeting datetime</p></li>
+<li><p>together, we can now interpret and say “as a PROPORTION of meeting discussion, the usage of words stemming from “hous” is ….”</p></li>
 </ul>
 </section>
 </section>
@@ -485,6 +533,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-countvectorizer-on-transcript-data">Using <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> on transcript data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-common-words">Finding common words</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-these-counts-tell-us-anything">How do these counts tell us anything</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-this-plot-tell-us">What does this plot tell us</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-word-stems">Counting word stems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing-counts">Normalizing counts</a></li>
 </ul>
   </nav></div>
 

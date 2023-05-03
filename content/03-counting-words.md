@@ -48,5 +48,49 @@
 * we can look at the counts of a meeting in a single day
 * do so
 
-* we can also look at trends in counts over time
+* we can also look at trends in counts over time (scatter)
 * do so
+
+## What does this plot tell us
+
+* the x axis represents the number of times the selected ngram was used
+* the y axis represents the datetime of the meeting
+
+* combined we can interpret this as counts of an ngram over time
+
+* but it has problems:
+    * we are looking at the ngram for "housing" but what if people said "house" or "houses"? should be counted differently
+    * each meeting is a different length, if a meeting is longer then it might naturally include more words than other meetings.
+
+## Counting word stems
+
+* all words have roots or stems
+    * provide a few examples
+* scientists and software developers have worked on "stemmers" for us
+* show the same examples with a stemmer
+* if you want to find out how these stemmers work, you should read the snowball stemming paper!
+
+* lets rerun our dataset generation and plotting code with word stemming
+
+* `CountVectorizer` is customizable and you can add a stemmer preprocessor
+
+* rerun
+
+* Now when we plot these results, we still have the total word count issue but when select an ngram, we are selecting all versions of the stem (i.e. "hous" gives us "housing, houses, house" all at once)
+
+## Normalizing counts
+
+* lets work on a solution for the counts in context problem.
+* what if instead of the count of words, we take the count and convert it to a percentage
+
+* so instead of saying: "the ngram 'hous' was used 100 times in this meeting, it represented 1% of all ngrams spoken"
+* i.e. if "housing" or "house" or "houses" represents 1% of all words spoken in the meeting, another way to phrase that is that roughly 1 out of every 100 words was the unstemmed version of "hous"
+
+* show normalization on an example
+
+* now normalize all counts
+
+* rerun
+
+* Now when we plot these results, the x-axis represents the percent usage of a word in a meeting, the y-axis represents the meeting datetime
+* together, we can now interpret and say "as a PROPORTION of meeting discussion, the usage of words stemming from "hous" is ...."

@@ -42,7 +42,7 @@
 
 * there may be problems with transcription
 * biases exist in models
-* BUT, with a good transcription model, you can generally observe the broad strokes and main ideas of discussion
+* BUT, with a good transcription model, we can generally observe the broad strokes and main ideas of discussion
 
 ## Exercise
 

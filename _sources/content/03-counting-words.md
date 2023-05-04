@@ -72,7 +72,7 @@
 
 * lets rerun our dataset generation and plotting code with word stemming
 
-* `CountVectorizer` is customizable and you can add a stemmer preprocessor
+* `CountVectorizer` is customizable and we can add a stemmer preprocessor
 
 * rerun
 

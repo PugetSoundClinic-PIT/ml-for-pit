@@ -88,9 +88,12 @@
 
 * show normalization on an example
 
-* now normalize all counts
+* we leave it to you to normalize counts for counts from the transcripts in the exercise
 
-* rerun
+## Exercise
 
-* Now when we plot these results, the x-axis represents the percent usage of a word in a meeting, the y-axis represents the meeting datetime
-* together, we can now interpret and say "as a PROPORTION of meeting discussion, the usage of words stemming from "hous" is ...."
+* Try calculating word counts for a different city council
+* Normalize the words counts across the different meetings
+* Plot two different words
+* Write down some trends and patterns, are there obvious spikes?
+* Do the same thing but for a larger ngram range

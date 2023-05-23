@@ -2,15 +2,18 @@
 
 ## Problems with ngrams and word counts
 
-* If we think about what they represent and how we store their data, you have a count for every single unique ngram in the text. This is a lot of data to store, especially if the meeting is long and discusses many different topics which can increase the diversity of the ngrams thereby increase the number of total ngrams you need to store in your dataset.
+* If we think about what they represent and how we store their data, you have a count for every single unique ngram in the text. This is a lot of data to store, especially if the meeting is long and discusses many different topics which can increase the diversity of the ngrams thereby increasing the number of total ngrams you need to store in your dataset.
 
 * They don't generalize to different text datasets. We only counted ngrams for Seattle but if we wanted to compare discussion about a topic between two places using the same ngram we would have to KNOW that the two places use the same terminology in their discussion.
 
-* HOWEVER, we shouldn't discount the fact that they are counts that are specific. Which can be useful.
+* HOWEVER, we shouldn't discount the fact that they are counts that are specific. Which can be useful. and easily citable.
 
 ## Semantic Neighborhoods
 
 * Instead of counting words, the state-of-the-art is to create dense embeddings from text
+
+
+* If we were only trying to compare fruits and we only used 2 dimensions we might be able to plot something like this: https://xkcd.com/388/
 
 * Originally this was done with single words
 * "You shall know a word by the company it keeps!" Firth 1957
@@ -65,7 +68,8 @@ TODO PICK ONE OR A FEW OF THESE FOR BACKGROUND EXPLANATION, maybe pull out some 
 
 * Because most of the embedding models have 300+ dimensions, its hard to understand what each dimension means.
 
-* If we were only trying to compare fruits and we only used 2 dimensions we might be able to plot something like this: https://xkcd.com/388/
+* maybe show example of picking a few randomg dimensions and plotting just two at a time
+* "we could do this for all pairs of the 300+ dimensions, but that would take a lot of time and is hard to wrap our heads around"
 
 * But with 300+ dimensions, we need to use an additional tool to reduce the dimensions down to something even further.
 
@@ -74,6 +78,7 @@ TODO PICK ONE OR A FEW OF THESE FOR BACKGROUND EXPLANATION, maybe pull out some 
 * UMAP is an algorithm specifically designed to reduce dimensions down to be able to plot and get some sort of understanding over your dataset's embeddings
 
 * TODO find background reading on UMAP
+* https://pair-code.github.io/understanding-umap/
 
 * We can use UMAP on our example dataset to show the embeddings on a 2D plot
 

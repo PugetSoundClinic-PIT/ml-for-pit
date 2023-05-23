@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Data Annotation &#8212; Machine Learning for Public Interest Technologists</title>
+    <title>Counting Words &#8212; Machine Learning for Public Interest Technologists</title>
   
   
   
@@ -61,11 +61,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/04-data-annotation';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'plan/03-counting-words';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Training Custom Machine Learning Models" href="05-training-custom-ml-models.html" />
-    <link rel="prev" title="Off the Shelf Machine Learning Models for Text" href="03-off-the-shelf-ml-models.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -156,12 +154,12 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01-getting-setup.html">Getting Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-municipal-legislative-data.html">Municipal Legislative (Text) Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-off-the-shelf-ml-models.html">Off the Shelf Machine Learning Models for Text</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Annotation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-training-custom-ml-models.html">Training Custom Machine Learning Models</a></li>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../content/01-getting-setup.html">Getting Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/02-municipal-legislative-data.html">Municipal Legislative (Text) Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/03-off-the-shelf-ml-models.html">Off the Shelf Machine Learning Models for Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/04-data-annotation.html">Data Annotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/05-training-custom-ml-models.html">Training Custom Machine Learning Models</a></li>
 </ul>
 
     </div>
@@ -208,37 +206,6 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
-<div class="dropdown dropdown-launch-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
-    <i class="fas fa-rocket"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://mybinder.org/v2/gh/PugetSoundClinic-PIT/ml-for-pit/main?urlpath=lab/tree/content/04-data-annotation.ipynb" target="_blank"
-   class="btn btn-sm dropdown-item"
-   title="Launch onBinder"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="btn__text-container">Binder</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -264,7 +231,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/04-data-annotation.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fplan/03-counting-words.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -294,7 +261,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/content/04-data-annotation.ipynb" target="_blank"
+      <li><a href="../_sources/plan/03-counting-words.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -304,7 +271,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -363,7 +330,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -374,11 +343,28 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Data Annotation</h1>
+    <h1>Counting Words</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word-counts">Word Counts??</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngrams">Ngrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-count">Lets count</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-countvectorizer-on-transcript-data">Using <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> on transcript data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-common-words">Finding common words</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-these-counts-tell-us-anything">How do these counts tell us anything</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-this-plot-tell-us">What does this plot tell us</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-word-stems">Counting word stems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing-counts">Normalizing counts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -388,29 +374,116 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="data-annotation">
-<h1>Data Annotation<a class="headerlink" href="#data-annotation" title="Permalink to this heading">#</a></h1>
-<p>Here is the thinking for the plan for the rest of the quarter.</p>
-<p>In short: we want to annotate and train our own models for predicting local interest groups and other references. That way, when we run roughly the same analysis you ran before, we can swap out the spacy base model for our custom one that specifically predicts local interest group references – hopefully providing us a much better dataset to study.</p>
-<p>With that said, here is this weeks work:
-Review this short page on “what is means to annotate data”: <a class="reference external" href="https://www.geeksforgeeks.org/whats-text-annotation-and-its-types-in-machine-learning/">https://www.geeksforgeeks.org/whats-text-annotation-and-its-types-in-machine-learning/</a></p>
-<p>Then, each of you should listen and read through the following meetings:
-<a class="reference external" href="http://councildataproject.org/seattle/#/events/9430939b4abe">http://councildataproject.org/seattle/#/events/9430939b4abe</a>
-<a class="reference external" href="http://councildataproject.org/seattle/#/events/6f52f563ca3d">http://councildataproject.org/seattle/#/events/6f52f563ca3d</a></p>
-<p>as you listen and read through them, create a list of the references people make to the organizations they represent – from a quick look I see one person is saying they represent “<a class="reference external" href="http://SeattleStop.org">SeattleStop.org</a>”, and another saying they represent Doordash.</p>
-<p>Make notes about these references – who is it, who are they saying they represent, etc. Additionally, keep a rough estimate in your head of how many people you think are representing larger organizations or are just speaking for themselves (i.e. 20% of people reference an organization while 80% of people are there giving a public comment JUST for themselves)</p>
-<p>additionally after the public comment period, be on the lookout for references to these orgs later on. Do the councilmembers themselves name certain organizations or people?</p>
-<p>Each of you should have a google doc with your own notes to share on Friday</p>
-<p>The point of that manual review is so that we can come up with annotation criteria together on Friday. If we are seeing the same two meetings differently, then when we start our larger annotation of more meetings, the data we produce will be all over the place. We want to be unified in our annotation criteria.</p>
-<p>Review the Prodigy paragraph / table on “Named Entity Recognition vs Span Categorization”: <a class="reference external" href="https://prodi.gy/docs/span-categorization#ner-vs-spancat">https://prodi.gy/docs/span-categorization#ner-vs-spancat</a></p>
-<p>Try the Prodigy demo: <a class="reference external" href="https://demo.prodi.gy/?=null&amp;amp;view_id=ner_manual">https://demo.prodi.gy/?=null&amp;view_id=ner_manual</a> for both NER and Span-Cat
-Work together on the following – “If we want to create a model which predicts, ‘individual and local interest group references (and activity) in municipal meetings then we ____’</p>
-<p>Should use a named-entity recognition model?
-Should use a span-cat model?
-Should use a combination of the two?
-Then, work together to refine the labels we proposed in meeting on Friday: <a class="reference external" href="https://docs.google.com/document/d/1KbxoRHj5mZMq5kAtvUJ1cvEWSZga_9L_GKD3ZOVr0Z4/edit?usp=sharing">https://docs.google.com/document/d/1KbxoRHj5mZMq5kAtvUJ1cvEWSZga_9L_GKD3ZOVr0Z4/edit?usp=sharing</a></p>
-<p>each label should be distinct, have a name, a description, and examples – it should be clear to you when given a new example as to which label it belongs in</p>
-<p>If in the process of refining the labels, you need to go back to 3, do so. This type of annotation and refinement is always iterative. It is the basis on which the rest of the work is done. It might help to go through the process of annotating a few sentences of the meeting again using your new labels and record the exact method you are using to decide how to label something. Are you looking at the whole sentence first to identify something about it, then looking from something within? How you annotate something is a good determinate for what type of model to train.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="counting-words">
+<h1>Counting Words<a class="headerlink" href="#counting-words" title="Permalink to this heading">#</a></h1>
+<section id="word-counts">
+<h2>Word Counts??<a class="headerlink" href="#word-counts" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>“if the words ‘housing’, ‘rent’, and ‘affordability’” are all spoken frequently in a meeting, we can broadly say that “housing affordability” was an important topic in the meeting</p></li>
+<li><p>“frequently” just means counting!</p></li>
+<li><p>maybe also look into / find good article on distant reading</p></li>
+<li><p>words counts are still today used for input to machine learning: “i.e. if the sentence has 10 X, 4 y, 1, 1, 1, then it is about ….”</p></li>
+</ul>
+</section>
+<section id="ngrams">
+<h2>Ngrams<a class="headerlink" href="#ngrams" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>words are helpful but we can generalize to be more flexible in counting by using “ngrams”</p></li>
+<li><p>define ngrams</p></li>
+<li><p>one word ngrams are called unigrams, two word: bigrams, three word: trigrams, etc.</p></li>
+<li><p>using the same example: “if the two-word ngram (bigram) of ‘housing affordability’ is frequently spoken in a meeting, we have even more confidence that that was an important discussion topic”</p></li>
+</ul>
+</section>
+<section id="lets-count">
+<h2>Lets count<a class="headerlink" href="#lets-count" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>scikit learn has a “CountVectorizer”</p></li>
+<li><p>show example of basic count vectorizer for an example sentence</p></li>
+<li><p>because there were N unique words in the sentence and because there was only a single sentence, this vector is of shape: <code class="docutils literal notranslate"><span class="pre">(n,</span> <span class="pre">1)</span></code></p></li>
+<li><p>each unigram is counted and the final counts are stored in a vector</p></li>
+<li><p>explain the vector as a list</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> is neat because it allows us to provide the ngram range we want to count as a unique entity</p></li>
+<li><p>show the same example of a basic count vectorizer for an example with more ngrams</p></li>
+<li><p>remember this makes our vector larger… show shape</p></li>
+</ul>
+</section>
+<section id="using-countvectorizer-on-transcript-data">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> on transcript data<a class="headerlink" href="#using-countvectorizer-on-transcript-data" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Remember: each sentence will be a single vector</p></li>
+<li><p>Stacking them all up, we get a matrix of (unique grams, number of sentences)</p></li>
+</ul>
+</section>
+<section id="finding-common-words">
+<h2>Finding common words<a class="headerlink" href="#finding-common-words" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>with some matrix calculation we can get a list of the most common words (avg across all meetings)</p></li>
+<li><p>this shows a problem though, the most common words are filler words</p></li>
+<li><p>we can filter these “filler words” (or known as stopwords) out using the same CountVectorizer</p></li>
+<li><p>do so, then recalc common words</p></li>
+</ul>
+</section>
+<section id="how-do-these-counts-tell-us-anything">
+<h2>How do these counts tell us anything<a class="headerlink" href="#how-do-these-counts-tell-us-anything" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>we can look at the counts of a meeting in a single day</p></li>
+<li><p>do so</p></li>
+<li><p>we can also look at trends in counts over time (scatter)</p></li>
+<li><p>do so</p></li>
+</ul>
+</section>
+<section id="what-does-this-plot-tell-us">
+<h2>What does this plot tell us<a class="headerlink" href="#what-does-this-plot-tell-us" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>the x axis represents the number of times the selected ngram was used</p></li>
+<li><p>the y axis represents the datetime of the meeting</p></li>
+<li><p>combined we can interpret this as counts of an ngram over time</p></li>
+<li><p>but it has problems:</p>
+<ul>
+<li><p>we are looking at the ngram for “housing” but what if people said “house” or “houses”? should be counted differently</p></li>
+<li><p>each meeting is a different length, if a meeting is longer then it might naturally include more words than other meetings.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="counting-word-stems">
+<h2>Counting word stems<a class="headerlink" href="#counting-word-stems" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>all words have roots or stems</p>
+<ul>
+<li><p>provide a few examples</p></li>
+</ul>
+</li>
+<li><p>scientists and software developers have worked on “stemmers” for us</p></li>
+<li><p>show the same examples with a stemmer</p></li>
+<li><p>if you want to find out how these stemmers work, you should read the snowball stemming paper!</p></li>
+<li><p>lets rerun our dataset generation and plotting code with word stemming</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> is customizable and we can add a stemmer preprocessor</p></li>
+<li><p>rerun</p></li>
+<li><p>Now when we plot these results, we still have the total word count issue but when select an ngram, we are selecting all versions of the stem (i.e. “hous” gives us “housing, houses, house” all at once)</p></li>
+</ul>
+</section>
+<section id="normalizing-counts">
+<h2>Normalizing counts<a class="headerlink" href="#normalizing-counts" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>lets work on a solution for the counts in context problem.</p></li>
+<li><p>what if instead of the count of words, we take the count and convert it to a percentage</p></li>
+<li><p>so instead of saying: “the ngram ‘hous’ was used 100 times in this meeting, it represented 1% of all ngrams spoken”</p></li>
+<li><p>i.e. if “housing” or “house” or “houses” represents 1% of all words spoken in the meeting, another way to phrase that is that roughly 1 out of every 100 words was the unstemmed version of “hous”</p></li>
+<li><p>show normalization on an example</p></li>
+<li><p>we leave it to you to normalize counts for counts from the transcripts in the exercise</p></li>
+</ul>
+</section>
+<section id="exercise">
+<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Try calculating word counts for a different city council</p></li>
+<li><p>Normalize the words counts across the different meetings</p></li>
+<li><p>Plot two different words</p></li>
+<li><p>Write down some trends and patterns, are there obvious spikes?</p></li>
+<li><p>Do the same thing but for a larger ngram range</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -426,7 +499,7 @@ Then, work together to refine the labels we proposed in meeting on Friday: <a cl
         },
         kernelOptions: {
             name: "python3",
-            path: "./content"
+            path: "./plan"
         },
         predefinedOutput: true
     }
@@ -444,24 +517,6 @@ Then, work together to refine the labels we proposed in meeting on Friday: <a cl
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="03-off-the-shelf-ml-models.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Off the Shelf Machine Learning Models for Text</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="05-training-custom-ml-models.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Training Custom Machine Learning Models</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div></div>
   
 </div>
@@ -471,6 +526,29 @@ Then, work together to refine the labels we proposed in meeting on Friday: <a cl
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word-counts">Word Counts??</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngrams">Ngrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-count">Lets count</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-countvectorizer-on-transcript-data">Using <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> on transcript data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-common-words">Finding common words</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-these-counts-tell-us-anything">How do these counts tell us anything</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-this-plot-tell-us">What does this plot tell us</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-word-stems">Counting word stems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing-counts">Normalizing counts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

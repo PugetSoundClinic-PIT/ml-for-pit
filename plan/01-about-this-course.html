@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Semantic Embeddings &#8212; Machine Learning for Public Interest Technologists</title>
+    <title>About This Course &#8212; Machine Learning for Public Interest Technologists</title>
   
   
   
@@ -61,7 +61,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/04-semantic-embeddings';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'plan/01-about-this-course';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -155,11 +155,11 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01-getting-setup.html">Getting Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-municipal-legislative-data.html">Municipal Legislative Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-off-the-shelf-ml-models.html">Off the Shelf Machine Learning Models for Text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-data-annotation.html">Data Annotation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-training-custom-ml-models.html">Training Custom Machine Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/01-getting-setup.html">Getting Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/02-municipal-legislative-data.html">Municipal Legislative (Text) Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/03-off-the-shelf-ml-models.html">Off the Shelf Machine Learning Models for Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/04-data-annotation.html">Data Annotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../content/05-training-custom-ml-models.html">Training Custom Machine Learning Models</a></li>
 </ul>
 
     </div>
@@ -231,7 +231,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/04-semantic-embeddings.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fplan/01-about-this-course.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -261,7 +261,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/content/04-semantic-embeddings.md" target="_blank"
+      <li><a href="../_sources/plan/01-about-this-course.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -343,7 +343,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Semantic Embeddings</h1>
+    <h1>About This Course</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -353,13 +353,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems-with-ngrams-and-word-counts">Problems with ngrams and word counts</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-neighborhoods">Semantic Neighborhoods</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentence-transformers">Sentence Transformers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-search">Semantic Search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhoods-and-topics">Neighborhoods and Topics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#umap">UMAP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intro">Intro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-this-course-we-will">In this course we will…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#we-will-need">We will need…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-setup">Getting Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo">TODO</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -371,92 +374,62 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="semantic-embeddings">
-<h1>Semantic Embeddings<a class="headerlink" href="#semantic-embeddings" title="Permalink to this heading">#</a></h1>
-<section id="problems-with-ngrams-and-word-counts">
-<h2>Problems with ngrams and word counts<a class="headerlink" href="#problems-with-ngrams-and-word-counts" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="about-this-course">
+<h1>About This Course<a class="headerlink" href="#about-this-course" title="Permalink to this heading">#</a></h1>
+<p>Welcome to Machine Learning for Public Interest Technology.</p>
+<section id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this heading">#</a></h2>
+<section id="in-this-course-we-will">
+<h3>In this course we will…<a class="headerlink" href="#in-this-course-we-will" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>If we think about what they represent and how we store their data, you have a count for every single unique ngram in the text. This is a lot of data to store, especially if the meeting is long and discusses many different topics which can increase the diversity of the ngrams thereby increase the number of total ngrams you need to store in your dataset.</p></li>
-<li><p>They don’t generalize to different text datasets. We only counted ngrams for Seattle but if we wanted to compare discussion about a topic between two places using the same ngram we would have to KNOW that the two places use the same terminology in their discussion.</p></li>
-<li><p>HOWEVER, we shouldn’t discount the fact that they are counts that are specific. Which can be useful.</p></li>
+<li><p>learn about public interest technology</p></li>
+<li><p>explore methods for analyzing large text based datasets</p></li>
+<li><p>apply pre-existing machine learning models</p></li>
+<li><p>practice implementing supervised machine learning models for text classification and span categorization</p></li>
+<li><p>combine techniques to analyze a dataset of city council meetings</p></li>
 </ul>
 </section>
-<section id="semantic-neighborhoods">
-<h2>Semantic Neighborhoods<a class="headerlink" href="#semantic-neighborhoods" title="Permalink to this heading">#</a></h2>
+<section id="we-will-need">
+<h3>We will need…<a class="headerlink" href="#we-will-need" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Instead of counting words, the state-of-the-art is to create dense embeddings from text</p></li>
-<li><p>Originally this was done with single words</p></li>
-<li><p>“You shall know a word by the company it keeps!” Firth 1957</p>
+<li><p>experience with Python and common scientific Python libraries such as <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, and <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>.</p></li>
+<li><p>basic understanding of vectors and linear algebra</p>
 <ul>
-<li><p><a class="reference external" href="https://cmdowney88.github.io/teaching/uw_574/slides/3_WV_GD.pdf">https://cmdowney88.github.io/teaching/uw_574/slides/3_WV_GD.pdf</a></p></li>
+<li><p>If you need to brush up on linear algebra, we recommend <a class="reference external" href="https://www.youtube.com/watch?v=fNk_zzaMoSs&amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown’s excellent “Essence of linear algebra” series</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://machinelearningmastery.com/what-are-word-embeddings/">https://machinelearningmastery.com/what-are-word-embeddings/</a></p></li>
-<li><p><a class="reference external" href="https://jalammar.github.io/illustrated-word2vec/">https://jalammar.github.io/illustrated-word2vec/</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=gQddtTdmG_8">https://www.youtube.com/watch?v=gQddtTdmG_8</a></p></li>
-<li><p>But now we do so with longer sequences of text</p></li>
-<li><p><a class="reference external" href="https://www.deepset.ai/blog/the-beginners-guide-to-text-embeddings">https://www.deepset.ai/blog/the-beginners-guide-to-text-embeddings</a></p></li>
-</ul>
-<p>TODO PICK ONE OR A FEW OF THESE FOR BACKGROUND EXPLANATION, maybe pull out some highlights for each just in case they skip over them</p>
-</section>
-<section id="sentence-transformers">
-<h2>Sentence Transformers<a class="headerlink" href="#sentence-transformers" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The latest iteration of text embeddings commonly use a model architecture called the “Transformer” model.</p>
-<ul>
-<li><p>If you want to read the original paper which introduced this model, you can do so here: <a class="reference external" href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a></p></li>
-</ul>
-</li>
-<li><p>Specifically, the thing we care about right now is their “encoder” part. This is the part of the model architecture that takes an input and calculates an embedding.</p></li>
-<li><p>Transformers are useful for all sorts of things and we will use them again later on, but for now, lets focus on the produced embeddings.</p></li>
-<li><p>Because of the dominance of transformers, there are whole libraries available for quickly uploading, sharing, downloading, and using them. <code class="docutils literal notranslate"><span class="pre">SentenceTransformer</span></code> is a library which specifically focuses on making models available that perform well for creating these embeddings.</p></li>
-<li><p>SHOW SENTENCE TRANSFORMERS ON AN EXAMPLE TEXT</p></li>
-<li><p>Remember from the readings that semantic neighborhoods are all about how similar two pieces of information (in this case text) are to each other.</p></li>
-<li><p>To compare the prior text to a new text, we need to get the embedding for the new text and then compute a similarity metric.</p></li>
-<li><p>Most commonly when working with these large dimension vectors is using “Cosine similarity”</p>
-<ul>
-<li><p>Find some readings for cosine similarity vs others</p></li>
-</ul>
-</li>
-<li><p>SHOW EMBEDDING FOR NEW TEXT AND SIMILARITY BETWEEN TWO</p></li>
-<li><p>For comparison, if we were to embed another piece of text that we understand as quite different from the first two, we should see that the similarity between this new one and the original one.</p></li>
-<li><p>SHOW SIMILARITY BETWEEN OPPOSITE TEXT AND ORIGINAL TEXT EMBED</p></li>
+<li><p>a google (gmail) account for access to Google Colab</p></li>
 </ul>
 </section>
-<section id="semantic-search">
-<h2>Semantic Search<a class="headerlink" href="#semantic-search" title="Permalink to this heading">#</a></h2>
+<section id="outline">
+<h3>Outline<a class="headerlink" href="#outline" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>About This Course &amp; Setup</p></li>
+<li><p>Municipal Legislative Data</p></li>
+<li><p>Word Counts and Ngrams</p></li>
+<li><p>State-of-the-Art Semantic Embeddings</p></li>
+<li><p>Text Classifiers</p></li>
+<li><p>Pre-trained Models</p></li>
+<li><p>Analysis and Visualization</p></li>
+</ol>
+</section>
+</section>
+<section id="getting-setup">
+<h2>Getting Setup<a class="headerlink" href="#getting-setup" title="Permalink to this heading">#</a></h2>
+<p>This course is taught using Jupyter Notebooks and Google Colab.</p>
+<p>Each chapter will have three parts:</p>
+<ol class="arabic simple">
+<li><p>A “lecture” / “reading” portion where we will first go through and explain the concepts and the code for the task at hand.</p></li>
+<li><p>At the end of each lecture, we will link to an exercise that you should open in colab and try for yourself.</p></li>
+<li><p>Finally, at the end of each exercise, we will include a link to reference code for how we have completed the exercises.</p></li>
+</ol>
+<p>While the exercises should be completed interactively, all course content is reproducible. If you ever want to play around with the lecture example code or the reference code, you should feel free to do so by clicking the Launch in Colab button.</p>
+<section id="todo">
+<h3>TODO<a class="headerlink" href="#todo" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>One application of semantic embeddings is for search</p></li>
-<li><p>For example, if you had a dataset of text and you wanted to find the most similar piece of text to a user query, you can embed each item in the dataset and the query and calculate the most similar items to the query.</p></li>
-<li><p>SHOW EXAMPLE</p></li>
+<li><p>create test colab notebook that has basic commands</p></li>
 </ul>
 </section>
-<section id="neighborhoods-and-topics">
-<h2>Neighborhoods and Topics<a class="headerlink" href="#neighborhoods-and-topics" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Another application of semantic embeddings is in understanding the diversity of your dataset and what topics are covered</p></li>
-<li><p>You can think of this as how much range is represented in each dimension of the embeddings for all embeddings in the dataset</p></li>
-<li><p>Because most of the embedding models have 300+ dimensions, its hard to understand what each dimension means.</p></li>
-<li><p>If we were only trying to compare fruits and we only used 2 dimensions we might be able to plot something like this: <a class="reference external" href="https://xkcd.com/388/">https://xkcd.com/388/</a></p></li>
-<li><p>But with 300+ dimensions, we need to use an additional tool to reduce the dimensions down to something even further.</p></li>
-</ul>
-</section>
-<section id="umap">
-<h2>UMAP<a class="headerlink" href="#umap" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>UMAP is an algorithm specifically designed to reduce dimensions down to be able to plot and get some sort of understanding over your dataset’s embeddings</p></li>
-<li><p>TODO find background reading on UMAP</p></li>
-<li><p>We can use UMAP on our example dataset to show the embeddings on a 2D plot</p></li>
-<li><p>SHOW EXAMPLE</p></li>
-</ul>
-</section>
-<section id="exercise">
-<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Using your knowledge of CDP datasets and processing the text, get the embeddings for each sentence in 10 different meetings and store them into a dataset with the text</p></li>
-<li><p>Use UMAP to reduce and plot the embeddings into 2D space</p></li>
-<li><p>What do you notice? Can you observe topics and trends?</p></li>
-</ul>
 </section>
 </section>
 
@@ -473,7 +446,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./content"
+            path: "./plan"
         },
         predefinedOutput: true
     }
@@ -509,13 +482,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems-with-ngrams-and-word-counts">Problems with ngrams and word counts</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-neighborhoods">Semantic Neighborhoods</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentence-transformers">Sentence Transformers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-search">Semantic Search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhoods-and-topics">Neighborhoods and Topics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#umap">UMAP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intro">Intro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-this-course-we-will">In this course we will…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#we-will-need">We will need…</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-setup">Getting Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo">TODO</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

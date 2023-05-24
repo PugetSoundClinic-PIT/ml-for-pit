@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Text Classification &#8212; Machine Learning for Public Interest Technologists</title>
+    <title>Pre-trained Models &#8212; Machine Learning for Public Interest Technologists</title>
   
   
   
@@ -61,7 +61,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'plan/05-text-classification';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'plan/06-pre-trained-models';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -231,7 +231,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fplan/05-text-classification.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fplan/06-pre-trained-models.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -261,7 +261,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/plan/05-text-classification.md" target="_blank"
+      <li><a href="../_sources/plan/06-pre-trained-models.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -343,7 +343,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Text Classification</h1>
+    <h1>Pre-trained Models</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -353,13 +353,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models-and-evaluation">Models and Evaluation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-logit-model">An Example Logit Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-transformer">An Example Transformer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation">Annotation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-classification">Topic classification</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisions-in-annotation">Decisions in annotation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-model-using-the-annotations">Training a model using the annotations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizability">Generalizability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-and-huggingface">Transformers and HuggingFace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment">Sentiment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-warnings">Limitations and Warnings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization">Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spacy-and-nlp">Spacy and NLP</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
 </ul>
             </nav>
@@ -372,97 +371,67 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="text-classification">
-<h1>Text Classification<a class="headerlink" href="#text-classification" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="pre-trained-models">
+<h1>Pre-trained Models<a class="headerlink" href="#pre-trained-models" title="Permalink to this heading">#</a></h1>
+<section id="generalizability">
+<h2>Generalizability<a class="headerlink" href="#generalizability" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>one of the most common tasks in working with text is in classifying texts</p></li>
-<li><p>this can include things like classifying the topic of the text, the sentiment (is the text positive or negative), is the text toxic, etc.</p></li>
-<li><p>the general idea is simply that it’s useful to categorize text. Instead of having a big blob of text, here is it’s classification for which scientists, users, etc can filter, subset, search, and utilize.</p></li>
-<li><p>for our use case, there are a couple of text classification models that we might be interested in</p>
-<ul>
-<li><p>sentiment classification models are pretty universally useful – in our case, potentially using them when paired with public comments to see how many comments are positive or negative in tone</p></li>
-<li><p>topic classification models specific to legislative topics – i.e. general topic models might have too broad of a topic for our use cases, we might want to be able to classify discussion to finer grain discussion points</p></li>
-<li><p>identifying portions of the meeting by type – i.e. “this general section of text is public comment, this general section is discussion on a bill”, “a presentation”, “voting”, etc.</p></li>
-</ul>
-</li>
-<li><p>all of these can be formulated as text classification</p></li>
-</ul>
-<section id="models-and-evaluation">
-<h2>Models and Evaluation<a class="headerlink" href="#models-and-evaluation" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>we will not be covering how these models work, but rather their application on our dataset</p></li>
-<li><p>for a quick intro on logit models, watch these two videos: <a class="reference external" href="https://www.youtube.com/watch?v=7ArmBVF2dCs">https://www.youtube.com/watch?v=7ArmBVF2dCs</a> and <a class="reference external" href="https://www.youtube.com/watch?v=yIYKR4sgzI8">https://www.youtube.com/watch?v=yIYKR4sgzI8</a></p></li>
-<li><p>For even more details, see: Dr. Mine Çetinkaya-Rundel’s “Simple Linear Regression” Lecture: <a class="reference external" href="https://sta210-s22.github.io/website/slides/lec-2.html">https://sta210-s22.github.io/website/slides/lec-2.html</a> as an intro and then “Logistic Regression” lecture: <a class="reference external" href="https://sta210-s22.github.io/website/slides/lec-18.html#/topics">https://sta210-s22.github.io/website/slides/lec-18.html#/topics</a>, then multinomial logistic regression: <a class="reference external" href="https://sta210-s22.github.io/website/slides/lec-23.html#/title-slide">https://sta210-s22.github.io/website/slides/lec-23.html#/title-slide</a></p></li>
-<li><p>it is also important to test your models performance</p></li>
+<li><p>in the prior chapter we talked about how for some tasks we need to train our own model because we want to define the annotation criteria or we are in a very niche sub-domain.</p></li>
+<li><p>however, using pre-trained models that are general to a task can also be quite useful – especially considering that they were likely trained with more data than the dataset you are working with</p></li>
+<li><p>these more general tasks might include sentiment classification, text summarization, question answering, etc.</p></li>
 </ul>
 </section>
-<section id="an-example-logit-model">
-<h2>An Example Logit Model<a class="headerlink" href="#an-example-logit-model" title="Permalink to this heading">#</a></h2>
+<section id="transformers-and-huggingface">
+<h2>Transformers and HuggingFace<a class="headerlink" href="#transformers-and-huggingface" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>let’s make a very simple classifier on some dummy data</p></li>
-<li><p>lets classify if each public comment is for or against a bill</p></li>
-<li><p>THIS IS ALL FAKE DATA</p></li>
-<li><p>train classifier using SK logit with embeddings</p></li>
-<li><p>evaluate</p></li>
+<li><p>We have introduced and used transformers, a model architecture</p></li>
+<li><p>huggingface is a company which builds tools around various model architectures to make them easily shareable</p></li>
+<li><p>for example, here is a list of all of the models they have available for download.</p></li>
+<li><p>every single model is available for download and use and in many cases has some documentation attached to understand how to use the model in your own work</p></li>
 </ul>
 </section>
-<section id="an-example-transformer">
-<h2>An Example Transformer<a class="headerlink" href="#an-example-transformer" title="Permalink to this heading">#</a></h2>
+<section id="sentiment">
+<h2>Sentiment<a class="headerlink" href="#sentiment" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Remember the transformer? Transformers are made up of two parts, the encoder and decoder. We used the encoder to get semantic embeddings but we can additionally fine tune a decoder as well.</p></li>
-<li><p>Again, we will skip over much of the underlying method, if you want to better understand how these work, we recommend reading the original transformers paper and huggingface’s documentation on fine-tuning a transformer: <a class="reference external" href="https://huggingface.co/docs/transformers/tasks/sequence_classification">https://huggingface.co/docs/transformers/tasks/sequence_classification</a></p></li>
-<li><p>show fine-tuning a transformer using the same dataset</p></li>
-<li><p>we don’t have a lot of data (it is all fake) so we sort of expect this to perform poorly. Transformers, need a lot of data to do well</p></li>
+<li><p>Because so many people work on sentiment classification due to its broad usage in both industry and research, there are some available models for sentiment classification on huggingface</p></li>
+<li><p>for example, here is one trained for three label sentiment (positive, neutral, and negative) classification: <a class="reference external" href="https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment">https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment</a></p></li>
+<li><p>we can try using this model on a few examples to see how it performs</p></li>
+<li><p>do so</p></li>
 </ul>
 </section>
-<section id="annotation">
-<h2>Annotation<a class="headerlink" href="#annotation" title="Permalink to this heading">#</a></h2>
+<section id="limitations-and-warnings">
+<h2>Limitations and Warnings<a class="headerlink" href="#limitations-and-warnings" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>the elephant in the room</p></li>
-<li><p>A LOT of machine learning is annotation</p></li>
-<li><p>there are fancy methods being developed to try and reduce the amount of annotation needed for certain tasks (if any annotation at all) but for reproducibility and understanding, supervised learning continues to be incredibly useful</p></li>
+<li><p>The model we used for sentiment was trained using twitter data – twitter posts are obviously different than meeting discussion</p></li>
+<li><p>this can affect the model and we should always evaluate the performance of even off the shelf models</p></li>
+<li><p>in general, when using a model, be sure to read how it was trained, what data it used for training, and understand the possible biases and problems that come from using a model trained by someone else</p></li>
+<li><p>try to find a model that was trained on data close to yours for the best results</p></li>
 </ul>
 </section>
-<section id="topic-classification">
-<h2>Topic classification<a class="headerlink" href="#topic-classification" title="Permalink to this heading">#</a></h2>
+<section id="summarization">
+<h2>Summarization<a class="headerlink" href="#summarization" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>topic classification is the same as other text classifications – you have a set of outputs and the bag of words, semantic embeddings, or some other representation of the text as input.</p></li>
-<li><p>in our case, lets make a model to classify general topic of discussion: “housing”, “transportation”, “police”, “parks and rec”, “utilities”, etc.</p></li>
-<li><p>CDP provides us a lot of data but manually going through all of that data individual is incredibly time consuming. to get an annotated set up and running quickly, tools have been developed to sit on top of visualizations to label the points.</p></li>
-<li><p>show demo of BULK for a few hundred random examples of text</p></li>
+<li><p>a lot of companies and people care about summarization</p></li>
+<li><p>especially summarizing meeting notes</p></li>
+<li><p>someone has already taken the time to train a model for meeting dialoge summarization: <a class="reference external" href="https://huggingface.co/knkarthick/MEETING_SUMMARY">https://huggingface.co/knkarthick/MEETING_SUMMARY</a></p></li>
+<li><p>try using the model</p></li>
+<li><p>note, that there is a limit to how much text you can push into a transformer encoder</p></li>
+<li><p>there are work around approaches though – instead of summarizing all of the text, summarize in chunks and then summarize the summaries – this is called recursive task decomposition</p></li>
+<li><p>try doing that</p></li>
 </ul>
 </section>
-<section id="decisions-in-annotation">
-<h2>Decisions in annotation<a class="headerlink" href="#decisions-in-annotation" title="Permalink to this heading">#</a></h2>
+<section id="spacy-and-nlp">
+<h2>Spacy and NLP<a class="headerlink" href="#spacy-and-nlp" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>In the prior example, I set the text size to a certain amount, and we decided the labels but those things can change. if each example should have more or less text, if we should have more or less labelling options, etc.</p></li>
-<li><p>all of these decisions may affect the model</p></li>
-</ul>
-</section>
-<section id="training-a-model-using-the-annotations">
-<h2>Training a model using the annotations<a class="headerlink" href="#training-a-model-using-the-annotations" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>use semantic embeddings with an sklearn logit model</p></li>
-<li><p>train the model</p></li>
-<li><p>eval with holdout</p></li>
-<li><p>explain scores (precision, recall, f1)</p></li>
-<li><p>can also use a confusion matrix to understand misclassification</p></li>
+<li><p>Spacy is a different library but one which also provides easy access to a whole suite of tools within a single model</p></li>
+<li><p>Spacy targets “traditional” natural language processing tasks like part of speech tagging, named entity recognition, etc.</p></li>
+<li><p>show example of NER with a public comment</p></li>
 </ul>
 </section>
 <section id="exercise">
 <h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Download data for multiple cities</p></li>
-<li><p>Construct a text dataset for topic classification</p>
-<ul>
-<li><p>choose how large each example should be</p></li>
-<li><p>the labels are: TODO</p></li>
-</ul>
-</li>
-<li><p>Use UMAP and BULK to annotate</p></li>
-<li><p>construct train, eval, and holdout test</p></li>
-<li><p>train and eval</p></li>
-<li><p>write down some observations</p></li>
+<li><p>Using the example dataset, first classify each examples as positive, negative, or neutral – then use spacy’s named entity recognition capabilities to identify common entities for each.</p></li>
 </ul>
 </section>
 </section>
@@ -516,13 +485,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models-and-evaluation">Models and Evaluation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-logit-model">An Example Logit Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-transformer">An Example Transformer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotation">Annotation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-classification">Topic classification</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisions-in-annotation">Decisions in annotation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-model-using-the-annotations">Training a model using the annotations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizability">Generalizability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-and-huggingface">Transformers and HuggingFace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment">Sentiment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-warnings">Limitations and Warnings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization">Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spacy-and-nlp">Spacy and NLP</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
 </ul>
   </nav></div>

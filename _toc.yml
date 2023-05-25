@@ -3,9 +3,9 @@
 
 format: jb-book
 root: README
-chapters:
-- file: content/01-getting-setup.ipynb
-- file: content/02-municipal-legislative-data.ipynb
-- file: content/03-off-the-shelf-ml-models.ipynb
-- file: content/04-data-annotation.ipynb
-- file: content/05-training-custom-ml-models.ipynb
+parts:
+- caption: About This Course
+  chapters:
+  - file: content/01/lecture.ipynb
+  - file: content/01/exercise.ipynb
+  - file: content/01/reference.ipynb

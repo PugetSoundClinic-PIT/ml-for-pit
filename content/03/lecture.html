@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>N-Grams and Trends &#8212; Machine Learning for Public Interest Technologists</title>
+    <title>Counting Words &#8212; Machine Learning for Public Interest Technologists</title>
   
   
   
@@ -19,51 +19,52 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/03-ngrams';</script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/03/lecture';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Municipal Legislative (Text) Data" href="../02/lecture.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -91,7 +92,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
-      action="../search.html"
+      action="../../search.html"
       method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search"
@@ -129,7 +130,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="../README.html">
+<a class="navbar-brand logo" href="../../README.html">
   
   
   
@@ -139,8 +140,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
@@ -149,16 +150,25 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../README.html">
+                <a class="reference internal" href="../../README.html">
                     Machine Learning (and analysis) for Public Interest Technologists
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">About This Course</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01/lecture.html">Lecture 1 – About This Course</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01/exercise.html">Exercise 1 – Getting Setup with Colab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01/reference.html">Exercise 1 – Reference Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/lecture.html">Lecture 1 – About This Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/exercise.html">Exercise 1 – Getting Setup with Colab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/reference.html">Exercise 1 – Reference Code</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Municipal Legislative Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02/lecture.html">Municipal Legislative (Text) Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Counting Words</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Counting Words</a></li>
+
 </ul>
 
     </div>
@@ -213,7 +223,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/PugetSoundClinic-PIT/ml-for-pit/blob/main/content/03-ngrams.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/PugetSoundClinic-PIT/ml-for-pit/blob/main/content/03/lecture.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -222,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img src="../../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -261,7 +271,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/03-ngrams.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/03/lecture.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -291,7 +301,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/content/03-ngrams.ipynb" target="_blank"
+      <li><a href="../../_sources/content/03/lecture.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -373,7 +383,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>N-Grams and Trends</h1>
+    <h1>Counting Words</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -383,8 +393,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">N-Grams and Trends</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-some-data">Get Some Data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Counting Words</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-count">Let’s Count</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngrams">Ngrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-transcript-data">Working With Transcript Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-here-for-now-continue-later">STOPPING HERE FOR NOW. CONTINUE LATER</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-count-words">How to Count Words</a><ul class="visible nav section-nav flex-column">
@@ -412,13 +425,274 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="n-grams-and-trends">
-<h1>N-Grams and Trends<a class="headerlink" href="#n-grams-and-trends" title="Permalink to this heading">#</a></h1>
-<p>how can we look at trends over time?</p>
-<p>Google (and others) made n-gram viewers popular: LINK NGRAM VIEWER</p>
-<p>we can try to do something similar to observe trends.</p>
-<section id="get-some-data">
-<h2>Get Some Data<a class="headerlink" href="#get-some-data" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="counting-words">
+<h1>Counting Words<a class="headerlink" href="#counting-words" title="Permalink to this heading">#</a></h1>
+<p>Using the counts of words in a document is a good starting point for descriptive analysis, visualization, and predictive modeling. For example, counts of words is what makes up the data behind <a class="reference external" href="https://trends.google.com/home">Google Search Trends</a> and the <a class="reference external" href="https://books.google.com/ngrams/">Google NGram Viewer</a>.</p>
+<p>Between search trends, ngram viewer, and more, the goal is to provide a broad picture as to what things are being discussed, searched, mentioned, etc.</p>
+<p>Applying this same idea to municipal legislative data, we might try understand what general topics are commonly discussed in a council via core words for a topic. For example, if the words “housing”, “rent”, and “affordability” are all spoken frequently in a city council meeting, we can broadly interpret that those three terms (and more general ideas about “housing affordability”) were important topics of the meeting.</p>
+<p>So for this chapter, let’s try to be able to <strong>find and compare common topics discussed in a city council meeting, via word counts.</strong></p>
+<section id="let-s-count">
+<h2>Let’s Count<a class="headerlink" href="#let-s-count" title="Permalink to this heading">#</a></h2>
+<p>Counting words is such a common task and is so heavily utilized that <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> has a whole class for doing just that called <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+
+<span class="c1"># Create CountVectorizer object</span>
+<span class="n">count_vec</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+
+<span class="c1"># An example sentence we will count the words in</span>
+<span class="n">example</span> <span class="o">=</span> <span class="s2">&quot;Hello my name is Eva and I am commenting today in opposition of this bill.&quot;</span>
+
+<span class="c1"># Get counts</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">count_vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="n">example</span><span class="p">])</span>
+<span class="n">counts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;1x14 sparse matrix of type &#39;&lt;class &#39;numpy.int64&#39;&gt;&#39;
+	with 14 stored elements in Compressed Sparse Row format&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Don’t be afraid of the “sparse matrix” it is just an efficient storage mechanism that scikit-learn uses. We can see the results in a pandas dataframe too by doing the following.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">counts_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">counts</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>  <span class="c1"># convert from sparse matrix to numpy</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">count_vec</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>  <span class="c1"># store words as the column names</span>
+<span class="p">)</span>
+<span class="n">counts_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>am</th>
+      <th>and</th>
+      <th>bill</th>
+      <th>commenting</th>
+      <th>eva</th>
+      <th>hello</th>
+      <th>in</th>
+      <th>is</th>
+      <th>my</th>
+      <th>name</th>
+      <th>of</th>
+      <th>opposition</th>
+      <th>this</th>
+      <th>today</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let’s take a moment to notice that all of the words have been lowercased.</p>
+<p>There are many decisions to make when counting and we recommend you view the documentation for <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a> to see all of the options but we will highlight a few throughout the rest of this chapter.</p>
+<p>First, as already noted, lowercasing is something you can enable or disable. It depends on how specific you want your counts to be, do you want “House” and “house” to be counted separately? The only difference between the two might be that one is the first word in a sentence, but there are many other cases where casing is important to keep.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># And example of turning off lowercasing</span>
+<span class="n">count_vec_no_lowercase</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">lowercase</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">count_vec_no_lowercase</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="n">example</span><span class="p">])</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">count_vec_no_lowercase</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Eva</th>
+      <th>Hello</th>
+      <th>am</th>
+      <th>and</th>
+      <th>bill</th>
+      <th>commenting</th>
+      <th>in</th>
+      <th>is</th>
+      <th>my</th>
+      <th>name</th>
+      <th>of</th>
+      <th>opposition</th>
+      <th>this</th>
+      <th>today</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="ngrams">
+<h2>Ngrams<a class="headerlink" href="#ngrams" title="Permalink to this heading">#</a></h2>
+<p>Second, all of the words are counted individually. I.e. a single word, gets a single count. What if we want to track pairs of words, or even three word groups, what about <code class="docutils literal notranslate"><span class="pre">N</span></code>-word-groups? This is the idea behind n-grams: contiguous sequence of <code class="docutils literal notranslate"><span class="pre">n</span></code> items from a given sample of text or speech. The items can be words, letters, syllables, etc.</p>
+<p>For example, this type of tracking might be useful when we want to look for “housing affordability” as a single item instead of “housing” and “affordability” as separate items.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> to construct any range of ngrams.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Allow unigrams to trigrams (1 word to 3 word items)</span>
+<span class="n">count_vec_uni_tri</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">count_vec_uni_tri</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="n">example</span><span class="p">])</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">count_vec_uni_tri</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>am</th>
+      <th>am commenting</th>
+      <th>am commenting today</th>
+      <th>and</th>
+      <th>and am</th>
+      <th>and am commenting</th>
+      <th>bill</th>
+      <th>commenting</th>
+      <th>commenting today</th>
+      <th>commenting today in</th>
+      <th>...</th>
+      <th>of this</th>
+      <th>of this bill</th>
+      <th>opposition</th>
+      <th>opposition of</th>
+      <th>opposition of this</th>
+      <th>this</th>
+      <th>this bill</th>
+      <th>today</th>
+      <th>today in</th>
+      <th>today in opposition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 39 columns</p>
+</div></div></div>
+</div>
+<p>Note: as you increase your ngram range, you gain specificity at the cost of memory because you simply have to keep track of many more distinct grams.</p>
+</section>
+<section id="working-with-transcript-data">
+<h2>Working With Transcript Data<a class="headerlink" href="#working-with-transcript-data" title="Permalink to this heading">#</a></h2>
+<p>To get a better understanding of how to work with count data, let’s use city council meeting transcript data made available by Council Data Project.</p>
+<p>To do so, let’s first pull a small sample of meeting data, read the transcripts, and construct ngram counts.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">CDPInstances</span><span class="p">,</span> <span class="n">datasets</span>
@@ -426,7 +700,7 @@ document.write(`
 <span class="n">df</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
     <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
     <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span>
-    <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span>
     <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -436,14 +710,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e573ae4e27f34c62a1227549471d7a9f"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "0ef36fee67ae445e9029dbfedad90229"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6382c649665146a3975c528bf41ecbe3"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "3b57346b95c5486d87bb195c2e65033b"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "da1c3460f3024e648bb71eef8e73f476"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "456d428b66894071aec2b24d6320cc93"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">CDPInstances</span><span class="p">,</span> <span class="n">datasets</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">df</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -550,6 +824,9 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="stopping-here-for-now-continue-later">
+<h2>STOPPING HERE FOR NOW. CONTINUE LATER<a class="headerlink" href="#stopping-here-for-now-continue-later" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="how-to-count-words">
 <h1>How to Count Words<a class="headerlink" href="#how-to-count-words" title="Permalink to this heading">#</a></h1>
@@ -563,161 +840,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>index</th>
-      <th>confidence</th>
-      <th>start_time</th>
-      <th>end_time</th>
-      <th>text</th>
-      <th>speaker_index</th>
-      <th>speaker_name</th>
-      <th>annotations</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>0.97</td>
-      <td>196.696</td>
-      <td>212.545</td>
-      <td>Be discussing that in the, AME central staff.</td>
-      <td>0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>0.97</td>
-      <td>212.545</td>
-      <td>217.917</td>
-      <td>Are you anticipating discussion on this piece ...</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2</td>
-      <td>0.97</td>
-      <td>217.917</td>
-      <td>231.464</td>
-      <td>We are hoping to have it put on as soon as pos...</td>
-      <td>2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>3</td>
-      <td>0.97</td>
-      <td>231.464</td>
-      <td>239.973</td>
-      <td>Obviously it's not just about this winter but ...</td>
-      <td>2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4</td>
-      <td>0.97</td>
-      <td>239.973</td>
-      <td>245.845</td>
-      <td>But we would like to so we hope that on the 28...</td>
-      <td>2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>96</th>
-      <td>96</td>
-      <td>0.97</td>
-      <td>1293.191</td>
-      <td>1295.894</td>
-      <td>The purpose of the executive session is to dis...</td>
-      <td>15</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>97</th>
-      <td>97</td>
-      <td>0.97</td>
-      <td>1295.894</td>
-      <td>1300.298</td>
-      <td>The councils executive sessions are an opportu...</td>
-      <td>15</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>98</th>
-      <td>98</td>
-      <td>0.97</td>
-      <td>1300.298</td>
-      <td>1309.274</td>
-      <td>Illegal monitor for the city attorney's office...</td>
-      <td>15</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>99</th>
-      <td>99</td>
-      <td>0.97</td>
-      <td>1309.274</td>
-      <td>1320.819</td>
-      <td>I expect the executive session to end by--end ...</td>
-      <td>15</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>100</th>
-      <td>100</td>
-      <td>0.97</td>
-      <td>1320.819</td>
-      <td>1328.093</td>
-      <td>If the executive session is to be extended bey...</td>
-      <td>15</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>101 rows × 8 columns</p>
-</div></div></div>
 </div>
 <section id="scikit-learn-count-vectorizer">
 <h2>Scikit Learn Count Vectorizer<a class="headerlink" href="#scikit-learn-count-vectorizer" title="Permalink to this heading">#</a></h2>
@@ -766,13 +888,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;00&#39;, &#39;10&#39;, &#39;13&#39;, &#39;14&#39;, &#39;167&#39;, &#39;2019&#39;, &#39;2020&#39;, &#39;2021&#39;, &#39;22&#39;,
-       &#39;28th&#39;, &#39;30&#39;, &#39;36&#39;, &#39;40&#39;, &#39;630&#39;, &#39;able&#39;, &#39;about&#39;, &#39;absence&#39;,
-       &#39;acquiring&#39;, &#39;across&#39;, &#39;act&#39;], dtype=object)
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="words">
@@ -786,30 +901,6 @@ document.write(`
     <span class="nb">list</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">toarray</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
 <span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">word</span><span class="si">}</span><span class="s2">&#39; was used </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> times in the meeting&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;00&#39; was used 2 times in the meeting
-&#39;10&#39; was used 1 times in the meeting
-&#39;13&#39; was used 3 times in the meeting
-&#39;14&#39; was used 1 times in the meeting
-&#39;167&#39; was used 1 times in the meeting
-&#39;2019&#39; was used 1 times in the meeting
-&#39;2020&#39; was used 5 times in the meeting
-&#39;2021&#39; was used 1 times in the meeting
-&#39;22&#39; was used 1 times in the meeting
-&#39;28th&#39; was used 1 times in the meeting
-&#39;30&#39; was used 4 times in the meeting
-&#39;36&#39; was used 3 times in the meeting
-&#39;40&#39; was used 1 times in the meeting
-&#39;630&#39; was used 1 times in the meeting
-&#39;able&#39; was used 12 times in the meeting
-&#39;about&#39; was used 11 times in the meeting
-&#39;absence&#39; was used 1 times in the meeting
-&#39;acquiring&#39; was used 1 times in the meeting
-&#39;across&#39; was used 1 times in the meeting
-&#39;act&#39; was used 1 times in the meeting
 </pre></div>
 </div>
 </div>
@@ -836,101 +927,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>session_id</th>
-      <th>session_datetime</th>
-      <th>session_text</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4a7acf91fd3a</td>
-      <td>2020-01-06 17:30:00+00:00</td>
-      <td>Be discussing that in the, AME central staff. ...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>60c31f54e81b</td>
-      <td>2020-01-06 22:00:00+00:00</td>
-      <td>Good afternoon everybody. Welcome to the Janua...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>65b686462f92</td>
-      <td>2020-01-07 17:30:00+00:00</td>
-      <td>I am joined by several colleagues, council mem...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0efe5623841f</td>
-      <td>2020-01-13 17:30:00+00:00</td>
-      <td>Good morning. This is the Council briefing mee...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>aa7e64fbfff8</td>
-      <td>2020-01-15 17:30:00+00:00</td>
-      <td>Good morning, everybody. I'm Councilmember Ale...</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>472</th>
-      <td>4d5bb0e3a2e7</td>
-      <td>2022-09-12 21:00:00+00:00</td>
-      <td>Thank you, good afternoon. Today is Monday, Se...</td>
-    </tr>
-    <tr>
-      <th>473</th>
-      <td>415b06af6e18</td>
-      <td>2022-09-13 16:30:00+00:00</td>
-      <td>Not all of you Unmetered your microphones. We ...</td>
-    </tr>
-    <tr>
-      <th>474</th>
-      <td>d87f8f396ebf</td>
-      <td>2022-09-14 16:30:00+00:00</td>
-      <td>Good morning. The September 14, 2022 meeting o...</td>
-    </tr>
-    <tr>
-      <th>475</th>
-      <td>e9bdfa228805</td>
-      <td>2022-10-03 21:00:00+00:00</td>
-      <td>&amp; GT; With that, good afternoon, everyone . to...</td>
-    </tr>
-    <tr>
-      <th>476</th>
-      <td>9a9ac561e588</td>
-      <td>2022-10-04 21:00:00+00:00</td>
-      <td>Thank you . good afternoon, E. Afternoon, ever...</td>
-    </tr>
-  </tbody>
-</table>
-<p>477 rows × 3 columns</p>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -943,317 +939,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>00</th>
-      <th>000</th>
-      <th>0000</th>
-      <th>000000</th>
-      <th>0001</th>
-      <th>0002</th>
-      <th>000as</th>
-      <th>000ed</th>
-      <th>000s</th>
-      <th>000th</th>
-      <th>...</th>
-      <th>úwords</th>
-      <th>úwork</th>
-      <th>úworking</th>
-      <th>úwould</th>
-      <th>úyears</th>
-      <th>úyou</th>
-      <th>úyour</th>
-      <th>시간</th>
-      <th>session_id</th>
-      <th>session_datetime</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>4a7acf91fd3a</td>
-      <td>2020-01-06 17:30:00+00:00</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>3</td>
-      <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>60c31f54e81b</td>
-      <td>2020-01-06 22:00:00+00:00</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0</td>
-      <td>15</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>65b686462f92</td>
-      <td>2020-01-07 17:30:00+00:00</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0efe5623841f</td>
-      <td>2020-01-13 17:30:00+00:00</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2</td>
-      <td>14</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>aa7e64fbfff8</td>
-      <td>2020-01-15 17:30:00+00:00</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>472</th>
-      <td>4</td>
-      <td>8</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>4d5bb0e3a2e7</td>
-      <td>2022-09-12 21:00:00+00:00</td>
-    </tr>
-    <tr>
-      <th>473</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>415b06af6e18</td>
-      <td>2022-09-13 16:30:00+00:00</td>
-    </tr>
-    <tr>
-      <th>474</th>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>d87f8f396ebf</td>
-      <td>2022-09-14 16:30:00+00:00</td>
-    </tr>
-    <tr>
-      <th>475</th>
-      <td>20</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>e9bdfa228805</td>
-      <td>2022-10-03 21:00:00+00:00</td>
-    </tr>
-    <tr>
-      <th>476</th>
-      <td>3</td>
-      <td>4</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>9a9ac561e588</td>
-      <td>2022-10-04 21:00:00+00:00</td>
-    </tr>
-  </tbody>
-</table>
-<p>477 rows × 47529 columns</p>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1262,113 +947,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>session_id</th>
-      <th>session_datetime</th>
-      <th>word</th>
-      <th>word_count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4a7acf91fd3a</td>
-      <td>2020-01-06 17:30:00+00:00</td>
-      <td>00</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>60c31f54e81b</td>
-      <td>2020-01-06 22:00:00+00:00</td>
-      <td>00</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>65b686462f92</td>
-      <td>2020-01-07 17:30:00+00:00</td>
-      <td>00</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0efe5623841f</td>
-      <td>2020-01-13 17:30:00+00:00</td>
-      <td>00</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>aa7e64fbfff8</td>
-      <td>2020-01-15 17:30:00+00:00</td>
-      <td>00</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>22670374</th>
-      <td>4d5bb0e3a2e7</td>
-      <td>2022-09-12 21:00:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>22670375</th>
-      <td>415b06af6e18</td>
-      <td>2022-09-13 16:30:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>22670376</th>
-      <td>d87f8f396ebf</td>
-      <td>2022-09-14 16:30:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>22670377</th>
-      <td>e9bdfa228805</td>
-      <td>2022-10-03 21:00:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>22670378</th>
-      <td>9a9ac561e588</td>
-      <td>2022-10-04 21:00:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-<p>22670379 rows × 4 columns</p>
-</div></div></div>
 </div>
 </section>
 <section id="most-common-words-average-across-all-meetings">
@@ -1377,32 +955,6 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;word&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>word
-the     770.329140
-to      528.911950
-and     450.784067
-of      329.976939
-that    324.733753
-we      250.761006
-in      222.574423
-is      213.989518
-you     191.482180
-for     182.062893
-this    146.102725
-on      134.119497
-are     131.031447
-it      130.354298
-have    126.163522
-with    100.635220
-be       97.268344
-as       96.113208
-will     92.855346
-so       89.000000
-Name: word_count, dtype: float64
 </pre></div>
 </div>
 </div>
@@ -1429,9 +981,6 @@ Name: word_count, dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/9fb3aed01b3fac63c6514a789843a6aff2925b98c8c2c6cc89293a4e7c2f3ba7.png" src="../_images/9fb3aed01b3fac63c6514a789843a6aff2925b98c8c2c6cc89293a4e7c2f3ba7.png" />
-</div>
 </div>
 </section>
 <section id="why-is-this-deceptive">
@@ -1451,125 +1000,6 @@ Name: word_count, dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>session_id</th>
-      <th>session_datetime</th>
-      <th>word</th>
-      <th>word_count</th>
-      <th>percent_use_in_meeting</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4a7acf91fd3a</td>
-      <td>2020-01-06 17:30:00+00:00</td>
-      <td>00</td>
-      <td>2</td>
-      <td>0.000719</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>60c31f54e81b</td>
-      <td>2020-01-06 22:00:00+00:00</td>
-      <td>00</td>
-      <td>3</td>
-      <td>0.000256</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>65b686462f92</td>
-      <td>2020-01-07 17:30:00+00:00</td>
-      <td>00</td>
-      <td>0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0efe5623841f</td>
-      <td>2020-01-13 17:30:00+00:00</td>
-      <td>00</td>
-      <td>0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>aa7e64fbfff8</td>
-      <td>2020-01-15 17:30:00+00:00</td>
-      <td>00</td>
-      <td>2</td>
-      <td>0.000162</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>22670374</th>
-      <td>4d5bb0e3a2e7</td>
-      <td>2022-09-12 21:00:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>22670375</th>
-      <td>415b06af6e18</td>
-      <td>2022-09-13 16:30:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>22670376</th>
-      <td>d87f8f396ebf</td>
-      <td>2022-09-14 16:30:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>22670377</th>
-      <td>e9bdfa228805</td>
-      <td>2022-10-03 21:00:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>22670378</th>
-      <td>9a9ac561e588</td>
-      <td>2022-10-04 21:00:00+00:00</td>
-      <td>시간</td>
-      <td>0</td>
-      <td>0.000000</td>
-    </tr>
-  </tbody>
-</table>
-<p>22670379 rows × 5 columns</p>
-</div></div></div>
 </div>
 </section>
 <section id="replot">
@@ -1590,9 +1020,6 @@ Name: word_count, dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/4d87af7ddb4b23982e8d4d6a5a426f8a4e81f9f454a619c9aa98f7305ea999a0.png" src="../_images/4d87af7ddb4b23982e8d4d6a5a426f8a4e81f9f454a619c9aa98f7305ea999a0.png" />
-</div>
 </div>
 </section>
 <section id="possible-solution-rolling-mean-over-one-month">
@@ -1606,101 +1033,6 @@ Name: word_count, dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>word</th>
-      <th>session_datetime</th>
-      <th>percent_use_in_meeting</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>00</td>
-      <td>2020-01-06 17:30:00+00:00</td>
-      <td>0.000719</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>00</td>
-      <td>2020-01-06 22:00:00+00:00</td>
-      <td>0.000488</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>00</td>
-      <td>2020-01-07 17:30:00+00:00</td>
-      <td>0.000325</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>00</td>
-      <td>2020-01-13 17:30:00+00:00</td>
-      <td>0.000244</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>00</td>
-      <td>2020-01-15 17:30:00+00:00</td>
-      <td>0.000227</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>22670374</th>
-      <td>시간</td>
-      <td>2022-09-12 21:00:00+00:00</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>22670375</th>
-      <td>시간</td>
-      <td>2022-09-13 16:30:00+00:00</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>22670376</th>
-      <td>시간</td>
-      <td>2022-09-14 16:30:00+00:00</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>22670377</th>
-      <td>시간</td>
-      <td>2022-10-03 21:00:00+00:00</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>22670378</th>
-      <td>시간</td>
-      <td>2022-10-04 21:00:00+00:00</td>
-      <td>0.000000</td>
-    </tr>
-  </tbody>
-</table>
-<p>22670379 rows × 3 columns</p>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1716,9 +1048,6 @@ Name: word_count, dtype: float64
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/6248a6caae0e074d995cfb3dde5223f81a9f8cdcb930d900869e80306d899592.png" src="../_images/6248a6caae0e074d995cfb3dde5223f81a9f8cdcb930d900869e80306d899592.png" />
 </div>
 </div>
 </section>
@@ -1740,9 +1069,6 @@ Name: word_count, dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/97de00f126ccfbd15a604d49088461f34322d57067a0a31727ed4d4081adc7cd.png" src="../_images/97de00f126ccfbd15a604d49088461f34322d57067a0a31727ed4d4081adc7cd.png" />
-</div>
 </div>
 </section>
 </section>
@@ -1760,7 +1086,7 @@ Name: word_count, dtype: float64
         },
         kernelOptions: {
             name: "python3",
-            path: "./content"
+            path: "./content/03"
         },
         predefinedOutput: true
     }
@@ -1778,6 +1104,15 @@ Name: word_count, dtype: float64
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../02/lecture.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Municipal Legislative (Text) Data</p>
+      </div>
+    </a>
 </div></div>
   
 </div>
@@ -1796,8 +1131,11 @@ Name: word_count, dtype: float64
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">N-Grams and Trends</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-some-data">Get Some Data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Counting Words</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-count">Let’s Count</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngrams">Ngrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-transcript-data">Working With Transcript Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-here-for-now-continue-later">STOPPING HERE FOR NOW. CONTINUE LATER</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-count-words">How to Count Words</a><ul class="visible nav section-nav flex-column">
@@ -1861,8 +1199,8 @@ By Eva Maxfield Brown and Nic Weber
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

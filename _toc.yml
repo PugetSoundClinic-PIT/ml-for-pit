@@ -9,3 +9,9 @@ parts:
   - file: content/01/lecture.ipynb
   - file: content/01/exercise.ipynb
   - file: content/01/reference.ipynb
+- caption: Municipal Legislative Data
+  chapters:
+  - file: content/02/lecture.ipynb
+- caption: Counting Words
+  chapters:
+  - file: content/03/lecture.ipynb

@@ -168,7 +168,6 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Counting Words</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Counting Words</a></li>
-
 </ul>
 
     </div>
@@ -393,28 +392,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Counting Words</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-count">Let’s Count</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngrams">Ngrams</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-transcript-data">Working With Transcript Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-here-for-now-continue-later">STOPPING HERE FOR NOW. CONTINUE LATER</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-count-words">How to Count Words</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn-count-vectorizer">Scikit Learn Count Vectorizer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words">Words?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pass-in-all-documents-at-once">Pass In All Documents At Once</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#most-common-words-average-across-all-meetings">Most Common Words (Average Across All Meetings)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-this-deceptive">Why Is This Deceptive?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-most-common-words-averaged-across-all-meetings">Finding the Most Common Words Averaged Across All Meetings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-words-are-filler-words">Common Words Are Filler Words?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-across-time-instead-of-averaging">Looking Across Time Instead of Averaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-problems">Possible Problems?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-make-each-word-count-a-percentage-of-total-words-for-the-meeting">Possible Solution: Make Each Word Count a “Percentage” of Total Words for The Meeting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replot">Replot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-rolling-mean-over-one-month">Possible Solution: Rolling Mean Over One Month</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-stem-each-word-prior-to-counting">Possible Solution: Stem Each Word Prior to Counting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-word-stems">Possible Solution: Word Stems</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -700,7 +687,7 @@ document.write(`
 <span class="n">df</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
     <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
     <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span>
-    <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span>
     <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -710,14 +697,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "3b57346b95c5486d87bb195c2e65033b"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "da1c3460f3024e648bb71eef8e73f476"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "456d428b66894071aec2b24d6320cc93"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "ec86e21692c54b7daeb2a6df576d7781"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "8b607295ec59439e8bbd4ad82ee7886e"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e899e45620fd427096b1954e4e9f1a3e"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">CDPInstances</span><span class="p">,</span> <span class="n">datasets</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">df</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -823,145 +810,485 @@ document.write(`
 </div>
 </div>
 </div>
-</section>
-<section id="stopping-here-for-now-continue-later">
-<h2>STOPPING HERE FOR NOW. CONTINUE LATER<a class="headerlink" href="#stopping-here-for-now-continue-later" title="Permalink to this heading">#</a></h2>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="how-to-count-words">
-<h1>How to Count Words<a class="headerlink" href="#how-to-count-words" title="Permalink to this heading">#</a></h1>
-<p>Lets use a single transcript for an example.</p>
+<ul class="simple">
+<li><p>We will need to read each transcript and combine all of the text from each sentence into one big string for processing with sklearn.</p></li>
+<li><p>the main idea is to get a list of string where each item in the string is all of the text of a single meeting.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_process_transcript</span><span class="p">(</span><span class="n">transcript_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a transcript path as a CSV, read the transcript,</span>
+<span class="sd">    and return all text as a single string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Read the transcript</span>
+    <span class="n">transcript_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">transcript_path</span><span class="p">)</span>
 
-<span class="n">example_session</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transcript_as_csv_path</span><span class="p">)</span>
-<span class="n">example_session</span>
+    <span class="c1"># There may be empty sentences (which are read as NaNs)</span>
+    <span class="c1"># Filter out anything that isn&#39;t a string</span>
+    <span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">transcript_df</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">)]</span>
+
+    <span class="c1"># Join everything together</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+
+<span class="c1"># Read all transcripts and create a new column from the result</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">transcript_as_csv_path</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_process_transcript</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<section id="scikit-learn-count-vectorizer">
-<h2>Scikit Learn Count Vectorizer<a class="headerlink" href="#scikit-learn-count-vectorizer" title="Permalink to this heading">#</a></h2>
-<p>If we want to track word counts over time, what we want is a large matrix of events and counts</p>
-<p>Sort of like so:</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>session_id</p></th>
-<th class="head text-left"><p>session_datetime</p></th>
-<th class="head text-left"><p>word</p></th>
-<th class="head text-left"><p>count</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>abcd-1234</p></td>
-<td class="text-left"><p>2020-01-01</p></td>
-<td class="text-left"><p>hello</p></td>
-<td class="text-left"><p>4</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>abcd-1234</p></td>
-<td class="text-left"><p>2020-01-01</p></td>
-<td class="text-left"><p>world</p></td>
-<td class="text-left"><p>2</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>…</p></td>
-<td class="text-left"><p>…</p></td>
-<td class="text-left"><p>…</p></td>
-<td class="text-left"><p>…</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>abcd-1234</p></td>
-<td class="text-left"><p>2020-01-01</p></td>
-<td class="text-left"><p>ramen</p></td>
-<td class="text-left"><p>2</p></td>
-</tr>
-</tbody>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>457</th>
+      <td>7dd274c5f221</td>
+      <td>I will call the roll. Is the regularly schedul...</td>
+    </tr>
+    <tr>
+      <th>506</th>
+      <td>4ce19a0284e0</td>
+      <td>Thank you, son, and good afternoon, everybody....</td>
+    </tr>
+    <tr>
+      <th>429</th>
+      <td>4cd217847a92</td>
+      <td>Thank you. The February 8, 2022 meeting of the...</td>
+    </tr>
+    <tr>
+      <th>533</th>
+      <td>0eca93847f00</td>
+      <td>Thank you and good morning. This is the meetin...</td>
+    </tr>
+    <tr>
+      <th>430</th>
+      <td>22b5037aaeac</td>
+      <td>Good morning, everyone. The February 9, 2022 m...</td>
+    </tr>
+  </tbody>
 </table>
-<p>Scikit Learn (<code class="docutils literal notranslate"><span class="pre">sklearn</span></code>) has a function to make that somewhat simple. We just need to combine all of the text for a single session into a single string.</p>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>We can now pretty easily put all of this text data into the <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> object.</p></li>
+<li><p>For now, let’s use the default parameters except for one to save on memory</p></li>
+<li><p>lets add a <code class="docutils literal notranslate"><span class="pre">min_df</span></code> of 0.01 which means that any words that appear in less than 1% of all examples should be automatically removed</p></li>
+<li><p>this naturally filters out words which have rarely come up and saves on memory</p></li>
+<li><p>this 0.01 (1%) is arbitrary and we are only going to use it for this example</p></li>
+<li><p>this a decision you should consider when doing your own analysis</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a new CountVectorizer specific to this dataset</span>
+<span class="n">count_vec</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span>
+    <span class="n">min_df</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="c1"># remove words that occur in less than 1% of all texts provided</span>
+<span class="p">)</span>
 
-<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
-<span class="n">all_session_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">example_session</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="n">all_session_text</span><span class="p">])</span>
-<span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()[:</span><span class="mi">20</span><span class="p">]</span>
+<span class="c1"># Process the text and store to new DataFrame</span>
+<span class="n">meeting_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">count_vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">count_vec</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="words">
-<h2>Words?<a class="headerlink" href="#words" title="Permalink to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> includes all text, so we can see that some of the items counted were numbers and some were words. If we wanted to see their counts we can combine them.</p>
-<p>Looks like “able” and “about” were both used 12 and 11 times respectively. Let’s do this counting process for all of the meetings and store the data to a dataframe.</p>
+<ul class="simple">
+<li><p>Let’s also add in a few columns from the original dataframe so we can keep track which sessions are which</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-    <span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()[:</span><span class="mi">20</span><span class="p">],</span>
-    <span class="nb">list</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">toarray</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
-<span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">word</span><span class="si">}</span><span class="s2">&#39; was used </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> times in the meeting&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">id</span>
+<span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">session_datetime</span>
+<span class="n">meeting_counts</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-</section>
-<section id="pass-in-all-documents-at-once">
-<h2>Pass In All Documents At Once<a class="headerlink" href="#pass-in-all-documents-at-once" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="n">session_transcript</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">transcript_as_csv_path</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-            <span class="s2">&quot;session_datetime&quot;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">session_datetime</span><span class="p">,</span>
-            <span class="s2">&quot;session_text&quot;</span><span class="p">:</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">session_transcript</span><span class="o">.</span><span class="n">text</span><span class="p">),</span>
-        <span class="p">})</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="n">text_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>
-<span class="n">text_df</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>00</th>
+      <th>000</th>
+      <th>001</th>
+      <th>002</th>
+      <th>003</th>
+      <th>004</th>
+      <th>005</th>
+      <th>006</th>
+      <th>01</th>
+      <th>010</th>
+      <th>...</th>
+      <th>zones</th>
+      <th>zoning</th>
+      <th>zoo</th>
+      <th>zoom</th>
+      <th>zooming</th>
+      <th>zulu</th>
+      <th>á6</th>
+      <th>úi</th>
+      <th>session_id</th>
+      <th>session_datetime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>515</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>6</td>
+      <td>16</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>48f5c259d24e</td>
+      <td>2022-06-08 21:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>520</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16dfc4e3ffd1</td>
+      <td>2022-06-15 21:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>459</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>043faf456a29</td>
+      <td>2022-03-22 16:30:00+00:00</td>
+    </tr>
+    <tr>
+      <th>510</th>
+      <td>0</td>
+      <td>5</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>756950332217</td>
+      <td>2022-05-31 21:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>204</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>e5c877619172</td>
+      <td>2021-02-08 22:00:00+00:00</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 15470 columns</p>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>Outside of the two metadata columns we just added, each column in this DataFrame is a count for a single word</p></li>
+<li><p>We can reshape this dataframe to be a bit more useful for operations later on by make a two columns. One for the “word” and one for the “count</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We use `var_name=&quot;word_&quot;` here because there may be a column for &quot;word&quot; already</span>
+<span class="n">meeting_counts</span> <span class="o">=</span> <span class="n">meeting_counts</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;session_datetime&quot;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;word_&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;word_count&quot;</span><span class="p">)</span>
+<span class="n">meeting_counts</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session_id</th>
+      <th>session_datetime</th>
+      <th>word_</th>
+      <th>word_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2458069</th>
+      <td>d0984a35db68</td>
+      <td>2020-01-27 17:30:00+00:00</td>
+      <td>dirty</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2787094</th>
+      <td>0cf3520c290b</td>
+      <td>2021-04-07 16:30:00+00:00</td>
+      <td>email</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3971894</th>
+      <td>6ddbaa2ac395</td>
+      <td>2022-05-10 16:30:00+00:00</td>
+      <td>illusions</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5936630</th>
+      <td>fd7f4922bcc3</td>
+      <td>2021-09-29 16:30:00+00:00</td>
+      <td>praise</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6798197</th>
+      <td>ce388ee84d34</td>
+      <td>2022-07-19 21:00:00+00:00</td>
+      <td>roommate</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
+</section>
+<section id="finding-the-most-common-words-averaged-across-all-meetings">
+<h2>Finding the Most Common Words Averaged Across All Meetings<a class="headerlink" href="#finding-the-most-common-words-averaged-across-all-meetings" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>now that this dataframe is in a shape that is easy to process, we can find the most common words across all meetings</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">text_df</span><span class="o">.</span><span class="n">session_text</span><span class="p">)</span>
-<span class="n">count_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
-<span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_df</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span>
-<span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_df</span><span class="p">[</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">]</span>
-<span class="n">count_df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meeting_counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;word_&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count_df</span> <span class="o">=</span> <span class="n">count_df</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;session_datetime&quot;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;word_count&quot;</span><span class="p">)</span>
-<span class="n">count_df</span>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>word_
+the        811.085258
+to         580.523979
+and        536.774423
+that       406.905861
+of         375.541741
+we         274.442274
+in         250.605684
+you        228.026643
+is         210.078153
+for        198.511545
+this       162.211368
+on         145.808171
+it         142.264654
+so         137.914742
+have       124.415631
+are        124.200710
+as         110.664298
+with       107.017762
+council    106.168739
+be         105.877442
+Name: word_count, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="most-common-words-average-across-all-meetings">
-<h2>Most Common Words (Average Across All Meetings)<a class="headerlink" href="#most-common-words-average-across-all-meetings" title="Permalink to this heading">#</a></h2>
-<p>Filler words are the most common</p>
+<section id="common-words-are-filler-words">
+<h2>Common Words Are Filler Words?<a class="headerlink" href="#common-words-are-filler-words" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>first let remember what this measures: this is the average number of times each word is said in any given meeting</p></li>
+<li><p>with that said, we simply see a lot of words that don’t give us a lot of information</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>whenever you are working with text data, you might encounter this problem</p></li>
+<li><p>the most common words are “filler” words</p></li>
+<li><p>fortunately we can redo this process and add a few extra parameters to the <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> to automatically handle it for us.</p></li>
+<li><p>specifically, we can “remove stopwords”. “Stopwords” is the general name that the community has chosen for the “words to remove” and there are common lists of these words which make this process easy.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;word&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a new CountVectorizer specific to this dataset</span>
+<span class="n">count_vec</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span>
+    <span class="n">stop_words</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">,</span>  <span class="c1"># remove filler words common in English</span>
+    <span class="n">strip_accents</span><span class="o">=</span><span class="s2">&quot;ascii&quot;</span><span class="p">,</span>  <span class="c1"># map non-ascii characters to ascii characters (if there is a mapping), otherwise remove</span>
+    <span class="n">min_df</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="c1"># remove words that occur in less than 1% of all texts provided</span>
+<span class="p">)</span>
+
+<span class="c1"># Process the text and store to new DataFrame</span>
+<span class="n">meeting_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">count_vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">count_vec</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span>
+
+<span class="c1"># Add session metadata</span>
+<span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">id</span>
+<span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">session_datetime</span>
+
+<span class="c1"># Melt</span>
+<span class="n">meeting_counts</span> <span class="o">=</span> <span class="n">meeting_counts</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;session_datetime&quot;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;word_&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;word_count&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get top 20 most common</span>
+<span class="n">meeting_counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;word_&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>word_
+council      106.166963
+thank         92.566607
+just          65.124334
+city          57.463588
+seattle       48.783304
+know          48.190053
+member        39.394316
+think         38.715808
+work          38.623446
+really        38.131439
+community     38.001776
+want          37.689165
+public        37.618117
+people        35.568384
+going         34.937833
+like          32.511545
+time          31.285968
+committee     26.991119
+make          26.815275
+budget        26.504440
+Name: word_count, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>we still some “filler” words, and some that may be specific to legislative data.</p></li>
+<li><p>for example, some might argue that “council” isn’t a very useful word when working specifically with council meeting data</p></li>
+<li><p>that said, we do see words that make sense for a local council to be discussing such as “community”, “public”, and “budget”</p></li>
+</ul>
 </section>
-<section id="plotting">
-<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this heading">#</a></h2>
+<section id="looking-across-time-instead-of-averaging">
+<h2>Looking Across Time Instead of Averaging<a class="headerlink" href="#looking-across-time-instead-of-averaging" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>lets try to plot these counts to see potential trends in usage for certain words</p></li>
+<li><p>considering “budget” was a highly used word when averaged across all meetings, lets see if there is variation in its usage over time</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -969,107 +1296,440 @@ document.write(`
 <span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
 
 <span class="c1"># Select the word we are interested in</span>
-<span class="n">housing_counts</span> <span class="o">=</span> <span class="n">count_df</span><span class="p">[</span><span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;housing&quot;</span><span class="p">]</span>
+<span class="n">budget_counts</span> <span class="o">=</span> <span class="n">meeting_counts</span><span class="p">[</span><span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;word_&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;budget&quot;</span><span class="p">]</span>
 
 <span class="c1"># Plot the responses for different events and regions</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;word_count&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">housing_counts</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">budget_counts</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6c42e0b89232099a2d2edf2a2f0506796e6be880e26d78a6266eae742a867970.png" src="../../_images/6c42e0b89232099a2d2edf2a2f0506796e6be880e26d78a6266eae742a867970.png" />
 </div>
+</div>
+<ul class="simple">
+<li><p>again, let’s take a step back and talk about what this plot shows</p></li>
+<li><p>on the x axis we have the session datetime – the date when the session took place</p></li>
+<li><p>on the y axis we have the word count – in this case the number of times the word “budget” was used in the meeting at the specified date and time</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>one thing we can observe is that there is a lot of variation in the number of times the word “budget” is used throughout the year, with “budget” being used more often towards the end of each year</p></li>
+<li><p>this is pretty common. most cities have a “budget season” and in seattle’s case, “budget season” is in the fall of each year</p></li>
+</ul>
 </section>
-<section id="why-is-this-deceptive">
-<h2>Why Is This Deceptive?<a class="headerlink" href="#why-is-this-deceptive" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Meetings are different length. One meeting might be longer and therefore have more words overall.</p></li>
-<li><p>Discussion doesn’t happen every day. Need to smooth it out somehow.</p></li>
-<li><p>“Housing” doesn’t include “house”, “houses”, etc.</p></li>
-</ol>
+<section id="possible-problems">
+<h2>Possible Problems?<a class="headerlink" href="#possible-problems" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>while the above plot and counts provide some insight and can demonstrate the cyclic nature of council discussion at a basic level there may be some problems with this basic analysis</p></li>
+<li><p>first, meetings have different durations! if a meeting takes more time, more things were discussed in it and therefore more words were used inflating the word counts for that meeting</p></li>
+<li><p>second, we are looking at a single word “budget” but should be including it’s other variants like “budgeting” and “budgets”</p></li>
+</ul>
 </section>
 <section id="possible-solution-make-each-word-count-a-percentage-of-total-words-for-the-meeting">
 <h2>Possible Solution: Make Each Word Count a “Percentage” of Total Words for The Meeting<a class="headerlink" href="#possible-solution-make-each-word-count-a-percentage-of-total-words-for-the-meeting" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>a potential solution for our first problem involving different duration meetings is to convert our plotted value from a simple count to a percent of the total words used in the meeting</p></li>
+<li><p>the idea here is that by converting to a percentage we are normalizing the y axis so that all meetings have a value between 0 and 100</p></li>
+<li><p>if the y value for a scatter point is 5 that means that 5% of words used in the meeting were the word in question</p></li>
+<li><p>in other terms, 5% of words used in the meeting can roughly mean “5 out of every 100 words related to the word in question”</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">count_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;session_id&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
-<span class="n">count_df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c1"># take the current word count</span>
+    <span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span>
+    <span class="c1"># and divide by the total count of words in it&#39;s matching session</span>
+    <span class="o">/</span> <span class="n">meeting_counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;session_id&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">meeting_counts</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session_id</th>
+      <th>session_datetime</th>
+      <th>word_</th>
+      <th>word_count</th>
+      <th>percent_use_in_meeting</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2280353</th>
+      <td>b87423b9da9a</td>
+      <td>2021-02-08 17:30:00+00:00</td>
+      <td>denser</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>3249398</th>
+      <td>ad93acca5e2b</td>
+      <td>2021-07-28 16:30:00+00:00</td>
+      <td>floats</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1196289</th>
+      <td>a8d6ae13d0fe</td>
+      <td>2022-04-19 21:00:00+00:00</td>
+      <td>breach</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>3471611</th>
+      <td>2a8d031f2ad6</td>
+      <td>2020-10-29 16:30:00+00:00</td>
+      <td>geography</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1578886</th>
+      <td>e7f8cb5d5599</td>
+      <td>2021-03-22 21:00:00+00:00</td>
+      <td>cleaner</td>
+      <td>3</td>
+      <td>0.000725</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-</section>
-<section id="replot">
-<h2>Replot<a class="headerlink" href="#replot" title="Permalink to this heading">#</a></h2>
-<p>Interpret: The y-axis is now “percent usage of this word in each session” i.e. if the value is ~0.01 that means that the word was used 1% of the time (or about 1/100 words used in the meeting was “housing”).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the word we are interested in</span>
-<span class="n">housing_counts</span> <span class="o">=</span> <span class="n">count_df</span><span class="p">[</span><span class="n">count_df</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;housing&quot;</span><span class="p">]</span>
+<span class="n">budget_counts</span> <span class="o">=</span> <span class="n">meeting_counts</span><span class="p">[</span><span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;word_&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;budget&quot;</span><span class="p">]</span>
 
 <span class="c1"># Plot the responses for different events and regions</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">housing_counts</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">budget_counts</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/48d988e348336a09079433d3ad2e1002f7c0267001da46b6f990e5878885dd16.png" src="../../_images/48d988e348336a09079433d3ad2e1002f7c0267001da46b6f990e5878885dd16.png" />
 </div>
-</section>
-<section id="possible-solution-rolling-mean-over-one-month">
-<h2>Possible Solution: Rolling Mean Over One Month<a class="headerlink" href="#possible-solution-rolling-mean-over-one-month" title="Permalink to this heading">#</a></h2>
+</div>
+<ul class="simple">
+<li><p>this looks roughly the same as the first plot but we can at least compare across meetings now</p></li>
+<li><p>remember that the y-axis now represents a “percent usage of the selected word in this meeting”</p></li>
+<li><p>now that the word use is on a shared axis, it also makes it easy to compare across words</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>for fun, lets compare another word with “budget”</p></li>
+<li><p>budgeting is one process handled by council but city councils also commonly pass “resolutions”</p></li>
+<li><p>resolutions in Seattle are defined as: Legislation that is administrative or temporary, or which expresses policy. Resolutions are not binding law.</p>
+<ul>
+<li><p><a class="reference external" href="https://www.seattle.gov/cityclerk/agendas-and-legislative-resources/legislative-process/legislative-glossary#">https://www.seattle.gov/cityclerk/agendas-and-legislative-resources/legislative-process/legislative-glossary#</a></p></li>
+</ul>
+</li>
+<li><p>for example, resolutions may be used to name a street after someone, or take a stance on an issue at the federal level that they can’t particularly legislate</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rolling_30_days</span> <span class="o">=</span> <span class="n">count_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;word&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="s2">&quot;30D&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
-    <span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span>
-<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">rolling_30_days</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the word we are interested in</span>
-<span class="n">housing_counts</span> <span class="o">=</span> <span class="n">rolling_30_days</span><span class="p">[</span><span class="n">rolling_30_days</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;housing&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the words we are interested in</span>
+<span class="n">target_counts</span> <span class="o">=</span> <span class="n">meeting_counts</span><span class="p">[</span><span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;word_&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;budget&quot;</span><span class="p">,</span> <span class="s2">&quot;resolution&quot;</span><span class="p">])]</span>
 
 <span class="c1"># Plot the responses for different events and regions</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">housing_counts</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;word_&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">target_counts</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/bfdda5d933ba3b9f318f4489b48b9680fed9b6141c669c902de1d2e037a6232c.png" src="../../_images/bfdda5d933ba3b9f318f4489b48b9680fed9b6141c669c902de1d2e037a6232c.png" />
 </div>
+</div>
+<ul class="simple">
+<li><p>in comparison to discussions on “budget” it seems like discussions on “resolutions” are less frequent and tend towards the earlier part of the year</p></li>
+</ul>
 </section>
-<section id="possible-solution-stem-each-word-prior-to-counting">
-<h2>Possible Solution: Stem Each Word Prior to Counting<a class="headerlink" href="#possible-solution-stem-each-word-prior-to-counting" title="Permalink to this heading">#</a></h2>
+<section id="possible-solution-word-stems">
+<h2>Possible Solution: Word Stems<a class="headerlink" href="#possible-solution-word-stems" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>moving on to the second problem we mentioned, should “we include all the variants of a word in it’s count”</p></li>
+<li><p>for example should “budget” have a different count from “budgeting” and “budgets”</p></li>
+<li><p>in certain cases you want to keep these words separate but in many cases you may want to combine them</p></li>
+<li><p>this is done via a process called “stemming” – finding the “stem” of a word</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>just like “stop word” filtering is so common that there are tools for it, so is “stemming”</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">SnowballStemmer</span>
+
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="s2">&quot;budgeting&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;budget&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;budgets&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;house&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;housing&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;houses&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bike&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bikes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bicycle&quot;</span><span class="p">,</span>
+<span class="p">]:</span>
+    <span class="n">stemmed</span> <span class="o">=</span> <span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting word: &#39;</span><span class="si">{</span><span class="n">word</span><span class="si">}</span><span class="s2">&#39;, stemmed form: &#39;</span><span class="si">{</span><span class="n">stemmed</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting word: &#39;budgeting&#39;, stemmed form: &#39;budget&#39;
+Starting word: &#39;budget&#39;, stemmed form: &#39;budget&#39;
+Starting word: &#39;budgets&#39;, stemmed form: &#39;budget&#39;
+Starting word: &#39;house&#39;, stemmed form: &#39;hous&#39;
+Starting word: &#39;housing&#39;, stemmed form: &#39;hous&#39;
+Starting word: &#39;houses&#39;, stemmed form: &#39;hous&#39;
+Starting word: &#39;bike&#39;, stemmed form: &#39;bike&#39;
+Starting word: &#39;bikes&#39;, stemmed form: &#39;bike&#39;
+Starting word: &#39;bicycle&#39;, stemmed form: &#39;bicycl&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>while there are some problems, stemming works really well to get a word down to its “stem”</p></li>
+<li><p>“budgeting”, “budget”, and “budgets” are all stemmed to “budget”</p></li>
+<li><p>“house”, “housing”, and “houses” are all stemmed to “hous”</p></li>
+<li><p>“bike” and “bikes” both stem to “bike” but “bicycle” doesn’t – so while this isn’t perfect for combining all words to their shared conceptual stem, it does combines a lot of words well</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>lets add this into the <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> so this stemming process is done for us during counting</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create custom CountVectorizer with stemming</span>
+<span class="k">class</span> <span class="nc">StemmedCountVectorizer</span><span class="p">(</span><span class="n">CountVectorizer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Get original CountVec analyzer</span>
+        <span class="n">analyzer</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">StemmedCountVectorizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()</span>
+
+        <span class="c1"># Create stemmer object</span>
+        <span class="n">stemmer</span> <span class="o">=</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Stem words prior to counting</span>
+        <span class="k">return</span> <span class="k">lambda</span> <span class="n">doc</span><span class="p">:</span> <span class="p">([</span><span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">analyzer</span><span class="p">(</span><span class="n">doc</span><span class="p">)])</span>
+
+<span class="c1"># Initialize this custom count vectorizer</span>
+<span class="n">count_vec_with_stemming</span> <span class="o">=</span> <span class="n">StemmedCountVectorizer</span><span class="p">(</span>
+    <span class="n">stop_words</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+    <span class="n">strip_accents</span><span class="o">=</span><span class="s2">&quot;ascii&quot;</span><span class="p">,</span>
+    <span class="n">min_df</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Process the text and store to new DataFrame</span>
+<span class="n">stemmed_meeting_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">count_vec_with_stemming</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">count_vec_with_stemming</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span>
+
+<span class="c1"># Add session metadata</span>
+<span class="n">stemmed_meeting_counts</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">id</span>
+<span class="n">stemmed_meeting_counts</span><span class="p">[</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">session_datetime</span>
+
+<span class="c1"># Melt</span>
+<span class="n">stemmed_meeting_counts</span> <span class="o">=</span> <span class="n">stemmed_meeting_counts</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+    <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;session_datetime&quot;</span><span class="p">],</span>
+    <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;word_&quot;</span><span class="p">,</span>
+    <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;word_count&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Calculate percent use in meeting</span>
+<span class="n">stemmed_meeting_counts</span><span class="p">[</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c1"># take the current word count</span>
+    <span class="n">stemmed_meeting_counts</span><span class="p">[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span>
+    <span class="c1"># and divide by the total count of words in it&#39;s matching session</span>
+    <span class="o">/</span> <span class="n">stemmed_meeting_counts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;session_id&quot;</span><span class="p">)[</span><span class="s2">&quot;word_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">stemmed_meeting_counts</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session_id</th>
+      <th>session_datetime</th>
+      <th>word_</th>
+      <th>word_count</th>
+      <th>percent_use_in_meeting</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>589147</th>
+      <td>da5102808a71</td>
+      <td>2021-04-19 16:30:00+00:00</td>
+      <td>assur</td>
+      <td>2</td>
+      <td>0.000234</td>
+    </tr>
+    <tr>
+      <th>4668362</th>
+      <td>30c932c16ab6</td>
+      <td>2022-07-12 16:30:00+00:00</td>
+      <td>surpass</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>4824791</th>
+      <td>a4c0aaaf3c42</td>
+      <td>2022-03-02 22:00:00+00:00</td>
+      <td>timer</td>
+      <td>1</td>
+      <td>0.000115</td>
+    </tr>
+    <tr>
+      <th>5208048</th>
+      <td>d594eaa5e872</td>
+      <td>2021-06-21 16:30:00+00:00</td>
+      <td>weed</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2730693</th>
+      <td>7b73afd99aed</td>
+      <td>2020-10-19 21:00:00+00:00</td>
+      <td>keto</td>
+      <td>0</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>before we can plot terms, we need to remember that when selecting the “words” of interest, we need to get their stemmed version first</p></li>
+<li><p>for example, if we tried to select data for “house” instead of “hous” (the stemmed form of “house”) we wouldn’t get any data back</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the word we are interested in</span>
-<span class="n">housing_counts</span> <span class="o">=</span> <span class="n">rolling_30_days</span><span class="p">[</span><span class="n">rolling_30_days</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;housing&quot;</span><span class="p">,</span> <span class="s2">&quot;house&quot;</span><span class="p">,</span> <span class="s2">&quot;houses&quot;</span><span class="p">])]</span>
+<span class="n">budget_counts</span> <span class="o">=</span> <span class="n">stemmed_meeting_counts</span><span class="p">[</span>
+    <span class="n">stemmed_meeting_counts</span><span class="p">[</span><span class="s2">&quot;word_&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s2">&quot;budget&quot;</span><span class="p">)</span>
+<span class="p">]</span>
 
 <span class="c1"># Plot the responses for different events and regions</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">,</span>
-    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">housing_counts</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">budget_counts</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c97a57ec8455822864f17c6446f951007e9a93da9b851426133fa8aee26d6a24.png" src="../../_images/c97a57ec8455822864f17c6446f951007e9a93da9b851426133fa8aee26d6a24.png" />
 </div>
+</div>
+<ul class="simple">
+<li><p>lets step back again</p></li>
+<li><p>the y-axis now represents the “percent usage of any word that stems to ‘budget’” in each meeting</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>this plot may not look too different for “budget” but lets compare the unstemmed and stemmed plot for “house”</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the word we are interested in</span>
+<span class="n">unstemmed_house_counts</span> <span class="o">=</span> <span class="n">meeting_counts</span><span class="p">[</span>
+    <span class="n">meeting_counts</span><span class="p">[</span><span class="s2">&quot;word_&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;house&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">stemmed_house_counts</span> <span class="o">=</span> <span class="n">stemmed_meeting_counts</span><span class="p">[</span>
+    <span class="n">stemmed_meeting_counts</span><span class="p">[</span><span class="s2">&quot;word_&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s2">&quot;house&quot;</span><span class="p">)</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Add a variable to track if the word was stemmed or not</span>
+<span class="n">unstemmed_house_counts</span><span class="p">[</span><span class="s2">&quot;stemmed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;unstemmed&quot;</span>
+<span class="n">stemmed_house_counts</span><span class="p">[</span><span class="s2">&quot;stemmed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;stemmed&quot;</span>
+
+<span class="c1"># Combine the data into a single frame</span>
+<span class="n">stemmed_and_unstemmed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">unstemmed_house_counts</span><span class="p">,</span> <span class="n">stemmed_house_counts</span><span class="p">])</span>
+
+<span class="c1"># Plot the responses for different events and regions</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;session_datetime&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;percent_use_in_meeting&quot;</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;stemmed&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">stemmed_and_unstemmed</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/8dc0d76aa4d2cf819bf77a6111b1d449869f2c30052588c7d2ff98ee8ba7a5c1.png" src="../../_images/8dc0d76aa4d2cf819bf77a6111b1d449869f2c30052588c7d2ff98ee8ba7a5c1.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>the difference is stark, with stemming, we can see the larger view of discussion involving any of the variants of “house”</p></li>
+</ul>
 </section>
 </section>
 
@@ -1131,28 +1791,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Counting Words</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-count">Let’s Count</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngrams">Ngrams</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-transcript-data">Working With Transcript Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stopping-here-for-now-continue-later">STOPPING HERE FOR NOW. CONTINUE LATER</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-count-words">How to Count Words</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn-count-vectorizer">Scikit Learn Count Vectorizer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#words">Words?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pass-in-all-documents-at-once">Pass In All Documents At Once</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#most-common-words-average-across-all-meetings">Most Common Words (Average Across All Meetings)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-this-deceptive">Why Is This Deceptive?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-most-common-words-averaged-across-all-meetings">Finding the Most Common Words Averaged Across All Meetings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-words-are-filler-words">Common Words Are Filler Words?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-across-time-instead-of-averaging">Looking Across Time Instead of Averaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-problems">Possible Problems?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-make-each-word-count-a-percentage-of-total-words-for-the-meeting">Possible Solution: Make Each Word Count a “Percentage” of Total Words for The Meeting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replot">Replot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-rolling-mean-over-one-month">Possible Solution: Rolling Mean Over One Month</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-stem-each-word-prior-to-counting">Possible Solution: Stem Each Word Prior to Counting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-solution-word-stems">Possible Solution: Word Stems</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

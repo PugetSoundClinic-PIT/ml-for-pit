@@ -3,3 +3,5 @@ jupyter-book>=0.14
 cdp-data[plot,transformers]>=0.0.10
 spacy>=3.5.2
 spacytextblob>=4.0.0
+umap-learn[plot]>=0.5.3
+hdbscan>=0.8.29

@@ -15,3 +15,9 @@ parts:
 - caption: Counting Words
   chapters:
   - file: content/03/lecture.ipynb
+- caption: Semantic Embeddings
+  chapters:
+  - file: content/04/lecture.ipynb
+- caption: Text Classification
+  chapters:
+  - file: content/05/lecture.ipynb

@@ -1,0 +1,1188 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Lecture 5 – Text Classification &#8212; Machine Learning for Public Interest Technologists</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/05/lecture';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Machine Learning for Public Interest Technologists - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Machine Learning for Public Interest Technologists - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Machine Learning (and analysis) for Public Interest Technologists
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">About This Course</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01/lecture.html">Lecture 1 – About This Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/exercise.html">Exercise 1 – Getting Setup with Colab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/reference.html">Exercise 1 – Reference Code</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Municipal Legislative Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02/lecture.html">Municipal Legislative (Text) Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Counting Words</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03/lecture.html">Lecture 3 – Counting Words</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PugetSoundClinic-PIT/ml-for-pit/blob/main/content/05/lecture.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/05/lecture.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/05/lecture.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 5 – Text Classification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models-and-evaluation">Models and Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-classification-model">An Example Classification Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-splitting">Data Splitting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-tfidf-vectorized-model">Training the TFIDF Vectorized Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tfidf-model-evaluation">TFIDF Model Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-tfidf-model-per-label">Evaluating the TFIDF Model per Label</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-tfidf-model-per-weight-per-label">Evaluating the TFIDF Model per Weight per Label</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-semantic-embedding-model">Training the Semantic Embedding Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#packaging-our-model">Packaging our Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-our-model-to-unseen-text">Applying our Model to Unseen Text</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-5-text-classification">
+<h1>Lecture 5 – Text Classification<a class="headerlink" href="#lecture-5-text-classification" title="Permalink to this heading">#</a></h1>
+<section id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>one of the most common tasks in working with text is in classifying texts</p></li>
+<li><p>this can include things like classifying the topic of the text, the sentiment (is the text positive or negative), is the text toxic, etc.</p></li>
+<li><p>the general idea is that it’s useful to categorize text. Instead of having a big blob of text, here is it’s classification for which scientists, users, etc. can filter, subset, search, and utilize.</p></li>
+<li><p>for our use case, there are a couple of text classification models that we might be interested in</p>
+<ul>
+<li><p>sentiment classification models are pretty universally useful – in our case, potentially using them when paired with public comments to see how many comments are positive or negative in tone</p></li>
+<li><p>topic classification models specific to legislative topics – i.e. general topic models might have too broad of a topic for our use cases, we might want to be able to classify discussion to finer grain discussion points</p></li>
+<li><p>identifying portions of the meeting by type – i.e. “this general section of text is public comment, this general section is discussion on a bill”, “a presentation”, “voting”, etc.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="models-and-evaluation">
+<h2>Models and Evaluation<a class="headerlink" href="#models-and-evaluation" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>we will not be covering how these models work, but rather their application on our dataset</p></li>
+<li><p>for a quick intro on logit models, watch these two videos: <a class="reference external" href="https://www.youtube.com/watch?v=7ArmBVF2dCs">https://www.youtube.com/watch?v=7ArmBVF2dCs</a> and <a class="reference external" href="https://www.youtube.com/watch?v=yIYKR4sgzI8">https://www.youtube.com/watch?v=yIYKR4sgzI8</a></p></li>
+<li><p>For even more details, see: Dr. Mine Çetinkaya-Rundel’s “Simple Linear Regression” Lecture: <a class="reference external" href="https://sta210-s22.github.io/website/slides/lec-2.html">https://sta210-s22.github.io/website/slides/lec-2.html</a> as an intro and then “Logistic Regression” lecture: <a class="reference external" href="https://sta210-s22.github.io/website/slides/lec-18.html#/topics">https://sta210-s22.github.io/website/slides/lec-18.html#/topics</a>, then multinomial logistic regression: <a class="reference external" href="https://sta210-s22.github.io/website/slides/lec-23.html#/title-slide">https://sta210-s22.github.io/website/slides/lec-23.html#/title-slide</a></p></li>
+<li><p>it is also important to test your models performance</p></li>
+</ul>
+</section>
+<section id="an-example-classification-model">
+<h2>An Example Classification Model<a class="headerlink" href="#an-example-classification-model" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Let’s train two versions of the same classifier, one using the <code class="docutils literal notranslate"><span class="pre">TFIDFVectorizer</span></code> that we have already learned about to encode the text, and one using semantic embedding models to encode the text</p></li>
+<li><p>We will be using a dataset of short text snippets, three sentences in length, and manual annotations of the general topic or purpose of the text</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Load labeled text</span>
+<span class="n">labeled_text_snippets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;text-snippets-labeled.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show some examples for each label</span>
+<span class="k">for</span> <span class="n">topic</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">labeled_text_snippets</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;topic&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">topic</span><span class="p">)</span>
+    <span class="n">group_sample</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">group_sample</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="si">{</span><span class="n">sample</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>admin
+	No, thank you. Okay. Will the clerk please call the roll on the adoption of Amendment 3?
+	Hearing no comments. Will the clerk please call the role on the committee recommendation that the ap
+	Will the clerk please call the roll? Councilmember Lewis? Present.
+budget
+	The driving decreases. In that revenue stream or a slower. Rate of increase.
+	Given that this legislation is coming up after budget decisions for 2022 have already been made, the
+	They&#39;re they&#39;re one-time sources. That just won&#39;t be available. As well as the 65 million from the.
+housing
+	Every six months is a tremendous burden for a small landlord like me, which means that I have to com
+	It will be good to have more data about the rent landlords charge. This bill simply requires landlor
+	So the renters who have, for example, been suffering with no heat for months prior to the incident, 
+labor
+	Perhaps this was a clarifying question for central staff chapter 8.37 is in effect, eliminating this
+	Each order only pay $4. Sometimes that didn&#39;t even cover our gas and mileage cost. Gopal used to be 
+	There are those that are without cause, but the cancellation with cause is an exhaustive list, thoug
+parks
+	Over a weekend a few years ago, I saw some big trees being cut at the Wedgewood pool, and neighbor f
+	Council Bill 120207, sponsored by Councilmember Peterson and myself, which will require registration
+	The change from just three days before tree removal to three business days to avoid a scenario in wh
+police
+	Council member, if I could add on to that. Yes, go ahead, please. So if, if, if there is a new techn
+	I think Mr. Maxey is correct that there is some ambiguity there in terms of... I think the initial r
+	The audio recording systems contribute to our abilities by allowing us to record conversations relat
+present
+	Present. Councilmember Nelson? Present.
+	Councilmember Nelson? Present. Councilmember or Council President Pro Tem Lewis?
+	Present. Council Member Herbold? Chair Mosqueda?
+public
+	Star six unmute. Perfect. Good morning, Councilmembers.
+	If speakers don&#39;t end their comments at the end of the allotted time, the speaker&#39;s microphone will 
+	That is your cue that it&#39;s your turn to speak. At that time, you must press star six. You will then 
+transport
+	It would also include a new vehicular overpass at Lander and at Holgate. The rationale for this was 
+	We find the 5th Avenue route unacceptable. Please remember, 134 years ago, the Chinese were forcibly
+	With slide, I may be speaking out of my district come out of my turn, I just want to look at this an
+voting
+	Councilmember Peterson? Present. Councilmember Sawant?
+	Three In favor one opposed one abstention. Amendment seven Passes. We&#39;re going
+	Council Member Mosqueda? Aye. Council Member Peterson?
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>hopefully you can already see that each piece of text seems to related to it’s associated topic</p></li>
+<li><p>For another quick peek into the data we can print the counts of examples for each topic.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labeled_text_snippets</span><span class="o">.</span><span class="n">topic</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>labor        783
+budget       635
+public       385
+police       313
+housing      298
+transport    234
+admin        181
+voting       164
+parks        108
+present       96
+Name: topic, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-splitting">
+<h3>Data Splitting<a class="headerlink" href="#data-splitting" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>One of the most crucial parts of training any model is splitting the data into training and testing sets</p></li>
+<li><p>We will use the <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> function from <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> to split our data into training and testing sets</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Create splits</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="c1"># &quot;x&quot;: the inputs</span>
+    <span class="n">labeled_text_snippets</span><span class="p">,</span>
+    <span class="c1"># &quot;y&quot;: the outputs</span>
+    <span class="n">labeled_text_snippets</span><span class="o">.</span><span class="n">topic</span><span class="p">,</span>
+    <span class="c1"># a percentage of how much data should be placed into a &quot;test&quot; set</span>
+    <span class="c1"># 0.4 = 40%</span>
+    <span class="c1"># common test sizes range from 0.1 to 0.4</span>
+    <span class="c1"># depending on how much data you have available</span>
+    <span class="c1"># and how much data you feel comfortable using as proof of your model&#39;s performance</span>
+    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+    <span class="c1"># stratify the data to ensure that the test set has the same</span>
+    <span class="c1"># class distribution as the training set</span>
+    <span class="c1"># i.e. if the training set has 10% class A and 90% class B</span>
+    <span class="c1"># then the test set should also have 10% class A and 90% class B</span>
+    <span class="n">stratify</span><span class="o">=</span><span class="n">labeled_text_snippets</span><span class="o">.</span><span class="n">topic</span><span class="p">,</span>
+    <span class="c1"># it&#39;s always useful to control randomness!</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Show the class distribution</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TRAINING COUNTS&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TESTING COUNTS&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TRAINING COUNTS
+labor        470
+budget       381
+public       231
+police       188
+housing      179
+transport    140
+admin        108
+voting        98
+parks         65
+present       58
+Name: topic, dtype: int64
+
+
+TESTING COUNTS
+labor        313
+budget       254
+public       154
+police       125
+housing      119
+transport     94
+admin         73
+voting        66
+parks         43
+present       38
+Name: topic, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="training-the-tfidf-vectorized-model">
+<h3>Training the TFIDF Vectorized Model<a class="headerlink" href="#training-the-tfidf-vectorized-model" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>now that we have our data split up into train and test splits,
+we will use the <code class="docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code> to vectorize our text data</p></li>
+<li><p>in general, this is the same setup as we have used before but with three major changes:</p>
+<ol class="arabic simple">
+<li><p>first we aren’t going to stem each word, we will leave them as is for the sake of simplicity</p></li>
+<li><p>we are going to create unigrams (1 word tokens) and bigrams (2 word tokens)</p></li>
+<li><p>we are going to limit the number of features to 1024. this helps with two things, first, it helps with overfitting, where the model might learn that single words that appear rarely have an outsized impact on the model, and two, it reduces the size of the model which means faster to train and iterate on</p></li>
+</ol>
+</li>
+<li><p>notably, the first step of this process is to call <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> on the <code class="docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code> with ONLY the training data</p></li>
+<li><p>this is because we want to learn the vocabulary of the training data, and then use that vocabulary to vectorize the test data</p></li>
+<li><p>if we vectorized the test data in addition to the training data, we would be using information that we shouldn’t have access to in the real world</p></li>
+<li><p>after we have vectorized the training data, we can then vectorize the test data using the <code class="docutils literal notranslate"><span class="pre">transform</span></code> method</p></li>
+<li><p>finally, we will use the training data (and the training labels) to train a logistic regression model</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegressionCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">precision_recall_fscore_support</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Create tfidf vectorized text</span>
+<span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span>
+    <span class="n">strip_accents</span><span class="o">=</span><span class="s2">&quot;unicode&quot;</span><span class="p">,</span>
+    <span class="n">stop_words</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+    <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="c1"># Select top 1024 features instead of all</span>
+    <span class="c1"># this drastically reduces the size of the model</span>
+    <span class="n">max_features</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">tfidf_x_train</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">tfidf_x_test</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="c1"># Train model</span>
+<span class="n">tfidf_clf</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">tfidf_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tfidf_x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegressionCV(max_iter=500, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">LogisticRegressionCV</label><div class="sk-toggleable__content"><pre>LogisticRegressionCV(max_iter=500, random_state=42)</pre></div></div></div></div></div></div></div>
+</div>
+</section>
+<section id="tfidf-model-evaluation">
+<h3>TFIDF Model Evaluation<a class="headerlink" href="#tfidf-model-evaluation" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>it seems like our model training completed without error but we still need to evaluate the model itself using the test data we set aside earlier</p></li>
+<li><p>we will use the <code class="docutils literal notranslate"><span class="pre">predict</span></code> method of the trained classifier to predict the labels for the test data</p></li>
+<li><p>and then we will get the precision, recall, and f1 scores for the model using the <code class="docutils literal notranslate"><span class="pre">precision_recall_fscore_support</span></code> function from <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Eval</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tfidf_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tfidf_x_test</span><span class="p">)</span>
+<span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, F1: </span><span class="si">{</span><span class="n">f1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision: 0.934, Recall: 0.932, F1: 0.932
+</pre></div>
+</div>
+</div>
+</div>
+<section id="evaluating-the-tfidf-model-per-label">
+<h4>Evaluating the TFIDF Model per Label<a class="headerlink" href="#evaluating-the-tfidf-model-per-label" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>the overall model performance seems pretty great! we have a high f1 score and high precision and recall</p></li>
+<li><p>but note: we used <code class="docutils literal notranslate"><span class="pre">average=&quot;weighted&quot;</span></code> which means it generates the scores <em>per label</em> and then takes the weighted average of all of them together</p></li>
+<li><p>so while these seems great, we should always review the “confusion” matrix to see how the model performed per label</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confusion per label</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">tfidf_clf</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/bf453ebe3be9707d73372e0219af9ca42ccfc92331970f2977071c25d3b12340.png" src="../../_images/bf453ebe3be9707d73372e0219af9ca42ccfc92331970f2977071c25d3b12340.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>a confusion matrix can be intrepreted by looking at each row as the “true label” and each column as the “predicted label”</p></li>
+<li><p>in a perfect classification model, we would have a diagonal line of high values and everything else would be zero, meaning that every single example was classified into the correct label</p></li>
+<li><p>in our case, it seems like we are doing very well. as most of the data is on the diagonal but there are some cases that jump out at us</p></li>
+<li><p>for example, we have 12 examples that were predicted to be discussing something “budget” related but should their true label is actually that they are discussing “labor” related</p></li>
+<li><p>similarly, 13 examples were predicted to be discussing “budget” but were actually discussing “police”</p></li>
+</ul>
+</section>
+<section id="evaluating-the-tfidf-model-per-weight-per-label">
+<h4>Evaluating the TFIDF Model per Weight per Label<a class="headerlink" href="#evaluating-the-tfidf-model-per-weight-per-label" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>one of the benefits of using a TFIDF logistic regression model is that we can look at the weights of each feature to see what words are having the most impact on the model</p></li>
+<li><p>we can do this by using a package called <code class="docutils literal notranslate"><span class="pre">eli5</span></code> (“explain like im 5”) to look at the weights of each feature</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">eli5.sklearn</span> <span class="kn">import</span> <span class="n">explain_linear_regressor_weights</span>
+
+<span class="n">explain_linear_regressor_weights</span><span class="p">(</span>
+    <span class="c1"># the classifier</span>
+    <span class="n">tfidf_clf</span><span class="p">,</span>
+    <span class="c1"># the vectorizer that was used to transform the text</span>
+    <span class="n">vec</span><span class="o">=</span><span class="n">tfidf_vectorizer</span><span class="p">,</span>
+    <span class="c1"># how many features to show in both the positive and negative directions</span>
+    <span class="c1"># i.e. show the top 10 features that positively affect a classification decision in-favor of this label</span>
+    <span class="c1"># and show the top 10 features that negatively affect a classification decision against this label</span>
+    <span class="n">top</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="c1"># the &quot;labels&quot;</span>
+    <span class="n">target_names</span><span class="o">=</span><span class="n">tfidf_clf</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span>
+    <span class="c1"># the feature names (in this case, the actual words)</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">eli5.sklearn</span> <span class="kn">import</span> <span class="n">explain_linear_regressor_weights</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">explain_linear_regressor_weights</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="c1"># the classifier</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">tfidf_clf</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="n">feature_names</span><span class="o">=</span><span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;eli5&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>using <code class="docutils literal notranslate"><span class="pre">eli5</span></code> we can see the exact words (or ngrams) which are having the most impact on the model</p></li>
+<li><p>for example for the label “parks” we can see that the top two words are “tree” and “trees” which provide 10.816 and 9.731 points of weight respectively</p></li>
+<li><p>this makes sense, as we would expect that the word “tree” would be a good indicator that the text is discussing “parks”</p></li>
+<li><p>similarly, if we look at the weights for “housing” we can see that the most beneficial words for a piece of text to have are “landlords”, “housing”, “rental”, “renters”, “rent”, etc.</p></li>
+<li><p>further we can see that the most detrimental words for a piece of text to be labeled as “housing” are “tree”, “public”, “councilmember”, “budget”, etc. this might make sense because some of these words (like “tree”) aren’t usually used in discussions about housing and other words like “budget” might not come up because housing discussions might be more focused on regulations and initiatives rather than funding</p></li>
+</ul>
+<p>HOWEVER, there are some clear examples of why a <code class="docutils literal notranslate"><span class="pre">TfidfVectorized</span></code> model is good if you dataset is highly specific but bad if your dataset is more general.</p>
+<ul class="simple">
+<li><p>for example, we can see that for the label “present” (when roll call is happening and councilmembers are signing in) the most beneficial words are the councilmembers own names (“nelson”, “lewis”, “peterson”, “mosqueda”, etc.). This might be create if we only ever wanted to apply this model to data from the city of seattle council meetings but if we wanted to apply this model to other city council meetings, this existing model would not be very useful.</p></li>
+<li><p>similarly, even if we were only planning on applying this model to seattle city council meetings, but we wanted to apply the model over a large time period, the model might not work very well because the councilmembers change over time</p></li>
+<li><p>as discussed before, semantic embeddings tend to solve this problem as they are able to learn the conceptual meanings of the words rather than just counting their appearances, lets move on to training a model using semantic embeddings and compare the performance</p></li>
+</ul>
+</section>
+</section>
+<section id="training-the-semantic-embedding-model">
+<h3>Training the Semantic Embedding Model<a class="headerlink" href="#training-the-semantic-embedding-model" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>we are largely going to reuse a lot of the same code from the TFIDF model as we are only changing the vectorizer (the thing that converts text to an array)</p></li>
+<li><p>in this case we are using the <code class="docutils literal notranslate"><span class="pre">SentenceTransformer</span></code> class from the <code class="docutils literal notranslate"><span class="pre">sentence_transformers</span></code> package to encode our text</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="c1"># Load the model</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;BAAI/bge-base-en-v1.5&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create embedded text values</span>
+<span class="n">embedded_x_train</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">show_progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">embedded_x_text</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">show_progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Train model</span>
+<span class="n">trsfmr_clf</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">trsfmr_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">embedded_x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Eval</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">trsfmr_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">embedded_x_text</span><span class="p">)</span>
+<span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, F1: </span><span class="si">{</span><span class="n">f1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Confusion per label</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">trsfmr_clf</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4063dd9a63fe492d9604ac225e7d79ef", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "ccee801f1fb94451a65667ec145e09b6", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision: 0.984, Recall: 0.984, F1: 0.984
+</pre></div>
+</div>
+<img alt="../../_images/43035d864b2c1368b24b8f266d093d45faf491a443dc133ab136200d9e0c2f00.png" src="../../_images/43035d864b2c1368b24b8f266d093d45faf491a443dc133ab136200d9e0c2f00.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>from both the overall metrics and the confusion matrix, it seems like the semantic embedding model outperforms the TFIDF model</p></li>
+<li><p>specifically, from the confusion matrix it seems like we have almost a perfect diagonal line of correct predictions with some scattered incorrect predictions across the whole set.</p></li>
+</ul>
+</section>
+</section>
+<section id="packaging-our-model">
+<h2>Packaging our Model<a class="headerlink" href="#packaging-our-model" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>it seems like our semantic embedding model out-performed our tfidf model, so lets save the trained model to a file so we can reuse it and reload it later</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">skops.io</span> <span class="k">as</span> <span class="nn">sklearn_io</span>
+
+<span class="c1"># Save the model</span>
+<span class="n">sklearn_io</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">trsfmr_clf</span><span class="p">,</span> <span class="s2">&quot;semantic-classifier.skops&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>for example, here is how you would reload the model</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_model</span> <span class="o">=</span> <span class="n">sklearn_io</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;semantic-classifier.skops&quot;</span><span class="p">)</span>
+<span class="n">new_model</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegressionCV(max_iter=500, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">LogisticRegressionCV</label><div class="sk-toggleable__content"><pre>LogisticRegressionCV(max_iter=500, random_state=42)</pre></div></div></div></div></div></div></div>
+</div>
+</section>
+<section id="applying-our-model-to-unseen-text">
+<h2>Applying our Model to Unseen Text<a class="headerlink" href="#applying-our-model-to-unseen-text" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>To get some unseen text to the model, we can pull a sample of meetings from an entirely different council and create some text snippets to classify</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">CDPInstances</span>
+<span class="kn">from</span> <span class="nn">cdp_backend.pipeline.transcript_model</span> <span class="kn">import</span> <span class="n">Transcript</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="c1"># pull meeting sessions from king county council</span>
+<span class="n">sessions</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
+    <span class="n">CDPInstances</span><span class="o">.</span><span class="n">KingCounty</span><span class="p">,</span>
+    <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2022-03-15&quot;</span><span class="p">,</span>
+    <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2022-03-21&quot;</span><span class="p">,</span>
+    <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Go from 0 to end with 3 sentence steps</span>
+<span class="c1"># iterate over all sessions, and for each session read the transcript</span>
+<span class="c1"># then for each triple of sentences in the transcript form a text snippet</span>
+<span class="n">text_snippets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">step_size</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">for</span> <span class="n">__</span><span class="p">,</span> <span class="n">session</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">sessions</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;sessions&quot;</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)):</span>
+    <span class="c1"># Read transcript</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">transcript_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_f</span><span class="p">:</span>
+        <span class="n">transcript</span> <span class="o">=</span> <span class="n">Transcript</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">open_f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+    <span class="k">for</span> <span class="n">sent_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">transcript</span><span class="o">.</span><span class="n">sentences</span><span class="p">),</span> <span class="n">step_size</span><span class="p">):</span>
+        <span class="n">sentence_block</span> <span class="o">=</span> <span class="n">transcript</span><span class="o">.</span><span class="n">sentences</span><span class="p">[</span><span class="n">sent_index</span><span class="p">:</span> <span class="n">sent_index</span> <span class="o">+</span> <span class="n">step_size</span><span class="p">]</span>
+        <span class="n">text_snippets</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">s</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sentence_block</span><span class="p">]),</span>
+            <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+        <span class="p">})</span>
+
+<span class="c1"># Store to dataframe and get embeddings</span>
+<span class="n">text_snippets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">text_snippets</span><span class="p">)</span>
+<span class="n">text_snippets</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2aa0b2f042834f3884bb8cf66a464b49", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "aa3abe690a684623bf7f10910024373d", "version_major": 2, "version_minor": 0}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sessions: 100%|██████████| 5/5 [00:04&lt;00:00,  1.09it/s]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>text</th>
+      <th>session_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1209</th>
+      <td>We been able to D intensify shelters for peopl...</td>
+      <td>6e74f7b07550</td>
+    </tr>
+    <tr>
+      <th>239</th>
+      <td>Would you be willing to put ordinance, 2022, 0...</td>
+      <td>6ef1d637f401</td>
+    </tr>
+    <tr>
+      <th>814</th>
+      <td>What are the funding opportunity? They could t...</td>
+      <td>44057c62713a</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>first we need to get semantic encodings for each of the text snippets</p></li>
+<li><p>then lets use the loaded model (just for demonstration that the newly loaded model acts the same as the original) and predict a label for each text snippet</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Create a new encoder (not needed if you already have one loaded)</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;BAAI/bge-base-en-v1.5&quot;</span><span class="p">)</span>
+
+<span class="c1"># Created embedded values for each piece of text</span>
+<span class="n">text_snippets</span><span class="p">[</span><span class="s2">&quot;embedding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">encoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text_snippets</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">show_progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="c1"># Classify using the embeddings</span>
+<span class="n">text_snippets</span><span class="p">[</span><span class="s2">&quot;topic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">new_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">text_snippets</span><span class="o">.</span><span class="n">embedding</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>
+<span class="n">text_snippets</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "46c8907dbd4b40a8a35d84f8e4c6ed8c", "version_major": 2, "version_minor": 0}</script><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>text</th>
+      <th>session_id</th>
+      <th>embedding</th>
+      <th>topic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>105</th>
+      <td>Okay, here, Lou welcome. And the floor is your...</td>
+      <td>6ef1d637f401</td>
+      <td>[0.016617041, -0.016158227, 0.019799111, -0.03...</td>
+      <td>public</td>
+    </tr>
+    <tr>
+      <th>1199</th>
+      <td>We've put committees together and we use these...</td>
+      <td>6e74f7b07550</td>
+      <td>[0.034155205, -0.0217096, 0.00835186, 0.003042...</td>
+      <td>budget</td>
+    </tr>
+    <tr>
+      <th>1292</th>
+      <td>Other discussion.  On anything that is poor t...</td>
+      <td>6e74f7b07550</td>
+      <td>[0.013785125, -0.01614475, 0.0105166305, 0.002...</td>
+      <td>labor</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Take groups of text snippets and display examples of text</span>
+<span class="k">for</span> <span class="n">topic</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">text_snippets</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;topic&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">topic</span><span class="p">)</span>
+    <span class="n">group_sample</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">group_sample</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="si">{</span><span class="n">sample</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>admin
+	Hi, mr. Chair. The vote is seven eyes and council members are highly excused.
+	Welcome to the mic 16 2022 remote meeting of the committee of the whole. I am Jean Caldwell&#39;s and I&#39;
+	For non elected, members of the Board of Health. And then, to take up that bring those of nominees b
+budget
+	I believe it was stated that they were 20 2000 5 6 etcetera. It is 2022 in each of those legislative
+	This is a program we&#39;ve had around for a while. And in this case, a permission doubled, the amount o
+	And what Felicia and I talked about daily is, are we aligned granularly? Right? Like, so like, we ha
+housing
+	Whether it&#39;s the federal government, whether it&#39;s County government, the flood District, very import
+	This document serves at the as the update to the 2005 plan and in 1999, the Puget. Sound should exam
+	I&#39;m Susie Levy board, administrator with public health, Seattle, King County. I&#39;m going to take a fe
+labor
+	 You of the recruitment and selection process. I would mention that the board will need to take up a
+	 On vaccine sites paid for those and we&#39;re committed to stay on the east side until 80% of the commu
+	Letting you know about other options will support, what they can be able to access. The proper fit f
+parks
+	March 15, 20 21 meeting of the Metropolitan County, council&#39;s, transportation economy, and environme
+	So I&#39;ll go ahead and get started to keep us on track, but good, morning, chair members of the tree c
+	The plan updates are ratified by the parties before they&#39;re submitted to any federal or state agency
+police
+	So a couple quick questions first is I heard in Jake&#39;s report comment about  Being a tool that will 
+	 The current and planned actions by the city of Seattle and Seattle Police Department on Third Avenu
+	 Thank you very much. I do not see any other hands raised. I want to thank you very much Mitchell fo
+present
+	Remember Morales here? Remember, mascara, present?  Board member Baker Gordon, I hear board member D
+	 Here.  Councilmember Jennifer Robertson here.  Councilmember D Michelle here.
+	 Deputy Mayor Robertson.  Councilmember Peterson.  Councilmember Strauss.
+public
+	Let&#39;s do it. Okay. Go ahead, mayor Polly.
+	In terms of how you&#39;re going to present to us. Would you like to be interrupted for questions or wai
+	 The eyes have it, the miniature approved.  Next on our agenda is public comment and I want to be su
+transport
+	Approving the updates, but it&#39;s a good chance to reflect on the work that still needs to be done.  Y
+	 Are far fewer resources or perhaps in some areas? No resources for social services supports and how
+	I&#39;m very excited that my mayor of one of our mayor&#39;s in the 10 cities of our district district 3 may
+voting
+	Councilmember Balducci.  Thank you so much, cheer trattner. I am.
+	Please. Signify by saying aye hi. I was opposed nay.
+	Joe. I move adoption. I move.
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>some of these predictions seem correct and some are a bit hard to follow</p></li>
+<li><p>TODO: method for further debugging?</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/05"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models-and-evaluation">Models and Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-classification-model">An Example Classification Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-splitting">Data Splitting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-tfidf-vectorized-model">Training the TFIDF Vectorized Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tfidf-model-evaluation">TFIDF Model Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-tfidf-model-per-label">Evaluating the TFIDF Model per Label</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-tfidf-model-per-weight-per-label">Evaluating the TFIDF Model per Weight per Label</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-semantic-embedding-model">Training the Semantic Embedding Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#packaging-our-model">Packaging our Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-our-model-to-unseen-text">Applying our Model to Unseen Text</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Eva Maxfield Brown and Nic Weber
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

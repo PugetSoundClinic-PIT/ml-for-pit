@@ -36,6 +36,6 @@ for part in tqdm(parts):
     summary = summarizer(part)[0]["summary_text"]
     results.append(summary)
 
-print(" ".join(results))
+print("\n\n".join(results))
 -------------------
 

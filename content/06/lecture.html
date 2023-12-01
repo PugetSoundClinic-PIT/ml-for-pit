@@ -1,0 +1,942 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Lecture 6 – Pre-trained Models &#8212; Machine Learning for Public Interest Technologists</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/06/lecture';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Machine Learning for Public Interest Technologists - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Machine Learning for Public Interest Technologists - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Machine Learning (and analysis) for Public Interest Technologists
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">About This Course</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01/lecture.html">Lecture 1 – About This Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/exercise.html">Exercise 1 – Getting Setup with Colab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/reference.html">Exercise 1 – Reference Code</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Municipal Legislative Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02/lecture.html">Lecture 2 – Municipal Legislative (Text) Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Counting Words</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03/lecture.html">Lecture 3 – Counting Words</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Semantic Embeddings</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04/lecture.html">Lecture 4 – Semantic Embeddings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Text Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05/lecture.html">Lecture 5 – Text Classification</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PugetSoundClinic-PIT/ml-for-pit/blob/main/content/06/lecture.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/06/lecture.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/06/lecture.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 6 – Pre-trained Models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalization-vs-specialization">Generalization vs Specialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-and-huggingface">Transformers and Huggingface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-analysis">Sentiment Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-warnings">Limitations and Warnings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization">Summarization</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-6-pre-trained-models">
+<h1>Lecture 6 – Pre-trained Models<a class="headerlink" href="#lecture-6-pre-trained-models" title="Permalink to this heading">#</a></h1>
+<section id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>in many cases, training your own model may be the best thing you can do as you have full control over the data, training, and the evaluation process.</p></li>
+<li><p>however, this lecture will go over pre-trained models and more generally, models that are freely available for you to use.</p></li>
+<li><p>pretrained and freely available models have become incredibly common and are often a good starting point for experimentation and more.</p></li>
+<li><p>we will go over a few examples of pretrained models and how to use them including models for:</p>
+<ul>
+<li><p>sentiment analysis</p></li>
+<li><p>summarization</p></li>
+<li><p>named entity recognition</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="generalization-vs-specialization">
+<h2>Generalization vs Specialization<a class="headerlink" href="#generalization-vs-specialization" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>in the prior chapter we talked about how for some tasks we need to train our own model because we want to define the annotation criteria or we are in a very niche sub-domain.</p></li>
+<li><p>however, using pre-trained models that are general to a task can also be quite useful – especially considering that they were likely trained with more data than the dataset you are working with</p></li>
+</ul>
+</section>
+<section id="transformers-and-huggingface">
+<h2>Transformers and Huggingface<a class="headerlink" href="#transformers-and-huggingface" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>We have introduced and used transformers, a model architecture</p></li>
+<li><p>huggingface is a company which builds tools around various model architectures to make them easily shareable</p></li>
+<li><p>for example, here is a link to their website in which you can search and browse for available models: <a class="reference external" href="https://huggingface.co/models">https://huggingface.co/models</a></p></li>
+<li><p>every single model is available for download and use and in many cases has some documentation attached to understand how to use the model in your own work</p></li>
+</ul>
+</section>
+<section id="sentiment-analysis">
+<h2>Sentiment Analysis<a class="headerlink" href="#sentiment-analysis" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>sentiment analysis is a task in which we want to predict the sentiment of a text</p></li>
+<li><p>sentiment is often defined as positive, negative, or neutral</p></li>
+<li><p>for example, the phrase: “I love this movie” would be positive and “I hate this movie” would be negative</p></li>
+<li><p>sentiment analysis is a very common task and there are many datasets available for it</p></li>
+<li><p>for example, here is a dataset of movie reviews: <a class="reference external" href="https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews">https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews</a></p></li>
+<li><p>there are many models available for sentiment analysis on huggingface (and elsewhere) but for our examples, we will use:
+“cardiffnlp/twitter-roberta-base-sentiment-latest” (<a class="reference external" href="https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest">https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest</a>)</p>
+<ul>
+<li><p>this model was trained on millions of pairs of sentiment labeled tweets</p></li>
+</ul>
+</li>
+<li><p>lets load the model and try it on a few examples</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;cardiffnlp/twitter-roberta-base-sentiment-latest&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Predict sentiment of the statement</span>
+<span class="n">model</span><span class="p">(</span><span class="s2">&quot;I am happy to see that other members of the council are supporting this important legislation.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "57c21486373643feafb341f926f77ffe"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7a359f16ef6b47ed9088c6f868d7bcab"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Some weights of the model checkpoint at cardiffnlp/twitter-roberta-base-sentiment-latest were not used when initializing RobertaForSequenceClassification: [&#39;roberta.pooler.dense.weight&#39;, &#39;roberta.pooler.dense.bias&#39;]
+- This IS expected if you are initializing RobertaForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing RobertaForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e012ffd6fce94a6e875dfde2e96eb82a"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7aaabd84658a488ab5ebcb14df06e3e8"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "da0876ec3edf4698b647fb1df46538a8"}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;label&#39;: &#39;positive&#39;, &#39;score&#39;: 0.9804314970970154}]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>we can see that for the phrase <code class="docutils literal notranslate"><span class="pre">&quot;I</span> <span class="pre">am</span> <span class="pre">happy</span> <span class="pre">to</span> <span class="pre">see</span> <span class="pre">that</span> <span class="pre">other</span> <span class="pre">members</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">council</span> <span class="pre">are</span> <span class="pre">supporting</span> <span class="pre">this</span> <span class="pre">important</span> <span class="pre">legislation.&quot;</span></code> the model predicts a positive sentiment and given a score</p></li>
+<li><p>you can interpret the <code class="docutils literal notranslate"><span class="pre">score</span></code> value as the model’s confidence in the prediction</p></li>
+<li><p>the higher the score, the more confident the model is in the prediction (in this case, the model is very confident that the sentiment is positive)</p></li>
+<li><p>lets try a few more examples</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Give the model multiple examples at once by providing a list</span>
+<span class="n">model</span><span class="p">([</span>
+    <span class="s2">&quot;I urge the members of the committee to vote against this bill.&quot;</span><span class="p">,</span>
+    <span class="p">(</span>
+        <span class="s2">&quot;If the amendment from Councilmember Brown passes, I will vote in support of this legislation. &quot;</span>
+        <span class="s2">&quot;But without the amendment, I cannot agree to move forward with this legislation.&quot;</span>
+    <span class="p">),</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;label&#39;: &#39;negative&#39;, &#39;score&#39;: 0.8586498498916626},
+ {&#39;label&#39;: &#39;neutral&#39;, &#39;score&#39;: 0.7017704844474792}]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>This time we can see that the model is confident that the sentiment of the first example (<code class="docutils literal notranslate"><span class="pre">&quot;I</span> <span class="pre">urge</span> <span class="pre">the</span> <span class="pre">members</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">committee</span> <span class="pre">to</span> <span class="pre">vote</span> <span class="pre">against</span> <span class="pre">this</span> <span class="pre">bill.&quot;</span></code>) is negative and the second example (<code class="docutils literal notranslate"><span class="pre">&quot;But</span> <span class="pre">without</span> <span class="pre">the</span> <span class="pre">amendment,</span> <span class="pre">I</span> <span class="pre">cannot</span> <span class="pre">agree</span> <span class="pre">to</span> <span class="pre">move</span> <span class="pre">forward</span> <span class="pre">with</span> <span class="pre">this</span> <span class="pre">legislation.&quot;</span></code>) is neutral.</p></li>
+<li><p>This makes sense to me, as the second example is specifically discussing conditions of agreement or disagreement which places it somewhere in a neutral category.</p></li>
+</ul>
+<section id="limitations-and-warnings">
+<h3>Limitations and Warnings<a class="headerlink" href="#limitations-and-warnings" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Sentiment can be subjective and it is important to understand the limitations of the model and the data it was trained on, and who annotated the data.</p></li>
+<li><p>The model we used for sentiment was trained using twitter data – twitter posts are obviously different than meeting discussion</p></li>
+<li><p>this can affect the model and we should always evaluate the performance of even off the shelf models</p></li>
+<li><p>in general, when using a model, be sure to read how it was trained, what data it used for training, and understand the possible biases and problems that come from using a model trained by someone else</p></li>
+<li><p>try to find a model that was trained on data close to yours for the best results</p></li>
+</ul>
+</section>
+</section>
+<section id="summarization">
+<h2>Summarization<a class="headerlink" href="#summarization" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>summarization can be an important task for processing long documents such as multiple hour long meeting transcripts</p></li>
+<li><p>there can be direct reader benefits by trying to extract or explain the main points of a meeting for example</p></li>
+<li><p>using generated summaries can also be useful for other tasks such as information retrieval (i.e. instead of searching across the whole meeting, you can search across the summary), or for other situations in which you simply can’t fit the whole meeting into memory of the model but can fit the summary</p></li>
+<li><p>the two main types of summarization are extractive and abstractive</p></li>
+<li><p>extractive summarization is when you extract sentences from the original document and combine them to form a summary</p></li>
+<li><p>abstractive summarization is when you generate new sentences that are not in the original document to form a summary</p></li>
+<li><p>someone has already taken the time to train a model for meeting dialoge summarization: <a class="reference external" href="https://huggingface.co/knkarthick/MEETING_SUMMARY">https://huggingface.co/knkarthick/MEETING_SUMMARY</a></p></li>
+<li><p>lets use this model to generate a summary for a meeting</p></li>
+<li><p>first lets pull down some data and prep the data for the model</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">CDPInstances</span><span class="p">,</span> <span class="n">datasets</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">sessions</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
+    <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
+    <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2022-05-01&quot;</span><span class="p">,</span>
+    <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2022-05-03&quot;</span><span class="p">,</span>
+    <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">single_session_transcript</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sessions</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transcript_as_csv_path</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">single_session_transcript</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7c062ba9024c45f9ba5a7462cdcf12b1"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "ff4de18aced74424a327c5d1262909d2"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "f894493f7bb543369aaa2b58ca4af3b2"}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>855
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Because are meetings are incredibly long</span>
+<span class="c1"># lets create a strings with different portions of the meeting</span>
+<span class="c1"># to pass to the model</span>
+<span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n_sentences_per_chunk</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="nb">len</span><span class="p">(</span><span class="n">single_session_transcript</span><span class="p">),</span>
+    <span class="n">n_sentences_per_chunk</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">single_session_transcript</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span><span class="o">+</span><span class="n">n_sentences_per_chunk</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>now that we have multiple chunks, lets first pass in just the first chunk to the model and see what it generates</p></li>
+</ul>
+<p>For reference, here is the full text of the first chunk:</p>
+<blockquote>
+<div><p>“I will call the roll on May 2nd. May 2nd, 2022 Council briefing meeting will come to order. I am Andrew Lewis, Council President pro tem. The time is 2.01 p.m. Will the clerk please call the roll? Councilmember Wilson? Present. Councilmember Peterson? Present. Councilmember Sawant? Present. Councilmember Strauss? Present. Councilmember Herbold? Present. Councilmember Williams? Present. Councilmember Gattas? Present. Councilmember Herbold? Here. Councilmember Morales? Present. Councilmember Pro Tem Lewis? Present. Six present. Thank you. We will move on to approval of the minutes. If there is no objection, the minutes of May 2nd, 2022 will be adopted. Hearing no objection, the minutes are adopted. The President’s report. I will call the roll on May 2nd, 2022 Council briefing meeting will come to order. I am Andrew Lewis, Council President pro tem. The time is 2.01 p.m. Will the clerk please call the roll? Councilmember Wilson? Present. Councilmember Peterson? Present. Councilmember Sawant? Present. Councilmember Peterson? Present. Councilmember Herbold? Here. Councilmember Morales? Present. Councilmember Gattas? Present. Councilmember Herbold? Present. Councilmember Gattas? Present. I am filling in. As folks may be aware for Council President Juarez. I do not have any. Reports at the top of the meeting. Except to give a brief preview of the full council. Agenda that we will be considering. As a council tomorrow.”</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="n">summarizer</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;summarization&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;philschmid/bart-large-cnn-samsum&quot;</span><span class="p">)</span>
+
+<span class="c1"># Summarize the first part of the meeting</span>
+<span class="n">summarizer</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "dd5636cb364f4d10ab7f9569befc9f1f"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "f8854745ea894a0abb0601ddb3886f6c"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "85422091c50043439be145a981cdde4a"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "542c62b1f1154ea09b485958e2987a61"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "504c939c2ed04a29a561a62f18567289"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6969b6b734814906bfba7b48d4561263"}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;summary_text&#39;: &#39;Andrew Lewis, Council President Pro Tem, will call the roll on May 2nd, 2022 at 2.01 p.m. Councilmember Wilson, Peterson, Sawant, Strauss, Herbold, Williams, Gattas, Morales, and Lewis are present. If there is no objection, the minutes will be adopted.&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can see that the summary is short and to the point and generally captures the main idea of this chunk. Which is simply that the meeting has begun roll call took place.</p></li>
+<li><p>However it is definitely missing some specificity and details that would be useful for a reader.</p></li>
+<li><p>Lets summarize the rest of the chunks and see what we get back</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;summary_text&quot;</span><span class="p">]</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/29 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  3%|▎         | 1/29 [00:09&lt;04:26,  9.53s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  7%|▋         | 2/29 [00:17&lt;03:54,  8.69s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 10%|█         | 3/29 [00:27&lt;03:55,  9.05s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 10%|█         | 3/29 [00:30&lt;04:20, 10.01s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+<span class="ne">----&gt; </span><span class="mi">4</span>     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;summary_text&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/pipelines/text2text_generation.py:269,</span> in <span class="ni">SummarizationPipeline.__call__</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span><span class="sd">     Summarize the text(s) given as inputs.</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">267</span><span class="sd">           ids of the summary.</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">269</span>     <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/pipelines/text2text_generation.py:167,</span> in <span class="ni">Text2TextGenerationPipeline.__call__</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span><span class="sd">     Generate the output text(s) using text(s) given as inputs.</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span><span class="sd">           ids of the generated text.</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">167</span>     <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>     <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">170</span>         <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span>         <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span>     <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">173</span>         <span class="k">return</span> <span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/pipelines/base.py:1140,</span> in <span class="ni">Pipeline.__call__</span><span class="nt">(self, inputs, num_workers, batch_size, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1132</span>     <span class="k">return</span> <span class="nb">next</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1133</span>         <span class="nb">iter</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1134</span>             <span class="bp">self</span><span class="o">.</span><span class="n">get_iterator</span><span class="p">(</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1137</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1138</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1139</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1140</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_single</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">preprocess_params</span><span class="p">,</span> <span class="n">forward_params</span><span class="p">,</span> <span class="n">postprocess_params</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/pipelines/base.py:1147,</span> in <span class="ni">Pipeline.run_single</span><span class="nt">(self, inputs, preprocess_params, forward_params, postprocess_params)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1145</span> <span class="k">def</span> <span class="nf">run_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">preprocess_params</span><span class="p">,</span> <span class="n">forward_params</span><span class="p">,</span> <span class="n">postprocess_params</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1146</span>     <span class="n">model_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">preprocess_params</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1147</span>     <span class="n">model_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">model_inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">forward_params</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1148</span>     <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">postprocess</span><span class="p">(</span><span class="n">model_outputs</span><span class="p">,</span> <span class="o">**</span><span class="n">postprocess_params</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1149</span>     <span class="k">return</span> <span class="n">outputs</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/pipelines/base.py:1046,</span> in <span class="ni">Pipeline.forward</span><span class="nt">(self, model_inputs, **forward_params)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1044</span>     <span class="k">with</span> <span class="n">inference_context</span><span class="p">():</span>
+<span class="g g-Whitespace">   </span><span class="mi">1045</span>         <span class="n">model_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_tensor_on_device</span><span class="p">(</span><span class="n">model_inputs</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1046</span>         <span class="n">model_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward</span><span class="p">(</span><span class="n">model_inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">forward_params</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1047</span>         <span class="n">model_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_tensor_on_device</span><span class="p">(</span><span class="n">model_outputs</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1048</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/pipelines/text2text_generation.py:191,</span> in <span class="ni">Text2TextGenerationPipeline._forward</span><span class="nt">(self, model_inputs, **generate_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span>     <span class="n">in_b</span><span class="p">,</span> <span class="n">input_length</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">model_inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_inputs</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>     <span class="n">input_length</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span>     <span class="n">generate_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;min_length&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">min_length</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span>     <span class="n">generate_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_length&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">max_length</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span> <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">191</span> <span class="n">output_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">model_inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">generate_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span> <span class="n">out_b</span> <span class="o">=</span> <span class="n">output_ids</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">framework</span> <span class="o">==</span> <span class="s2">&quot;pt&quot;</span><span class="p">:</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/utils/_contextlib.py:115,</span> in <span class="ni">context_decorator.&lt;locals&gt;.decorate_context</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="k">def</span> <span class="nf">decorate_context</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="k">with</span> <span class="n">ctx_factory</span><span class="p">():</span>
+<span class="ne">--&gt; </span><span class="mi">115</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/generation/utils.py:1752,</span> in <span class="ni">GenerationMixin.generate</span><span class="nt">(self, inputs, generation_config, logits_processor, stopping_criteria, prefix_allowed_tokens_fn, synced_gpus, assistant_model, streamer, negative_prompt_ids, negative_prompt_attention_mask, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1745</span>     <span class="n">input_ids</span><span class="p">,</span> <span class="n">model_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_inputs_for_generation</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1746</span>         <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1747</span>         <span class="n">expand_size</span><span class="o">=</span><span class="n">generation_config</span><span class="o">.</span><span class="n">num_beams</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1748</span>         <span class="n">is_encoder_decoder</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">is_encoder_decoder</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1749</span>         <span class="o">**</span><span class="n">model_kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1750</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1751</span>     <span class="c1"># 13. run beam search</span>
+<span class="ne">-&gt; </span><span class="mi">1752</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">beam_search</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1753</span>         <span class="n">input_ids</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1754</span>         <span class="n">beam_scorer</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1755</span>         <span class="n">logits_processor</span><span class="o">=</span><span class="n">logits_processor</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1756</span>         <span class="n">stopping_criteria</span><span class="o">=</span><span class="n">stopping_criteria</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1757</span>         <span class="n">pad_token_id</span><span class="o">=</span><span class="n">generation_config</span><span class="o">.</span><span class="n">pad_token_id</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1758</span>         <span class="n">eos_token_id</span><span class="o">=</span><span class="n">generation_config</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1759</span>         <span class="n">output_scores</span><span class="o">=</span><span class="n">generation_config</span><span class="o">.</span><span class="n">output_scores</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1760</span>         <span class="n">return_dict_in_generate</span><span class="o">=</span><span class="n">generation_config</span><span class="o">.</span><span class="n">return_dict_in_generate</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1761</span>         <span class="n">synced_gpus</span><span class="o">=</span><span class="n">synced_gpus</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1762</span>         <span class="o">**</span><span class="n">model_kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1763</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1765</span> <span class="k">elif</span> <span class="n">generation_mode</span> <span class="o">==</span> <span class="n">GenerationMode</span><span class="o">.</span><span class="n">BEAM_SAMPLE</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1766</span>     <span class="c1"># 11. prepare logits warper</span>
+<span class="g g-Whitespace">   </span><span class="mi">1767</span>     <span class="n">logits_warper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_logits_warper</span><span class="p">(</span><span class="n">generation_config</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/generation/utils.py:3091,</span> in <span class="ni">GenerationMixin.beam_search</span><span class="nt">(self, input_ids, beam_scorer, logits_processor, stopping_criteria, max_length, pad_token_id, eos_token_id, output_attentions, output_hidden_states, output_scores, return_dict_in_generate, synced_gpus, **model_kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3087</span>         <span class="k">break</span>
+<span class="g g-Whitespace">   </span><span class="mi">3089</span> <span class="n">model_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_inputs_for_generation</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">model_kwargs</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3091</span> <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3092</span>     <span class="o">**</span><span class="n">model_inputs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3093</span>     <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3094</span>     <span class="n">output_attentions</span><span class="o">=</span><span class="n">output_attentions</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3095</span>     <span class="n">output_hidden_states</span><span class="o">=</span><span class="n">output_hidden_states</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3096</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3098</span> <span class="k">if</span> <span class="n">synced_gpus</span> <span class="ow">and</span> <span class="n">this_peer_finished</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3099</span>     <span class="n">cur_len</span> <span class="o">=</span> <span class="n">cur_len</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1518,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1516</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1517</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1518</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1527,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1522</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1523</span> <span class="c1"># this function, and just call forward.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1524</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1525</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1526</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1527</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1529</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1530</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bart/modeling_bart.py:1595,</span> in <span class="ni">BartForConditionalGeneration.forward</span><span class="nt">(self, input_ids, attention_mask, decoder_input_ids, decoder_attention_mask, head_mask, decoder_head_mask, cross_attn_head_mask, encoder_outputs, past_key_values, inputs_embeds, decoder_inputs_embeds, labels, use_cache, output_attentions, output_hidden_states, return_dict)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1573</span>         <span class="n">decoder_input_ids</span> <span class="o">=</span> <span class="n">shift_tokens_right</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1574</span>             <span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pad_token_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">decoder_start_token_id</span>
+<span class="g g-Whitespace">   </span><span class="mi">1575</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1577</span> <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1578</span>     <span class="n">input_ids</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1579</span>     <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1592</span>     <span class="n">return_dict</span><span class="o">=</span><span class="n">return_dict</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1593</span> <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1595</span> <span class="n">lm_logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lm_head</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">1596</span> <span class="n">lm_logits</span> <span class="o">=</span> <span class="n">lm_logits</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_logits_bias</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">lm_logits</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1598</span> <span class="n">masked_lm_loss</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1518,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1516</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1517</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1518</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1527,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1522</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1523</span> <span class="c1"># this function, and just call forward.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1524</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1525</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
+<span class="g g-Whitespace">   </span><span class="mi">1526</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1527</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1529</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1530</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/linear.py:114,</span> in <span class="ni">Linear.forward</span><span class="nt">(self, input)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">114</span>     <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/06"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalization-vs-specialization">Generalization vs Specialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-and-huggingface">Transformers and Huggingface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-analysis">Sentiment Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-warnings">Limitations and Warnings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization">Summarization</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Eva Maxfield Brown and Nic Weber
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

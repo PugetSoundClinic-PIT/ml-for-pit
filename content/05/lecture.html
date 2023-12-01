@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -138,6 +138,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../README.html">
@@ -174,7 +175,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Municipal Legislative Data</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../02/lecture.html">Municipal Legislative (Text) Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02/lecture.html">Lecture 2 – Municipal Legislative (Text) Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Counting Words</span></p>
 <ul class="nav bd-sidenav">
@@ -371,6 +372,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -380,6 +382,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -448,10 +451,11 @@ document.write(`
 <li><p>for our use case, there are a couple of text classification models that we might be interested in</p>
 <ul>
 <li><p>sentiment classification models are pretty universally useful – in our case, potentially using them when paired with public comments to see how many comments are positive or negative in tone</p></li>
-<li><p>topic classification models specific to legislative topics – i.e. general topic models might have too broad of a topic for our use cases, we might want to be able to classify discussion to finer grain discussion points</p></li>
 <li><p>identifying portions of the meeting by type – i.e. “this general section of text is public comment, this general section is discussion on a bill”, “a presentation”, “voting”, etc.</p></li>
+<li><p>topic classification models specific to legislative topics – i.e. general topic models might have too broad of a topic for our use cases, we might want to be able to classify discussion to finer grain discussion points</p></li>
 </ul>
 </li>
+<li><p>this lecture will go over how to train a text classification model as applied to the “topic classification” task.</p></li>
 </ul>
 </section>
 <section id="models-and-evaluation">
@@ -487,45 +491,45 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>admin
-	Hearing no comments. Will the clerk please call the role on the committee recommendation that the ap
-	It&#39;s been moved and seconded to recommend approval of the legislation. Any final comments? OK, will 
-	Will the clerk please call on the roll on the passage of the amended bill? Council member Mosqueda. 
+	Will the clerk please call the roll? Councilmember Herbold? Here.
+	Are there any additional comments or questions? Hearing none. Madam clerk, will you please call the 
+	All right, not seeing any. Will the clerk please call the roll? Council Member Strauss?
 budget
-	Given that this legislation is coming up after budget decisions for 2022 have already been made, the
-	One other point I just wanted to make, Chair, you raised a really great point and I had meant to bri
-	Overall revenues here represent more than a billion dollars. So it&#39;s very significant share of a cit
+	And we&#39;re asking the departments, as you heard from Julie Dingley, our city budgets director in our 
+	In addition to inflation costs, there are a number of pressures and we can get into this on the next
+	Dave will be presenting the bulk of the update to you this morning. We also have CBO analyst, Alex, 
 housing
-	However out of an abundance of caution and to and particularly to avoid confusion my office has spon
-	We have 143 open housing cases which are in the notice of violation process and 317 open housing com
-	The other option of removing the requirement for showing of hardship, which this legislation does, i
+	The level of transparency that this ordinance would create is a small step towards leveling the play
+	In the past, the committee chair and presenters have used derogatory terms to refer to small housing
+	Reporting poor conditions and negligence of their landlord once they&#39;ve secured housing should not b
 labor
-	Can you remind me what New York did regarding this concept. Also my Understanding is that New York e
-	This area Of the policy I think fits more into the flexibility objectives of the, of the policy to m
-	This is the first vote and the inaugural convening, I guess, of the Amazon Labor Union, marking the 
+	First amendment for your consideration is amendment one version to sponsor by charcoal herbal and Co
+	However, this proposal has been drafted without a single piece of the proposal. The proposal is desi
+	Without a thorough assessment of potential impacts across the city and county, we cannot support thi
 parks
-	Let&#39;s daylight these operations on a registry for all to see. Professional arborists who care about 
-	Children is almost identical to parents. You understand what this mean? Even Apple don&#39;t far away fr
-	We need a city managed plan, 30% tree cover by 2030. Thank you, Laura. Up next, we have Ryan Donahue
+	I know we&#39;ll discuss them individually here. Passing out of committee today, this Council Bill 12020
+	This registration legislation is just the first step of a four-pronged approach to strengthen tree p
+	So, my family and my neighbor&#39;s family live on two adjacent properties that our landlord is selling 
 police
-	They&#39;d ask for the report by March 31st of next year. The request asks that the report include an an
-	And Council Bill 120309 would do the same for SPD&#39;s Continued Use of IBM i2iBase, which is a link an
-	Please require the public comment period for any current or future surveillance technology automatic
+	Thank you very much. So to introduce these items, just a little bit of background information. In 20
+	And again, I say and other departments, it&#39;s not just SPD. The surveillance ordinance applies to all
+	Last but not least, we also had to take a look into the data elements that are needed in order for t
 present
+	Council member Peterson. Yes. Council member Nelson.
+	Councilmember Nelson present. Councilmember Mosqueda here. Chair Morales here.
 	Councilmember Nelson. Councilmember Mosqueda. Councilmember Peterson present and share her bold here
-	Present. Council Member Nelson? Present.
-	Remember Peterson. I vice Chair Lewis. Now, chair Her bold. No. Two
 public
-	Speakers will hear a chime when 10 seconds are left of the allotted time. Once you hear the chime, w
-	You are welcome to begin your public comment, as soon as we get you off mute, and we will give you t
-	And I will endeavor to moderate the public comment in the following manner. Because of the number of
+	There&#39;s a two week public comment. Period and a three week appeal period. And these periods run conc
+	We&#39;re going to endeavor to get through everybody who is on our list today. You&#39;ll have two minutes t
+	The city council reserves the right to modify this public comment in any deemed that the system is u
 transport
-	So again, this is a rendering of what we&#39;re trying to avoid. This is a picture that would show an el
-	This is really important language and why this is so important to the Ballard and larger area commun
-	Another station entrance refinements is in the West Lake station. Right now in the draft we have ass
+	In regards to the first question, the Guideway height, with regard to the elevated Fauntleroy altern
+	It is a very big added benefit that it protects the city asset of the Greenbelt and reduces the amou
+	It is true to say that the costs--to explain or other concern, it is true to say that the cost of el
 voting
-	9 and favor? Not opposed. Thank you.
-	Council Member Peterson. Yes. Council Member Nielsen.
-	Hi. Councilmember Peterson. All right.
+	Yes. All in favor. Terrific.
+	Aye. Each in favor and opposed? I said present by mistake.
+	Chair, that is five in favor and none opposed. Okay, Wonderful. It Is unanimous. Congratulations
 </pre></div>
 </div>
 </div>
@@ -1074,10 +1078,7 @@ voting
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>some of these predictions seem correct and some are a bit hard to follow</p></li>
-<li><p>TODO: method for further debugging?</p></li>
-</ul>
+<p>TODO: possible exercise, try and debug what is going wrong with the predictions, specifically point them to sklearn predictproba and maybe doubtlab (<a class="github reference external" href="https://github.com/koaning/doubtlab">koaning/doubtlab</a>)</p>
 </section>
 </section>
 
@@ -1109,7 +1110,7 @@ voting
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="../04/lecture.html"
@@ -1171,6 +1172,7 @@ By Eva Maxfield Brown and Nic Weber
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -1197,8 +1199,8 @@ By Eva Maxfield Brown and Nic Weber
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

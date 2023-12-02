@@ -1,0 +1,725 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Lecture 8 – Analysis and Visualization &#8212; Machine Learning for Public Interest Technologists</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/08/lecture';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Machine Learning for Public Interest Technologists - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Machine Learning for Public Interest Technologists - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Machine Learning (and analysis) for Public Interest Technologists
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">About This Course</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01/lecture.html">Lecture 1 – About This Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/exercise.html">Exercise 1 – Getting Setup with Colab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01/reference.html">Exercise 1 – Reference Code</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Municipal Legislative Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02/lecture.html">Lecture 2 – Municipal Legislative (Text) Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Counting Words</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03/lecture.html">Lecture 3 – Counting Words</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Semantic Embeddings</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04/lecture.html">Lecture 4 – Semantic Embeddings</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Text Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05/lecture.html">Lecture 5 – Text Classification</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PugetSoundClinic-PIT/ml-for-pit/blob/main/content/08/lecture.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PugetSoundClinic-PIT/ml-for-pit/issues/new?title=Issue%20on%20page%20%2Fcontent/08/lecture.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/08/lecture.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 8 – Analysis and Visualization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coming-up-with-questions">Coming Up With Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#planning">Planning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identifying-housing-and-homeless-meetings-in-seattle">Identifying Housing and Homeless Meetings in Seattle</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-8-analysis-and-visualization">
+<h1>Lecture 8 – Analysis and Visualization<a class="headerlink" href="#lecture-8-analysis-and-visualization" title="Permalink to this heading">#</a></h1>
+<section id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>We have learned how many different tools work, how to apply them, and how to train and build some of our own models.</p></li>
+<li><p>however, we have not yet taken the step of applying these tools together in a meaningful way.</p></li>
+<li><p>in this chapter we are going to do just that</p></li>
+<li><p>we will use the tools we have learned to answer a question by analyzing a dataset and visualizing and reporting our results</p></li>
+</ul>
+</section>
+<section id="coming-up-with-questions">
+<h2>Coming Up With Questions<a class="headerlink" href="#coming-up-with-questions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>there are a lot of questions we can ask about this data. but generally a good place to start is by asking something simple that may reveal a larger pattern for further investigation</p></li>
+<li><p>for example, lets try to answer the question “how does discussion about housing and homelessness across the country take place? what is the tone of these discussions?”</p></li>
+</ul>
+</section>
+<section id="planning">
+<h2>Planning<a class="headerlink" href="#planning" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>our first step in this process is to break down how we can answer our question</p></li>
+<li><p>we will want to identify meetings in which housing and homeless come up – when you are working on identification problems, <strong>classification</strong> is always a good place to start</p></li>
+<li><p>we will also want to look into “tone” of the meeting, are these meetings generally positive? generally negative? mixed? which meetings are mixed and why? these types of questions require a sentiment model</p></li>
+<li><p>before we do any of this, we will probably want to work with a small dataset before scaling up to the entire corpus</p></li>
+<li><p>lets start by looking for housing and homeless in meetings of the seattle city council between 2021 and 2022</p></li>
+</ul>
+</section>
+<section id="identifying-housing-and-homeless-meetings-in-seattle">
+<h2>Identifying Housing and Homeless Meetings in Seattle<a class="headerlink" href="#identifying-housing-and-homeless-meetings-in-seattle" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>import and pull down data, create chunks, embed, and cluster, UMAP, cluster, and inspect clusters</p></li>
+<li><p>we will use a new embedding model with a larger context length to allow for as much of the meeting transcript to be embedded at once</p>
+<ul>
+<li><p><a class="reference external" href="https://huggingface.co/jinaai/jina-embeddings-v2-base-en">https://huggingface.co/jinaai/jina-embeddings-v2-base-en</a></p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">CDPInstances</span><span class="p">,</span> <span class="n">datasets</span>
+
+<span class="n">sessions</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
+    <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
+    <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+    <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sessions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e43fe594f9624ae0a760257867553304"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "3b1124d8f7ee422dbf7d366cc09cc2c8"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e3bef8b0d46047e5b19061569a8c4117"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">cdp_data</span> <span class="kn">import</span> <span class="n">CDPInstances</span><span class="p">,</span> <span class="n">datasets</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">sessions</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get_session_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">CDPInstances</span><span class="o">.</span><span class="n">Seattle</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">start_datetime</span><span class="o">=</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">end_datetime</span><span class="o">=</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">store_transcript</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">store_transcript_as_csv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">raise_on_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">sessions</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/cdp_data/datasets.py:774,</span> in <span class="ni">get_session_dataset</span><span class="nt">(infrastructure_slug, start_datetime, end_datetime, replace_py_objects, store_full_metadata, store_transcript, transcript_selection, store_transcript_as_csv, store_video, store_audio, cache_dir, raise_on_error, tqdm_kws)</span>
+<span class="g g-Whitespace">    </span><span class="mi">771</span> <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Converting and storing transcripts as CSVs&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">773</span> <span class="c1"># Threaded processing of transcript conversion</span>
+<span class="ne">--&gt; </span><span class="mi">774</span> <span class="n">converted_transcript_infos</span> <span class="o">=</span> <span class="n">process_map</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">775</span>     <span class="n">_convert_transcript_to_csv</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">776</span>     <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">777</span>         <span class="n">_TranscriptConversionParams</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">778</span>             <span class="n">session_id</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">779</span>             <span class="n">session_key</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">780</span>             <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">781</span>             <span class="n">transcript_path</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">transcript_path</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">782</span>             <span class="n">raise_on_error</span><span class="o">=</span><span class="n">raise_on_error</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">783</span>         <span class="p">)</span>
+<span class="nn">    784         for _, row</span> in <span class="ni">sessions.iterrows</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">785</span>     <span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">786</span>     <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Converting transcripts&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">787</span>     <span class="o">**</span><span class="n">tqdm_kws</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">788</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">790</span> <span class="c1"># Merge fetched data back to session df</span>
+<span class="g g-Whitespace">    </span><span class="mi">791</span> <span class="n">sessions</span> <span class="o">=</span> <span class="n">_merge_dataclasses_to_df</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">792</span>     <span class="n">data_objs</span><span class="o">=</span><span class="n">converted_transcript_infos</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">793</span>     <span class="n">df</span><span class="o">=</span><span class="n">sessions</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">794</span>     <span class="n">data_objs_key</span><span class="o">=</span><span class="s2">&quot;session_key&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">795</span>     <span class="n">df_key</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">796</span> <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;transcript_as_csv_path&quot;</span><span class="p">])</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/tqdm/contrib/concurrent.py:105,</span> in <span class="ni">process_map</span><span class="nt">(fn, *iterables, **tqdm_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span>     <span class="n">tqdm_kwargs</span> <span class="o">=</span> <span class="n">tqdm_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span>     <span class="n">tqdm_kwargs</span><span class="p">[</span><span class="s2">&quot;lock_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mp_lock&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">105</span> <span class="k">return</span> <span class="n">_executor_map</span><span class="p">(</span><span class="n">ProcessPoolExecutor</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">iterables</span><span class="p">,</span> <span class="o">**</span><span class="n">tqdm_kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/tqdm/contrib/concurrent.py:51,</span> in <span class="ni">_executor_map</span><span class="nt">(PoolExecutor, fn, *iterables, **tqdm_kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="k">with</span> <span class="n">ensure_lock</span><span class="p">(</span><span class="n">tqdm_class</span><span class="p">,</span> <span class="n">lock_name</span><span class="o">=</span><span class="n">lock_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">lk</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span>     <span class="c1"># share lock in case workers are already using `tqdm`</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="k">with</span> <span class="n">PoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">max_workers</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tqdm_class</span><span class="o">.</span><span class="n">set_lock</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span>                       <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">lk</span><span class="p">,))</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">51</span>         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">tqdm_class</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">iterables</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="n">chunksize</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/tqdm/notebook.py:249,</span> in <span class="ni">tqdm_notebook.__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="n">it</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">tqdm_notebook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">249</span>     <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span>         <span class="c1"># return super(tqdm...) will not catch exception</span>
+<span class="g g-Whitespace">    </span><span class="mi">251</span>         <span class="k">yield</span> <span class="n">obj</span>
+<span class="g g-Whitespace">    </span><span class="mi">252</span> <span class="c1"># NB: except ... [ as ...] breaks IPython async KeyboardInterrupt</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/tqdm/std.py:1182,</span> in <span class="ni">tqdm.__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1179</span> <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span>
+<span class="g g-Whitespace">   </span><span class="mi">1181</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1182</span>     <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1183</span>         <span class="k">yield</span> <span class="n">obj</span>
+<span class="g g-Whitespace">   </span><span class="mi">1184</span>         <span class="c1"># Update and possibly print the progressbar.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1185</span>         <span class="c1"># Note: does not call self.update(1) for speed optimisation.</span>
+
+<span class="nn">File /usr/lib/python3.10/concurrent/futures/process.py:575,</span> in <span class="ni">_chain_from_iterable_of_lists</span><span class="nt">(iterable)</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span> <span class="k">def</span> <span class="nf">_chain_from_iterable_of_lists</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span>     <span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">571</span><span class="sd">     Specialized implementation of itertools.chain.from_iterable.</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span><span class="sd">     Each item in *iterable* should be a list.  This function is</span>
+<span class="g g-Whitespace">    </span><span class="mi">573</span><span class="sd">     careful not to keep references to yielded objects.</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">575</span>     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">576</span>         <span class="n">element</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">577</span>         <span class="k">while</span> <span class="n">element</span><span class="p">:</span>
+
+<span class="nn">File /usr/lib/python3.10/concurrent/futures/_base.py:621,</span> in <span class="ni">Executor.map.&lt;locals&gt;.result_iterator</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">618</span> <span class="k">while</span> <span class="n">fs</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">619</span>     <span class="c1"># Careful not to keep a reference to the popped future</span>
+<span class="g g-Whitespace">    </span><span class="mi">620</span>     <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">621</span>         <span class="k">yield</span> <span class="n">_result_or_cancel</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span>         <span class="k">yield</span> <span class="n">_result_or_cancel</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">pop</span><span class="p">(),</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">())</span>
+
+<span class="nn">File /usr/lib/python3.10/concurrent/futures/_base.py:319,</span> in <span class="ni">_result_or_cancel</span><span class="nt">(***failed resolving arguments***)</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">319</span>         <span class="k">return</span> <span class="n">fut</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>     <span class="k">finally</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>         <span class="n">fut</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+<span class="nn">File /usr/lib/python3.10/concurrent/futures/_base.py:453,</span> in <span class="ni">Future.result</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="n">FINISHED</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">451</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_result</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">453</span> <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">455</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">in</span> <span class="p">[</span><span class="n">CANCELLED</span><span class="p">,</span> <span class="n">CANCELLED_AND_NOTIFIED</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">456</span>     <span class="k">raise</span> <span class="n">CancelledError</span><span class="p">()</span>
+
+<span class="nn">File /usr/lib/python3.10/threading.py:320,</span> in <span class="ni">Condition.wait</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span> <span class="k">try</span><span class="p">:</span>    <span class="c1"># restore state no matter what (e.g., KeyboardInterrupt)</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span>     <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">320</span>         <span class="n">waiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>         <span class="n">gotit</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span>     <span class="k">else</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load sentence transformers to embed</span>
+<span class="c1"># chunks of meetings at a time and</span>
+<span class="c1"># store in a dict with the session id</span>
+<span class="c1"># and a chunk index as the key</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;jinaai/jina-embeddings-v2-base-en&quot;</span><span class="p">)</span>
+
+<span class="n">session_chunk_to_embedding</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sessions</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">transcript_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">transcript_as_csv_path</span><span class="p">)</span>
+
+    <span class="c1"># split transcript into chunks of </span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/08"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coming-up-with-questions">Coming Up With Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#planning">Planning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identifying-housing-and-homeless-meetings-in-seattle">Identifying Housing and Homeless Meetings in Seattle</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Eva Maxfield Brown and Nic Weber
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

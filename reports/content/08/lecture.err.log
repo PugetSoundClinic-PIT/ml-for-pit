@@ -30,10 +30,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-from transformers import pipeline
-summarizer = pipeline("summarization", model="knkarthick/MEETING-SUMMARY-BART-LARGE-XSUM-SAMSUM-DIALOGSUM-AMI")
-
-# Summarize the first part of the meeting
-summarizer(parts[0])
+['from cdp_data import CDPInstances, datasets', '', 'sessions = datasets.get_session_dataset(', '    CDPInstances.Seattle,', '    start_datetime="2021-01-01",']
+...
+['    store_transcript=True,', '    store_transcript_as_csv=True,', '    raise_on_error=False,', ')', 'sessions']
 -------------------
 

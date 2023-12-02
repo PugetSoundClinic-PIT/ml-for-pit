@@ -30,8 +30,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['from cdp_data import CDPInstances, datasets', '', 'sessions = datasets.get_session_dataset(', '    CDPInstances.Seattle,', '    start_datetime="2021-01-01",']
+['# load sentence transformers to embed', '# chunks of meetings at a time and', '# store in a dict with the session id', '# and a chunk index as the key', 'from cdp_backend.pipeline.transcript_model import Transcript']
 ...
-['    store_transcript=True,', '    store_transcript_as_csv=True,', '    raise_on_error=False,', ')', 'sessions']
+['            current_chunk_n_words = 0', '', '        # add the sentence to the chunk', '        current_chunk_sentences.append(sentence.text)', '        current_chunk_n_words += next_addition_n_words']
 -------------------
 

@@ -30,8 +30,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['# load sentence transformers to embed', '# chunks of meetings at a time and', '# store in a dict with the session id', '# and a chunk index as the key', 'from cdp_backend.pipeline.transcript_model import Transcript']
+['from cdp_backend.pipeline.transcript_model import Transcript', 'from sentence_transformers import SentenceTransformer', 'from sentence_transformers.util import cos_sim', 'from tqdm import tqdm', 'import pandas as pd']
 ...
-['            current_chunk_n_words = 0', '', '        # add the sentence to the chunk', '        current_chunk_sentences.append(sentence.text)', '        current_chunk_n_words += next_addition_n_words']
+['    )', '', '# Concatenate all the dataframes in the statements_for_annotation list', 'statements_for_annotation = pd.concat(statements_for_annotation)', 'statements_for_annotation']
 -------------------
 

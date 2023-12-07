@@ -32,6 +32,6 @@ Here is a preview of the cell contents:
 -------------------
 ['from cdp_backend.pipeline.transcript_model import Transcript', 'from sentence_transformers import SentenceTransformer', 'from sentence_transformers.util import cos_sim', 'from tqdm import tqdm', 'import pandas as pd']
 ...
-['    )', '', '# Concatenate all the dataframes in the statements_for_annotation list', 'statements_for_annotation = pd.concat(statements_for_annotation)', 'statements_for_annotation']
+['statements_for_annotation = statements_for_annotation.drop_duplicates(', '    subset=["session_id", "sentence"],', ')', '', 'statements_for_annotation']
 -------------------
 

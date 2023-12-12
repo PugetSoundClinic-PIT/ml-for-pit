@@ -390,7 +390,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -406,6 +408,20 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms">LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompting">Prompting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-apis">LLM APIs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-prompting-w-mixtral-8x7b-instruct-v0-1">Simple Prompting w/ Mixtral-8x7B-Instruct-v0.1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems">Problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output">Structured Output</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -417,6 +433,88 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-7-llms-and-prompting">
 <h1>Lecture 7 – LLMs and Prompting<a class="headerlink" href="#lecture-7-llms-and-prompting" title="Permalink to this heading">#</a></h1>
+<section id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In lecture 6 we learned and applied pre-trained models for sentiment, summarization, named entity recognition, and more.</p></li>
+<li><p>Each of the models in lecture 6 were unique and separate from each other.</p></li>
+<li><p>the most recent trend in NLP is to use a single model for many tasks by prompting an incredibly large model (often refered to as “large-language-models” or LLMs) with a few words prior to the input text.</p></li>
+<li><p>this technique can be incredibly powerful, but also requires a lot of data and compute and often, you may need to pay to use an API to access these models rather than directly using them directly in your code</p></li>
+<li><p>in this lecture we will first learn the basics of interacting with LLM APIs and then we will learn how to prompt them to extract pieces of information from text and then we will learn how to ensure structured output from these models.</p></li>
+</ul>
+</section>
+<section id="llms">
+<h2>LLMs<a class="headerlink" href="#llms" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>you may have used ChatGPT in the past.</p></li>
+</ul>
+<p>…</p>
+</section>
+<section id="prompting">
+<h2>Prompting<a class="headerlink" href="#prompting" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>prompting is a technique that allows us to use a single model for many tasks.</p></li>
+<li><p>the idea is that we can provide a few words of context to the model and then ask it to complete the rest of the text.</p></li>
+<li><p>for example, if we want to use a model to summarize text, we can provide the model with a few words of context and then ask it to complete the summary.</p></li>
+<li><p>prompting is an active area of research and development but this general idea is refered to as “in-context learning” i.e. the model learning what to do based on the context provided to it.</p></li>
+</ul>
+</section>
+<section id="llm-apis">
+<h2>LLM APIs<a class="headerlink" href="#llm-apis" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>due to the fact that there are so many LLMs and so many companies which support using them via API, instead of learning any single API, we will instead demonstrate how to use <a class="reference external" href="https://python.langchain.com/docs/get_started/introduction">LangChain</a> which has implementations and supporting utilities for working with many of the most popular LLMs (and companies).</p></li>
+<li><p>for this lecture we will be using the HuggingFace Inference API which allows for 30,000 free response tokens per month. This isn’t much to work with but is enough to get a feel for how to use LLMs. In larger projects you will likely need to pay for access to these APIs or pay for total usage.</p></li>
+<li><p>we are specifically choosing to use the HuggingFace Inference API and LangChain together because both of these tools are fully open source (the source code for langchain and the models are available on huggingface directly), rather than using GPT-4 from OpenAI or another private model.</p></li>
+<li><p>we first need to create an account on HuggingFace and go through the API key generation process <span class="xref myst">follow instructions at some link</span>.</p></li>
+</ul>
+</section>
+<section id="simple-prompting-w-mixtral-8x7b-instruct-v0-1">
+<h2>Simple Prompting w/ Mixtral-8x7B-Instruct-v0.1<a class="headerlink" href="#simple-prompting-w-mixtral-8x7b-instruct-v0-1" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>we will first use the Mixtral-8x7B-Instruct-v0.1 model for summarization of a portion of a meeting passage.</p></li>
+<li><p>this involves setting up langchain, connecting to the HuggingFace API, and then prompting the model and providing some data.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup langchain and ask for a summary for a part of a meeting</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>using this same passage of text, we can prompt for other things however, such as simple pieces of information like “which city council is this a meeting of?” or “what is the date of this meeting?”.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prompt for the council name and the meeting date</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problems">
+<h2>Problems<a class="headerlink" href="#problems" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>however, note that each time we run this snippet, we may get a slightly different answer or maybe a different structure.</p></li>
+<li><p>there are two common methods to solve this problem:</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>we can turn down the tempurature of the model to make it more likely to produce the same output each time. “tempurature” is a parameter we can provide which determines how “creative” the model is allowed to be. A tempurature of 0.0 means that the model will always produce the same output, while a tempurature of 1.0 means that the model will be allowed to be as creative as it wants. A tempurature of 0.5 is a good starting point for most tasks.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the same two prompts again, but this time turn the tempurature down</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>we can ask for structured output.</p></li>
+</ol>
+</section>
+<section id="structured-output">
+<h2>Structured Output<a class="headerlink" href="#structured-output" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -455,6 +553,26 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms">LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompting">Prompting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-apis">LLM APIs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-prompting-w-mixtral-8x7b-instruct-v0-1">Simple Prompting w/ Mixtral-8x7B-Instruct-v0.1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems">Problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output">Structured Output</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

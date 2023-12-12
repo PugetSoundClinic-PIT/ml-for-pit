@@ -419,6 +419,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-a-dataset-for-training-a-public-comment-period-start-and-end-classifier">Constructing a Dataset for Training a Public Comment Period Start and End Classifier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-public-comment-period-start-and-end-classifier">Training a Public Comment Period Start and End Classifier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-our-model-to-extract-public-comment-periods-from-meetings">Using our model to extract public comment periods from meetings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-individual-public-comments-from-public-comment-periods">Extracting Individual Public Comments from Public Comment Periods</a></li>
 </ul>
             </nav>
         </div>
@@ -488,7 +489,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "459357b924d34d77853392a34195f9c8"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "a099a864d75b420ab88bde11c3565ffc"}</script><div class="output text_html"><div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6c04dbb4ca454522b58bcdebc04e4437"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e849e36b171746eab69860a1397e4288"}</script><div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -839,13 +840,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "029ece14b0394f34800f0686ac05102f"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "13a976fbe9c24de196d031a3b84513d4"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "645274683c8e46ef94f1f40ec53a3429"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7925049eba1d4e9288a9a552a5ab2dde"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "2994dbb853fa43d880f682b83840fdcd"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "808b4b5dd26f4c069663f94536a5023f"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "be391fbee5524d3f9d2bc6b5782f1f80"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "0daf911608be4babbe384ea75a8e1379"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "9754075f724c4c80bdb770bca62cc418"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "145059cd2fea4060aed724c3b4fd59f1"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7b5ee315dbbd489c8e41bbb4a3a43c1f"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6d78a6e15f4148818dd60a8ecc2a486a"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e43433f6e7194e91a66b1def2ad6fc6b"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "c9f89e8060614a21a50c9ec6cc8f01c0"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sessions:   0%|          | 0/100 [00:00&lt;?, ?it/s]
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "51c355810ae94fb7b1f2b122030c9338"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "c5343de2deff4f5bb8510dedb20abc3c"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "cb1c1023a9e9470fb4d066dcae6235bb"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "c33766e8616b40f1b4a2e11908c03af3"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6a0469d3ad444d6fa7697db8a97a07f0"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "5cf59bd8800943e89c7660177d39c141"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "cd2a0a1af7d243f0821d965d434d8abf"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "3e3624763c9847459ba3fab61bc70acc"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "f8d800c92b344d94a280b1e87a6db243"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "109a2ad9d71340dca34e3635d13c811f"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "1640a4a4a63b4bdc80755ec7df84724f"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "301b33b4e2dc48dfa43f06199842cfc3"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "173c08f34fe443a2857340b44257b663"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "fb6078e8e12343f08caaa48edb29e362"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sessions:   0%|          | 0/100 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sessions:   1%|          | 1/100 [00:08&lt;13:17,  8.06s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sessions:   1%|          | 1/100 [00:08&lt;13:20,  8.09s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sessions:   1%|          | 1/100 [00:24&lt;40:22, 24.47s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sessions:   1%|          | 1/100 [00:26&lt;43:37, 26.44s/it]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -991,23 +992,25 @@ document.write(`
 <span class="g g-Whitespace">   </span><span class="mi">1529</span> <span class="k">try</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1530</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:497,</span> in <span class="ni">BertLayer.forward</span><span class="nt">(self, hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask, past_key_value, output_attentions)</span>
-<span class="g g-Whitespace">    </span><span class="mi">485</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">487</span>     <span class="n">hidden_states</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">495</span>     <span class="c1"># decoder uni-directional self-attention cached key/values tuple is at positions 1,2</span>
-<span class="g g-Whitespace">    </span><span class="mi">496</span>     <span class="n">self_attn_past_key_value</span> <span class="o">=</span> <span class="n">past_key_value</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="n">past_key_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
-<span class="ne">--&gt; </span><span class="mi">497</span>     <span class="n">self_attention_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attention</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">498</span>         <span class="n">hidden_states</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">499</span>         <span class="n">attention_mask</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span>         <span class="n">head_mask</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">501</span>         <span class="n">output_attentions</span><span class="o">=</span><span class="n">output_attentions</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">502</span>         <span class="n">past_key_value</span><span class="o">=</span><span class="n">self_attn_past_key_value</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span>     <span class="n">attention_output</span> <span class="o">=</span> <span class="n">self_attention_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span>     <span class="c1"># if decoder, the last output is tuple of self-attn cache</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:539,</span> in <span class="ni">BertLayer.forward</span><span class="nt">(self, hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask, past_key_value, output_attentions)</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span>     <span class="n">cross_attn_present_key_value</span> <span class="o">=</span> <span class="n">cross_attention_outputs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span>     <span class="n">present_key_value</span> <span class="o">=</span> <span class="n">present_key_value</span> <span class="o">+</span> <span class="n">cross_attn_present_key_value</span>
+<span class="ne">--&gt; </span><span class="mi">539</span> <span class="n">layer_output</span> <span class="o">=</span> <span class="n">apply_chunking_to_forward</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">540</span>     <span class="bp">self</span><span class="o">.</span><span class="n">feed_forward_chunk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size_feed_forward</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq_len_dim</span><span class="p">,</span> <span class="n">attention_output</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">542</span> <span class="n">outputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">layer_output</span><span class="p">,)</span> <span class="o">+</span> <span class="n">outputs</span>
+<span class="g g-Whitespace">    </span><span class="mi">544</span> <span class="c1"># if decoder, return the attn key/values as the last output</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/pytorch_utils.py:242,</span> in <span class="ni">apply_chunking_to_forward</span><span class="nt">(forward_fn, chunk_size, chunk_dim, *input_tensors)</span>
+<span class="g g-Whitespace">    </span><span class="mi">239</span>     <span class="c1"># concatenate output at same dimension</span>
+<span class="g g-Whitespace">    </span><span class="mi">240</span>     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">output_chunks</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">chunk_dim</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">242</span> <span class="k">return</span> <span class="n">forward_fn</span><span class="p">(</span><span class="o">*</span><span class="n">input_tensors</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:551,</span> in <span class="ni">BertLayer.feed_forward_chunk</span><span class="nt">(self, attention_output)</span>
+<span class="g g-Whitespace">    </span><span class="mi">550</span> <span class="k">def</span> <span class="nf">feed_forward_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attention_output</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">551</span>     <span class="n">intermediate_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intermediate</span><span class="p">(</span><span class="n">attention_output</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span>     <span class="n">layer_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">intermediate_output</span><span class="p">,</span> <span class="n">attention_output</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span>     <span class="k">return</span> <span class="n">layer_output</span>
 
 <span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1518,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1516</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
@@ -1024,24 +1027,11 @@ document.write(`
 <span class="g g-Whitespace">   </span><span class="mi">1529</span> <span class="k">try</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1530</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:427,</span> in <span class="ni">BertAttention.forward</span><span class="nt">(self, hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask, past_key_value, output_attentions)</span>
-<span class="g g-Whitespace">    </span><span class="mi">417</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">418</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">419</span>     <span class="n">hidden_states</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">425</span>     <span class="n">output_attentions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-<span class="ne">--&gt; </span><span class="mi">427</span>     <span class="n">self_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">self</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">428</span>         <span class="n">hidden_states</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span>         <span class="n">attention_mask</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">430</span>         <span class="n">head_mask</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">431</span>         <span class="n">encoder_hidden_states</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">432</span>         <span class="n">encoder_attention_mask</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">433</span>         <span class="n">past_key_value</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">434</span>         <span class="n">output_attentions</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">435</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">436</span>     <span class="n">attention_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">self_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hidden_states</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">437</span>     <span class="n">outputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">attention_output</span><span class="p">,)</span> <span class="o">+</span> <span class="n">self_outputs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># add attentions if we output them</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:452,</span> in <span class="ni">BertIntermediate.forward</span><span class="nt">(self, hidden_states)</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_states</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">451</span>     <span class="n">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">452</span>     <span class="n">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intermediate_act_fn</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">453</span>     <span class="k">return</span> <span class="n">hidden_states</span>
 
 <span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1518,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1516</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
@@ -1058,31 +1048,9 @@ document.write(`
 <span class="g g-Whitespace">   </span><span class="mi">1529</span> <span class="k">try</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1530</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/models/bert/modeling_bert.py:308,</span> in <span class="ni">BertSelfAttention.forward</span><span class="nt">(self, hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask, past_key_value, output_attentions)</span>
-<span class="g g-Whitespace">    </span><span class="mi">306</span>     <span class="n">value_layer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">past_key_value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">value_layer</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">307</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">308</span>     <span class="n">key_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transpose_for_scores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">309</span>     <span class="n">value_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transpose_for_scores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">311</span> <span class="n">query_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transpose_for_scores</span><span class="p">(</span><span class="n">mixed_query_layer</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1518,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1516</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1517</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1518</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1527,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1522</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
-<span class="g g-Whitespace">   </span><span class="mi">1523</span> <span class="c1"># this function, and just call forward.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1524</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1525</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1526</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1527</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1529</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1530</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/torch/nn/modules/linear.py:114,</span> in <span class="ni">Linear.forward</span><span class="nt">(self, input)</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">114</span>     <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/transformers/activations.py:78,</span> in <span class="ni">GELUActivation.forward</span><span class="nt">(self, input)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">78</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
@@ -1123,14 +1091,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>other    1181
-start      93
-end        50
-Name: label, dtype: int64
-</pre></div>
-</div>
-</div>
 </div>
 <ul class="simple">
 <li><p>lots and lots of examples of other</p></li>
@@ -1150,7 +1110,7 @@ Name: label, dtype: int64
 <span class="c1"># Function for quickly training model and evaluating on test set</span>
 <span class="k">def</span> <span class="nf">train_and_eval_model</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">LogisticRegressionCV</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">LogisticRegressionCV</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
     <span class="c1"># Create train and test splits</span>
     <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;sentence&quot;</span><span class="p">],</span>
@@ -1165,21 +1125,36 @@ Name: label, dtype: int64
     <span class="n">embedded_x_test</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">show_progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Train model</span>
-    <span class="n">trsfmr_clf</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-    <span class="n">trsfmr_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">embedded_x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">embedded_x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
     <span class="c1"># Eval</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">trsfmr_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">embedded_x_test</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">embedded_x_test</span><span class="p">)</span>
     <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, F1: </span><span class="si">{</span><span class="n">f1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Confusion per label</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">trsfmr_clf</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">clf</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">trsfmr_clf</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">matrix</span>
+    <span class="c1"># Create dataframe of misclassified examples</span>
+    <span class="n">misclassified</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;sentence&quot;</span><span class="p">:</span> <span class="n">x_test</span><span class="p">,</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
+            <span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">misclassified</span> <span class="o">=</span> <span class="n">misclassified</span><span class="p">[</span><span class="n">misclassified</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">misclassified</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">]]</span>
 
-<span class="c1"># Train and eval model</span>
-<span class="n">clf</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">matrix</span> <span class="o">=</span> <span class="n">train_and_eval_model</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">clf</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">misclassified</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Train and eval model</span>
+<span class="n">clf</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">misclassified</span> <span class="o">=</span> <span class="n">train_and_eval_model</span><span class="p">(</span>
     <span class="n">annotated_statements</span>
 <span class="p">)</span>
 
@@ -1189,34 +1164,10 @@ Name: label, dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e4db19a4048442ba96ed2d38dcdeab3c", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f369ccc136f64c95a4f3c2c9f37f3a89", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision: 0.993, Recall: 0.992, F1: 0.992
-Precision: 0.993, Recall: 0.992, F1: 0.992
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x7fcf7ea22a40&gt;
-</pre></div>
-</div>
-<img alt="../../_images/ad03d17136e4407cffbd3bd1276fc49eec85a1de9aa38f2551632cf1cfd15868.png" src="../../_images/ad03d17136e4407cffbd3bd1276fc49eec85a1de9aa38f2551632cf1cfd15868.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the misclassified statements</span>
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">annotated_statements</span><span class="p">[</span><span class="s2">&quot;sentence&quot;</span><span class="p">]</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">annotated_statements</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span>
-<span class="n">embedded_x_test</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">show_progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">embedded_x_test</span><span class="p">)</span>
-<span class="n">misclassified</span> <span class="o">=</span> <span class="n">annotated_statements</span><span class="p">[</span><span class="n">y_test</span> <span class="o">!=</span> <span class="n">y_pred</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">misclassified</span><span class="p">[</span><span class="s2">&quot;pred&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">y_test</span> <span class="o">!=</span> <span class="n">y_pred</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">misclassified</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, Pred: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, Sentence: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;sentence&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bf016098b82243bd93b14c738cdeab81", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True: end, Pred: start, Sentence: Seeing as we have no additional speakers present the public comment period is now open and we will move on to the next agenda item.
-True: other, Pred: end, Sentence: Public comment period is open and closed.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misclassified</span>
 </pre></div>
 </div>
 </div>
@@ -1298,61 +1249,6 @@ True: other, Pred: end, Sentence: Public comment period is open and closed.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Okay, so we will go ahead and open the public comment period for now.&#39;,
- &#39;We will begin with Austin Miller.&#39;,
- &#39;Austin, please press Star six and go ahead.&#39;,
- &quot;Hello, Councilmembers, my name is Austin Miller, and I&#39;m Speking today on behalf of the Seattle restaurant alliance to share our support for CB 120092.&quot;,
- &#39;Without this, many platforms list restaurants without their knowledge.&#39;,
- &#39;Customers assume the restaurants have agreed to be listed of an delivery platform and will place blame on a restaurant for issues that arise with their order.&#39;,
- &#39;This can cause damage to their reputation and success.&#39;,
- &#39;By requiring that food delivery platforms operating in Seattle first obtain a written agreement with any restaurant prior to offering Take-Out or delivery services, this legislation will ensure the best customer experience with accurate pricing, menu options and the best quality food.&#39;,
- &#39;The Seattle restaurant alliance would like to thank Council President Gonzalez for her leadership on this issue.&#39;,
- &#39;Thank you.&#39;,
- &#39;Thank you, Iowa Austin.&#39;,
- &#39;Next we have Melissa Purcell.&#39;,
- &#39;Melissa, please press Star six and go ahead.&#39;,
- &#39;Hi, thank you very much.&#39;,
- &#39;My name is Melissa Purcell.&#39;,
- &quot;I&#39;m a prop master by trade in the film and commercial industry.&quot;,
- &quot;I&#39;m also the business agent of Istae local 48.&quot;,
- &#39;We represent the film members that work on film, television and commercial content.&#39;,
- &#39;Which in part is supposed to help the city determine if a film Commission was needed to support and grow the film industry.&#39;,
- &quot;In November of 2020, the city didn&#39;t recommend the creation of the Commission and in April they postponed that decision.&quot;,
- &#39;Today with complete due respect the Seattle music commissioners and Lgbtq commissioners who are about to be reinstated or sworn in--as recommended.&#39;,
- &#39;And as a compromise, the film task force will accept that a Commission may not be seated until the next Murgs but that the legislation be created now in order for the film industry to see that the city supports this need, especially as the city is deciding how to reorganize film and music and other creative industries and set priorities for recovery and support of our industry.&#39;,
- &#39;Thank you.&#39;,
- &#39;Thank you, Melissa.&#39;,
- &#39;Next we have Abby.&#39;,
- &quot;Abby, if you&#39;re with us, you&#39;ll need to push Star six so that we can hear you.&quot;,
- &#39;Abby, are you there?&#39;,
- &#39;I see you, but you are muted as far as I can tell.&#39;,
- &#39;Can you push Star six?&#39;,
- &#39;Okay.&#39;,
- &quot;Abby, you now appear Unmuted but we still can&#39;t hear you.&quot;,
- &#39;Oh, hello, can you hear me now?&#39;,
- &#39;There we go.&#39;,
- &#39;Okay.&#39;,
- &quot;Sorry, I don&#39;t--I don&#39;t understand why my phone was doing that.&quot;,
- &#39;Hello, everyone.&#39;,
- &#39;Thank you so much for giving me the time to comment today.&#39;,
- &#39;My name is Abby, and I am a writer and director in the Seattle film industry.&#39;,
- &quot;I&#39;m also a part of multiple organizations and events that are Film-Related here in the Seattle area.&quot;,
- &#39;And I have my own production company that helps to bring diverse voices to film and television.&#39;,
- &#39;Along with Melissa, I am a member of the Seattle film task force, which I was able to join early last year amongst the middle of the protests that I was involved in.&#39;,
- &quot;It was one of those situations that hearing the news that the film--Seattle film Commission wasn&#39;t going to be proceeded by the city, it was very upsetting to hear that.&quot;,
- &#39;And it felt like it was another situation where, you know, we as people of color are told that, you know, diversity and the like is going to be brought to our film industry.&#39;,
- &#39;And the Commission was supposed to help make sure that that was something to happen.&#39;,
- &#39;What is upsetting is that the fact that amongst all of the policy that we put together we were postponed, unsure when, not given an actual date of when we were supposed to come back or even have the option of bringing a Seattle film Commission.&#39;,
- &#39;And it is important to me along as a number of other Filmmakers in this area to make sure that that is considered, especially when you all are making your decisions.&#39;,
- &#39;Thank you very much for my time.&#39;,
- &#39;Thank you, Abby.&#39;,
- &#39;I do not see any other folks signed up.&#39;,
- &#39;Just want to confirm that.&#39;,
- &#39;There are no other public comment registrants.&#39;]
-</pre></div>
-</div>
-</div>
 </div>
 <ul class="simple">
 <li><p>This is great! It seems like we have a function which can extract public comment periods from meetings</p></li>
@@ -1386,11 +1282,6 @@ True: other, Pred: end, Sentence: Public comment period is open and closed.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sessions:   0%|          | 1/226 [00:02&lt;08:38,  2.30s/it]
-</pre></div>
-</div>
-</div>
 </div>
 <ul class="simple">
 <li><p>It seems like out of the original 226 sessions we gathered, we have 135 sessions with public comment periods</p></li>
@@ -1417,12 +1308,291 @@ True: other, Pred: end, Sentence: Public comment period is open and closed.
 <ul class="simple">
 <li><p>so it seems like there are only 10 sessions in our dataset with multiple public comment periods</p></li>
 <li><p>this can happen but in Seattle is somewhat rare so this somewhat makes sense but again, we would want to evaluate this function further</p></li>
-<li><p>the last thing we will do is to save the dataframe to a csv file for further analysis</p></li>
+<li><p>the last thing we will do is to save the dataframe to a parquet file for further analysis</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save dataframe for next analysis</span>
-<span class="n">all_pc_periods</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;all_pc_periods.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">all_pc_periods</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;all_pc_periods.parquet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="extracting-individual-public-comments-from-public-comment-periods">
+<h2>Extracting Individual Public Comments from Public Comment Periods<a class="headerlink" href="#extracting-individual-public-comments-from-public-comment-periods" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>using the same approach as before we will now try to extract individual public comments from each public comment period</p></li>
+<li><p>this time however, we will make a classifier of:</p>
+<ul>
+<li><p>“public-comment-clerk-transition”: the transitions between the clerk and each commenter (i.e. “thank you our next speaker is…”)</p></li>
+<li><p>“other”: any other sentence</p></li>
+</ul>
+</li>
+<li><p>to do so, we will simply take a random sample of these pc_periods and annotate each sentence as either “public-comment-clerk-transition” or “other”</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Load the dataframe</span>
+<span class="n">all_pc_periods</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;all_pc_periods.parquet&quot;</span><span class="p">)</span>
+<span class="n">all_pc_periods</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>take a random sample of the data, then use all of the sentences in the period</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Set seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Sampled periods</span>
+<span class="n">sampled_pc_periods</span> <span class="o">=</span> <span class="n">all_pc_periods</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+
+<span class="c1"># Iter pc_periods</span>
+<span class="n">statements_for_annotation</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span>
+    <span class="n">sampled_pc_periods</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span>
+    <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sampled_pc_periods</span><span class="p">),</span>
+    <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Public Comment Periods&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># For each sentence within the pc_period, create a row in the dataframe</span>
+    <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">pc_period</span><span class="p">:</span>
+        <span class="n">statements_for_annotation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;infra&quot;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">infra</span><span class="p">,</span>
+                <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">session_id</span><span class="p">,</span>
+                <span class="s2">&quot;sentence&quot;</span><span class="p">:</span> <span class="n">sentence</span><span class="p">,</span>
+                <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+<span class="c1"># Convert to dataframe</span>
+<span class="n">statements_for_annotation</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">statements_for_annotation</span><span class="p">)</span>
+<span class="n">statements_for_annotation</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">statements_for_annotation</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="s2">&quot;individual_public_comment_sentences_for_annotation.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>after annotation we can train a model</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">annotated_individual_pc_sentences</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;annotated_individual_public_comment_sentences.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Drop any row without a label</span>
+<span class="n">annotated_individual_pc_sentences</span> <span class="o">=</span> <span class="n">annotated_individual_pc_sentences</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+<span class="n">annotated_individual_pc_sentences</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>infra</th>
+      <th>session_id</th>
+      <th>sentence</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>b3c9f239a5c3</td>
+      <td>But for now you can make general comments in t...</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>b3c9f239a5c3</td>
+      <td>Go ahead, you have one minute.</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>b3c9f239a5c3</td>
+      <td>Thank you.</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>b3c9f239a5c3</td>
+      <td>Dear city council members, I'm a resident of d...</td>
+      <td>comment-introduction</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>b3c9f239a5c3</td>
+      <td>As you all sit here today you have the opportu...</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1195</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>f45c27e8169e</td>
+      <td>Please consider the cost of these capital upgr...</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>1196</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>f45c27e8169e</td>
+      <td>Thank you.</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>1197</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>f45c27e8169e</td>
+      <td>Thank you very much.</td>
+      <td>comment-end</td>
+    </tr>
+    <tr>
+      <th>1198</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>f45c27e8169e</td>
+      <td>I'm BJ.</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>1199</th>
+      <td>cdp-seattle-21723dcf</td>
+      <td>f45c27e8169e</td>
+      <td>BJ will be followed by Janine Falls.</td>
+      <td>comment-end</td>
+    </tr>
+  </tbody>
+</table>
+<p>1200 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Set seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Init the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">)</span>
+
+<span class="n">individual_sentence_clf</span><span class="p">,</span> <span class="n">isentence_pre</span><span class="p">,</span> <span class="n">isentence_rec</span><span class="p">,</span> <span class="n">isentence_f1</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">misclassified</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">train_and_eval_model</span><span class="p">(</span><span class="n">annotated_individual_pc_sentences</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision: </span><span class="si">{</span><span class="n">isentence_pre</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Recall: </span><span class="si">{</span><span class="n">isentence_rec</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, F1: </span><span class="si">{</span><span class="n">isentence_f1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">matrix</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">misclassified</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get individual public comments within a public comment period</span>
+<span class="k">def</span> <span class="nf">get_segmented_public_comments</span><span class="p">(</span>
+    <span class="n">pc_period</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span> 
+    <span class="c1"># Init the list of individual public comments</span>
+    <span class="n">public_comments</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># Iter over sentences and classify each one</span>
+    <span class="c1"># Once we have found a sentence that is classified as a clerk transition</span>
+    <span class="c1"># we will both, continue to look for future classifications of clerk transition</span>
+    <span class="c1"># (as there may be administrative cruft and we want the _last_ clerk transition sentence)</span>
+    <span class="c1"># once we have moved off of the clerk transition, we will start looking for the next clerk transition</span>
+    <span class="c1"># once we find one, we will extract all of the sentences between the last clerk transition and the</span>
+    <span class="c1"># current one</span>
+    <span class="n">current_clerk_transition_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pc_period</span><span class="p">):</span>
+        <span class="c1"># Embed the sentence</span>
+        <span class="n">embedded_sentence</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+
+        <span class="c1"># Shape the embedded sentence for sklearn</span>
+        <span class="n">embedded_sentence</span> <span class="o">=</span> <span class="n">embedded_sentence</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:]</span>
+
+        <span class="c1"># Predict if the sentence is a clerk transition</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="n">individual_sentence_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">embedded_sentence</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">current_clerk_transition_index</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+
+        <span class="c1"># If it is a clerk transition</span>
+        <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="s2">&quot;clerk-or-chair-transition&quot;</span><span class="p">:</span>
+            <span class="c1"># Update the current clerk transition index</span>
+            <span class="n">current_clerk_transition_index</span> <span class="o">=</span> <span class="n">i</span>
+        
+        <span class="c1"># If we have seen a clerk transition</span>
+        <span class="k">elif</span> <span class="n">current_clerk_transition_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># If it is a public comment</span>
+            <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="s2">&quot;other&quot;</span><span class="p">:</span>
+                <span class="c1"># Get all the sentences between the last clerk transition and the public comment</span>
+                <span class="n">public_comment</span> <span class="o">=</span> <span class="n">pc_period</span><span class="p">[</span><span class="n">current_clerk_transition_index</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                <span class="c1"># Add the public comment to the list</span>
+                <span class="n">public_comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">public_comment</span><span class="p">)</span>
+                <span class="c1"># Reset the current clerk transition index</span>
+                <span class="n">current_clerk_transition_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        
+    <span class="k">return</span> <span class="n">public_comments</span>
+
+<span class="c1"># Try our function on a single random transcript</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">comments</span> <span class="o">=</span> <span class="n">get_segmented_public_comments</span><span class="p">(</span><span class="n">all_pc_periods</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pc_period</span><span class="p">)</span>
+<span class="n">comments</span>
 </pre></div>
 </div>
 </div>
@@ -1481,6 +1651,7 @@ True: other, Pred: end, Sentence: Public comment period is open and closed.
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-a-dataset-for-training-a-public-comment-period-start-and-end-classifier">Constructing a Dataset for Training a Public Comment Period Start and End Classifier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-public-comment-period-start-and-end-classifier">Training a Public Comment Period Start and End Classifier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-our-model-to-extract-public-comment-periods-from-meetings">Using our model to extract public comment periods from meetings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-individual-public-comments-from-public-comment-periods">Extracting Individual Public Comments from Public Comment Periods</a></li>
 </ul>
   </nav></div>
 
